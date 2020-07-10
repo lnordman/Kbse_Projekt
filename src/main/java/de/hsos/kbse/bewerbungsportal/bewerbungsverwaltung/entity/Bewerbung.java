@@ -6,9 +6,9 @@
 package de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
-import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Benutzer;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
+import de.hsos.kbse.interfaces.AbstractEntity;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -30,7 +30,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 //@Table(name = "bewerbung")
 //@NamedQueries ergänzen!
-public class Bewerbung extends Benutzer {
+public class Bewerbung extends AbstractEntity {
 
     @Column(name = "zeitstempel")
     @Valid

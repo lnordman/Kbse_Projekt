@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -65,6 +64,7 @@ public class Benutzer extends AbstractEntity {
     @Valid
     private Integer plz;
     
+    private Login login = new Login();
     /*@Embedded
     @Valid
     private Login login = new Login();*/
