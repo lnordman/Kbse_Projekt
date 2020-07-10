@@ -31,8 +31,8 @@ public abstract class AbstractRepository<T> {
         getEntityManager().persist(entity);
     }
 
-    public void edit(T entity) {
-        getEntityManager().merge(entity);
+    public T edit(T entity) {
+        return getEntityManager().merge(entity);
     }
 
     public void remove(T entity) {
@@ -40,6 +40,10 @@ public abstract class AbstractRepository<T> {
     }
 
     public T find(Object id) {
+        return getEntityManager().find(entityClass, id);
+    }
+    
+    public T findById(long id) {
         return getEntityManager().find(entityClass, id);
     }
 

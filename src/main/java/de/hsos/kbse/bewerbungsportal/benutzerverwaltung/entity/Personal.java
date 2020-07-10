@@ -14,18 +14,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author pmarkman
  */
 @Entity
-//@Table(name = "Personal")
-//@Transactional(Transactional.TxType.MANDATORY)
 public class Personal extends Benutzer {
 
-    //Zusätzliche Attribute
+    // Attribute
     @Column(name = "durchwahl")
 //    @NotNull
     @Valid
@@ -35,7 +32,7 @@ public class Personal extends Benutzer {
 //    @NotNull
     @Valid
     String bueroNr;
-
+    
     @OneToMany(mappedBy = "personal", fetch = FetchType.LAZY)
     private Set<Stelle> stelle;
 
