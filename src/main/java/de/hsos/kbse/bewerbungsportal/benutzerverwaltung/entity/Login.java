@@ -5,10 +5,9 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
-import de.hsos.kbse.interfaces.AbstractEntity;
+import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**
@@ -16,11 +15,15 @@ import javax.persistence.Embeddable;
  * @author PMark
  */
 @Embeddable
-@Access(AccessType.FIELD)
-public class Login extends AbstractEntity{
-    
+public class Login implements Serializable  {
+
+    @Column(name = "email")
     private String email;
-    private String passwort;
+    
+    @Column(name = "password")
+    private String password;
+
+    public Login() {}
 
     public String getEmail() {
         return email;
@@ -31,18 +34,18 @@ public class Login extends AbstractEntity{
     }
 
     public String getPasswort() {
-        return passwort;
+        return password;
     }
 
-    public void setPasswort(String passwort) {
-        this.passwort = passwort;
+    public void setPasswort(String password){
+        this.password = password;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 37 * hash + Objects.hashCode(this.email);
-        hash = 37 * hash + Objects.hashCode(this.passwort);
+        hash = 37 * hash + Objects.hashCode(this.password);
         return hash;
     }
 
@@ -61,7 +64,7 @@ public class Login extends AbstractEntity{
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
-        if (!Objects.equals(this.passwort, other.passwort)) {
+        if (!Objects.equals(this.password, other.password)) {
             return false;
         }
         return true;
@@ -69,6 +72,6 @@ public class Login extends AbstractEntity{
 
     @Override
     public String toString() {
-        return "Login{" + "email=" + email + ", passwort=" + passwort + '}';
+        return "Login{" + "email=" + email + ", password=" + password + '}';
     }
 }

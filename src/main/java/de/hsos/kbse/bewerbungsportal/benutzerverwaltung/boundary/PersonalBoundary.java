@@ -22,15 +22,13 @@ import javax.inject.Named;
  *
  * @author PMark
  */
-@Named(value="personalModel")
-@SessionScoped
 public class PersonalBoundary implements Serializable {
-    
+
     @Inject
     private PersonalRepository personalrepo;
     private BewerberRepository bewerberrepo;
     private BewerbungRepository bewerbungsrepo;
-    
+
     private Personal personaler;
     private Bewerber bewerber;
     private Bewerbung bewerbungen;
@@ -58,14 +56,5 @@ public class PersonalBoundary implements Serializable {
     public void setBewerbungen(Bewerbung bewerbungen) {
         this.bewerbungen = bewerbungen;
     }
-    
-    
-    
 
-    
-    
-    
-    
-    
-    
 }

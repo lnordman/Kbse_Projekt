@@ -6,28 +6,49 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Profil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        
-        
-        
+
         <h:form style="margin-left: 20px">
             <div style=" align-items: center;">
-            Email: <h:inputText id="mail" value="" />
-            <br/><br/>
-            Vorname: <h:inputText id="vname" value="" />
-            <br/><br/>
-            Nachname: <h:inputText id="nname" value="" />
-            <br/><br/>
-            Adresse: <h:inputText id="password" value="" />
-            <br/><br/>
+                <h:outputLabel for="email" value="Email" />
+                <h:inputText id="mail" value="#{RegisterModel.personal.login.email}" />
+                <br/><br/>
+                <h:outputLabel for="vname" value="Vorname" />
+                <h:inputText id="vname" value="#{RegisterModel.personal.vorname}" />
+                <br/><br/>
+                <h:outputLabel for="nname" value="Nachname" />
+                <h:inputText id="nname" value="#{RegisterModel.personal.name}" />
+                <br/><br/>
+                <h:outputLabel for="telefon" value="Telefon" />
+                <h:inputText id="telefon" value="#{RegisterModel.personal.telefon}" />
+                <br/><br/>
+                <h:outputLabel for="straße" value="Straße" />
+                <h:inputText id="straße" value="#{RegisterModel.personal.straße}" />
+                <br/><br/>
+                <h:outputLabel for="ort" value="Ort" />
+                <h:inputText id="ort" value="#{RegisterModel.personal.ort}" />
+                <br/><br/>
+                <h:outputLabel for="plz" value="PLZ" />
+                <h:inputText id="plz" value="#{RegisterModel.personal.plz}" />
+                <br/><br/>
+                <h:outputLabel for="durchwahl" value="Durchwahl" />
+                <h:inputText id="durchwahl" value="#{RegisterModel.personal.durchwahl}" />
+                <br/><br/>
+                <h:outputLabel for="bueronr" value="BüroNr" />
+                <h:inputText id="bueronr" value="#{RegisterModel.personal.bueroNr}" />
+                <br/><br/>
+                <h:outputLabel for="password" value="Passwort" />
+                <h:inputText id="password" value="#{RegisterModel.personal.login.passwort}" />
+                <br/><br/>
             </div>
-            
-            <h:commandButton id="btn" value="Registrieren" action="Login" />
+
+            <p:commandButton value="Register" update="" action="#{RegisterModel.registerPersonal()}" />
             <!-- !!!!!! TODO action=Funktion() Funktion() hat Rückgabewert String und gibt den passdenen Seitennamen zurück -->
             <br/>
             <br/>

@@ -8,6 +8,7 @@ package de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.interfaces.AbstractEntity;
+import java.util.Objects;
 
 import java.util.Set;
 import javax.persistence.Column;
@@ -40,7 +41,6 @@ public class Stelle extends AbstractEntity {
 //    @Temporal(TemporalType.DATE)
 //    @Valid
 //    LocalDate datum;
-
     @Column(name = "beschreibung")
     @NotNull
     @Valid
@@ -51,43 +51,20 @@ public class Stelle extends AbstractEntity {
     @Valid
     String ort;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "PERSONAL_ID")
     private Personal personal;
 
-    @OneToMany(mappedBy = "stellen", fetch = FetchType.LAZY)
-    private Set<Bewerbung> bewerbung;
+    @OneToMany
+    private Set<Bewerbung> bewerbungen;
 
     public Stelle() {
     }
 
-//    public Stelle(String bezeichnung, LocalDate datum, String beschreibung, String ort) {
-//        this.bezeichnung = bezeichnung;
-//        this.datum = datum;
-//        this.beschreibung = beschreibung;
-//        this.ort = ort;
-//    }
-    
     public Stelle(String bezeichnung, String beschreibung, String ort) {
         this.bezeichnung = bezeichnung;
         this.beschreibung = beschreibung;
         this.ort = ort;
-    }
-
-    public Personal getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
-    }
-
-    public Set<Bewerbung> getBewerbung() {
-        return bewerbung;
-    }
-
-    public void setBewerbung(Set<Bewerbung> bewerbung) {
-        this.bewerbung = bewerbung;
     }
 
     public String getBezeichnung() {
@@ -97,8 +74,6 @@ public class Stelle extends AbstractEntity {
     public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
-
-
 
     public String getBeschreibung() {
         return beschreibung;
@@ -116,5 +91,58 @@ public class Stelle extends AbstractEntity {
         this.ort = ort;
     }
 
-   
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.bezeichnung);
+        hash = 73 * hash + Objects.hashCode(this.beschreibung);
+        hash = 73 * hash + Objects.hashCode(this.ort);
+        hash = 73 * hash + Objects.hashCode(this.personal);
+        hash = 73 * hash + Objects.hashCode(this.bewerbungen);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Stelle other = (Stelle) obj;
+        if (!Objects.equals(this.bezeichnung, other.bezeichnung)) {
+            return false;
+        }
+        if (!Objects.equals(this.beschreibung, other.beschreibung)) {
+            return false;
+        }
+        if (!Objects.equals(this.ort, other.ort)) {
+            return false;
+        }
+        if (!Objects.equals(this.personal, other.personal)) {
+            return false;
+        }
+        if (!Objects.equals(this.bewerbungen, other.bewerbungen)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Stelle{" + "bezeichnung=" + bezeichnung + ", beschreibung=" + beschreibung + ", ort=" + ort + ", personal=" + personal + ", bewerbungen=" + bewerbungen + '}';
+    }
+
 }

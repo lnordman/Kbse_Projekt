@@ -16,7 +16,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @Access(AccessType.FIELD)
 public abstract class AbstractEntity implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,5 +57,4 @@ public abstract class AbstractEntity implements Serializable {
         return "AbstractEntity{" + "id=" + id + '}';
     }
 
-    
 }

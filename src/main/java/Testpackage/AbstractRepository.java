@@ -42,7 +42,7 @@ public abstract class AbstractRepository<T> {
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
-    
+
     public T findById(long id) {
         return getEntityManager().find(entityClass, id);
     }
@@ -69,5 +69,5 @@ public abstract class AbstractRepository<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
 }
