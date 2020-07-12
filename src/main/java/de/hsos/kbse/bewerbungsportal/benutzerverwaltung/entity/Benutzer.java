@@ -8,66 +8,42 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 import de.hsos.kbse.interfaces.AbstractEntity;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
-
-
 /**
  *
  * @author pmarkman
  */
 
-//@Transactional(Transactional.TxType.MANDATORY) 
-//@Vetoed
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Entity
-//@Table(name="Benutzer")
-@XmlRootElement
+//@Entity
+@MappedSuperclass
 public class Benutzer extends AbstractEntity {
-
+    
+    
     @Column(name="name")
     @NotNull()
     @Valid // Gute Erklärung nötig
+//    @JsonbProperty("person-name")
     private String name;
-    
-    @Column(name="vorname")
-    @NotNull()
-    @Valid
+
+    @Column(name = "vorname")
     private String vorname;
-    
-    @Column(name="email")
-    @NotNull()
-    @Valid
+
+    @Column(name = "email")
     private String email;
-    
-    @Column(name="telefon")
-    @NotNull()
-    @Valid
+
+    @Column(name = "telefon")
     private String telefon;
-    
-    @Column(name="straße")
-    @NotNull()
-    @Valid
+
+    @Column(name = "straße")
     private String straße;
-    
-    @Column(name="ort")
-    @NotNull()
-    @Valid
+
+    @Column(name = "ort")
     private String ort;
-    
-    @Column(name="plz")
-    @NotNull()
-    @Valid
+
+    @Column(name = "plz")
     private Integer plz;
-    
-    /*@Embedded
-    @Valid
-    private Login login = new Login();*/
 
     public Benutzer(String name, String vorname, String email, String telefon, String straße, String ort, Integer plz) {
         this.name = name;
@@ -87,9 +63,6 @@ public class Benutzer extends AbstractEntity {
         this.vorname = vorname;
     }
 
-
-    
-    
     public String getName() {
         return name;
     }
@@ -199,5 +172,5 @@ public class Benutzer extends AbstractEntity {
     public String toString() {
         return "Benutzer{" + "name=" + name + ", vorname=" + vorname + ", email=" + email + ", telefon=" + telefon + ", stra\u00dfe=" + straße + ", ort=" + ort + ", plz=" + plz + '}';
     }
-    
+
 }

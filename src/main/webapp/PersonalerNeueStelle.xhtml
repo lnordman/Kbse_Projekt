@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://xmlns.jcp.org/jsf/html"
+     xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Neue Stelle</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body >
+        <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
+            <h:form>
+                <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="AlleStellen" style=" height: 45px; left: 10px; top: 25px; position:  fixed;" />  
+                <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Profil" style=" height: 45px; right: 70px; top: 25px; position:  fixed" />  
+                <h:commandButton image="https://image.flaticon.com/icons/svg/483/483343.svg" action="Login" style=" height: 45px; right: 10px; top: 25px; position:  fixed" />   
+                <h3>Wilkommen</h3>
+            </h:form>
+        </header>
+        
+        <h3>Neue Stelle anlegen:</h3>
+        
+        <div>
+            <table style="border: black; width: 100%; border-style: solid; border-width: thin; padding: 15px; align-self: center">
+                <tr>
+                    <td style="width: 150px;">
+                        Name:
+                    </td>
+                    <td>
+                        <h:inputText style="width: 100%;" id="name" value=""/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            Beschreibung: 
+                    </td>
+                    <td>
+                        <h:inputTextarea style="width: 100%" rows="15" id="beschr" value=""/><br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+            Ort: 
+                    </td>
+                    <td>
+                        <h:inputText style="width: 100%" id="ort" value=""/><br/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <h:form style="margin-top: 30px;">
+        <h:commandButton id="bck" value="Zurück" action="PersonalerStart" />
+        <h:commandButton style="float: right" id="save" value="Speichern" action="PersonalerStart" />
+        </h:form>
+    </h:body>
+</html>

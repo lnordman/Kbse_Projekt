@@ -8,7 +8,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-07-04T15:51:53")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-07-05T18:32:45")
 @StaticMetamodel(Stelle.class)
 public class Stelle_ extends AbstractEntity_ {
 

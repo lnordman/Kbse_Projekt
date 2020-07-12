@@ -7,15 +7,18 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
 
 import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
-import javax.enterprise.context.Dependent;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
  * @author nordm
  */
-@Dependent
+@Named
 public class PersonalRepository extends AbstractRepository<Personal>  {
 
     @PersistenceContext(unitName = "my_persistence_unit")
@@ -28,6 +31,29 @@ public class PersonalRepository extends AbstractRepository<Personal>  {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public List<Bewerbung> findeAlleBewerbungen() {
+        //
+        return null;
+    }
+
+    public List<Stelle> findeAlleStellen() {
+        return null;
+    }
+
+    public Personal findByLogin(String email, String password) {
+
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository.findByLogin()}\n EMAIL:" + email + "\n PWD:" + password);
+
+        try {
+            TypedQuery<Personal> query = this.em.createQuery("select p from Personal p where p.login.email = :email and p.login.password = :password", Personal.class);
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            return query.getSingleResult();
+        } catch (NoResultException | NonUniqueResultException e) {
+            return null;
+        }
     }
 
 }

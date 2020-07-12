@@ -5,60 +5,90 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 
-
+import javax.persistence.Table;
 /**
  *
  * @author pmarkman
  */
+
 @Entity
-//@Vetoed Erklärung nötig
-@Table(name = "Bewerber")
-//NamedQueries ergänzen!
-@Transactional(Transactional.TxType.MANDATORY) // Überprüfen!
+@Table(name="bewerber")
 public class Bewerber extends Benutzer {
 
     //Bemerkung Nachschlagen: Persistierung von Datein in Java
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "vorname")
+    private String vorname;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "telefon")
+    private String telefon;
+
+    @Column(name = "straße")
+    private String straße;
+
+    @Column(name = "ort")
+    private String ort;
+
+    @Column(name = "plz")
+    private Integer plz;
+
     @Column(name = "anlagen_pfad")
-//    @NotNull
-    @Valid
     String unterlagen_pfad;
-    
+
     @Column(name = "portait_pfad")
-    @NotNull
-    @Valid
     String portait_pfad;
 
     //Ein Bewerber kann mehrere Bewerbungen haben
-    @OneToMany(mappedBy = "bewerber")
-    private Set<Bewerbung> bewerbung;
+    @OneToMany(fetch = FetchType.LAZY,
+        mappedBy="bewerber",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bewerbung> bewerbung;
 
-
-    public Bewerber( String name, String vorname, String email, String telefon, String ort, String straße, Integer plz, String portait) {
-        super(name,vorname,email, telefon, straße, ort, plz);
-        this.portait_pfad = portait;
+    public Bewerber() {
     }
 
-    public Set<Bewerbung> getBewerbung() {
+    public Bewerber() {
+    }
+
+    public Bewerber(String name, String vorname, String email, String telefon, String straße, String ort, Integer plz, String unterlagen_pfad, String portait_pfad) {
+        this.name = name;
+        this.vorname = vorname;
+        this.email = email;
+        this.telefon = telefon;
+        this.straße = straße;
+        this.ort = ort;
+        this.plz = plz;
+        this.unterlagen_pfad = unterlagen_pfad;
+        this.portait_pfad = portait_pfad;
+    }
+    
+    public List<Bewerbung> getBewerbung() {
         return bewerbung;
     }
 
-    public void setBewerbung(Set<Bewerbung> bewerbung) {
+    public void setBewerbung(List<Bewerbung> bewerbung) {
         this.bewerbung = bewerbung;
     }
     
-    public Bewerber() {
-    }
 
     public String getUnterlagen_pfad() {
         return unterlagen_pfad;
@@ -76,38 +106,12 @@ public class Bewerber extends Benutzer {
         this.portait_pfad = portait_pfad;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.unterlagen_pfad);
-        hash = 17 * hash + Objects.hashCode(this.portait_pfad);
-        return hash;
+    public Set<Bewerbung> getBewerbung() {
+        return bewerbung;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Bewerber other = (Bewerber) obj;
-        if (!Objects.equals(this.unterlagen_pfad, other.unterlagen_pfad)) {
-            return false;
-        }
-        if (!Objects.equals(this.portait_pfad, other.portait_pfad)) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Bewerber{" + "unterlagen_pfad=" + unterlagen_pfad + ", portait_pfad=" + portait_pfad + '}';
+    public void setBewerbung(Set<Bewerbung> bewerbung) {
+        this.bewerbung = bewerbung;
     }
 
 }
