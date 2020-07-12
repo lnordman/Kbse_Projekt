@@ -1,5 +1,4 @@
 de\hsos\kbse\entity\service\JAXRSConfiguration.class
-com\mycompany\bewerbungsportal\JAXRSConfiguration.class
 de\hsos\kbse\bewerbungsportal\benutzerverwaltung\controller\BewerberFacadeREST.class
 de\hsos\kbse\bewerbungsportal\stellenverwaltung\repository\StelleRepository.class
 de\hsos\kbse\interfaces\AbstractEntity.class
@@ -28,4 +27,5 @@ de\hsos\kbse\bewerbungsportal\benutzerverwaltung\repository\PersonalRepository.c
 de\hsos\kbse\bewerbungsportal\bewerbungsverwaltung\repository\BewerbungRepository.class
 de\hsos\kbse\interfaces\AbstractEntity_.class
 de\hsos\kbse\bewerbungsportal\benutzerverwaltung\entity\Personal.class
+de\hsos\kbse\entity\service\JsonbFactory.class
 de\hsos\kbse\bewerbungsportal\benutzerverwaltung\controller\BenutzerFacadeREST.class

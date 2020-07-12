@@ -7,9 +7,12 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller;
  */
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Benutzer;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.BenutzerRepository;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -19,22 +22,27 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+
 
 /**
  *
  * @author nordm
  */
-@Stateless //TODO: muss noch entfernt werden 
+@Stateless 
 @Path("de.hsos.kbse.entity.benutzer")
 public class BenutzerFacadeREST {
 
-    public BenutzerFacadeREST() {
-    }
-
     @Inject
     BenutzerRepository benutzerRepo;
+     
+    @Inject 
+    Jsonb jsonb ;
+    @Context
+    UriInfo uriInfo;
 
     @POST
 //    @Override
@@ -68,6 +76,18 @@ public class BenutzerFacadeREST {
     public List<Benutzer> findAll() {
         return benutzerRepo.findAll();
     }
+    
+//    @GET
+////    @RequestScoped
+//    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    public Response findAlle() {
+//        Collection<Benutzer> all = benutzerRepo.findAll();
+//        if(all.isEmpty()){
+//            return Response.noContent().build();
+//        }
+//        return Response.ok(jsonb.toJson(all)).build();//
+//    }
 
     /**
      *
@@ -91,7 +111,9 @@ public class BenutzerFacadeREST {
 
     @POST
     @Path("benutzer")
+//       @RequestScoped
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createBenutzer(
             @QueryParam("name") String name,
             @QueryParam("vorname") String vorname,
@@ -103,14 +125,7 @@ public class BenutzerFacadeREST {
         try {
             Benutzer benutzer = new Benutzer(name, vorname, email, telefon, ort, straße, plz);
             benutzerRepo.create(benutzer);
-//      JsonbConfig config = new JsonbConfig().withPropertyNamingStrategy(
-//  PropertyNamingStrategy.LOWER_CASE_WITH_UNDERSCORES);
-//       JsonObject object = Json.createObjectBuilder().build();
-//Jsonb jsonb = JsonbBuilder.create(config);
-//String jsonPerson = jsonb.toJson(benutzer);
-            return Response
-                    .status(Response.Status.CREATED)
-                    .build();
+            return Response.ok(jsonb.toJson(benutzer)).build();
         } catch (NullPointerException | IllegalArgumentException ex) {
             return Response.status(Response.Status.CONFLICT).build();
         }

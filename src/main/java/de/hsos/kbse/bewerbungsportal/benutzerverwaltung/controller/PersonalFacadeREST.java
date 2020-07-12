@@ -5,16 +5,15 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller;
 
-import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository;
+import java.util.Collection;
 
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbException;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,8 +23,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -40,7 +41,12 @@ public class PersonalFacadeREST {
 
     @Inject
     PersonalRepository personalRepo;
-
+    @Inject 
+    Jsonb jsonb ;
+    @Context
+    UriInfo uriInfo;
+    
+    
     @POST
     @Path("personal")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -58,16 +64,16 @@ public class PersonalFacadeREST {
             Personal personal = new Personal(name, vorname, email, telefon, ort, straße, plz, durchwahl, bueroNr);
 
             personalRepo.create(personal);
-            return Response
-                    .status(Response.Status.FOUND)
-                    .build();
+            return Response.ok(jsonb.toJson(personal)).build();
+//            return Response
+//                    .status(Response.Status.FOUND)
+//                    .build();
         } catch (NullPointerException | IllegalArgumentException | JsonbException ex) {
             return Response.status(Response.Status.CONFLICT).build();
         }
     }
 
     @POST
-
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Personal entity) {
         personalRepo.create(entity);
@@ -94,11 +100,22 @@ public class PersonalFacadeREST {
     }
 
     @GET
-
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Personal> findAll() {
-        return personalRepo.findAll();
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response findAll() {
+        Collection<Personal> all = personalRepo.findAll();
+        if(all.isEmpty()){
+            return Response.noContent().build();
+        }
+        return Response.ok(jsonb.toJson(all)).build();
     }
+    
+//    @GET
+//    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+//    public List<Personal> findAll() {
+//        return personalRepo.findAll();
+//    }
 
     @GET
     @Path("{from}/{to}")

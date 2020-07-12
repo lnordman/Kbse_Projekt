@@ -5,27 +5,35 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-
+import java.util.List;
+import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.Table;
 /**
  *
  * @author pmarkman
  */
+//@Entity
+////@Vetoed Erklärung nötig
+//@Table(name = "Bewerber")
+////NamedQueries ergänzen!
+//@Transactional(Transactional.TxType.MANDATORY) // Überprüfen!
+
+
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-//@Vetoed Erklärung nötig
-@Table(name = "Bewerber")
-//NamedQueries ergänzen!
-@Transactional(Transactional.TxType.MANDATORY) // Überprüfen!
+@Table(name="bewerber")
+
 public class Bewerber extends Benutzer {
 
     //Bemerkung Nachschlagen: Persistierung von Datein in Java
@@ -40,8 +48,15 @@ public class Bewerber extends Benutzer {
     String portait_pfad;
 
     //Ein Bewerber kann mehrere Bewerbungen haben
-    @OneToMany(mappedBy = "bewerber")
-    private Set<Bewerbung> bewerbung;
+    @OneToMany(fetch = FetchType.LAZY,
+        mappedBy="bewerbung",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bewerbung> bewerbung;
+
+    public Bewerber() {
+    }
 
 
     public Bewerber( String name, String vorname, String email, String telefon, String ort, String straße, Integer plz, String portait) {
@@ -49,16 +64,16 @@ public class Bewerber extends Benutzer {
         this.portait_pfad = portait;
     }
 
-    public Set<Bewerbung> getBewerbung() {
-        return bewerbung;
-    }
 
-    public void setBewerbung(Set<Bewerbung> bewerbung) {
-        this.bewerbung = bewerbung;
-    }
     
-    public Bewerber() {
-    }
+//    public List<Bewerbung> getBewerbung() {
+//        return bewerbung;
+//    }
+//
+//    public void setBewerbung(List<Bewerbung> bewerbung) {
+//        this.bewerbung = bewerbung;
+//    }
+//    
 
     public String getUnterlagen_pfad() {
         return unterlagen_pfad;

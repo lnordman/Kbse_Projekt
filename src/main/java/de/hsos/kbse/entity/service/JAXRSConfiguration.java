@@ -28,11 +28,11 @@ public class JAXRSConfiguration extends Application {
         return classes;
     }
 
-    /**
-     * Do not modify addRestResourceClasses() method. It is automatically
-     * populated with all resources defined in the project. If required, comment
-     * out calling this method in getClasses().
-     */
+//    /**
+//     * Do not modify addRestResourceClasses() method. It is automatically
+//     * populated with all resources defined in the project. If required, comment
+//     * out calling this method in getClasses().
+//     */
 //    private void addRestResourceClasses(Set<Class<?>> resources) {
 //        resources.add(de.hsos.kbse.entity.service.BenutzerFacadeREST.class);
 //        resources.add(de.hsos.kbse.entity.service.BewerberFacadeREST.class);

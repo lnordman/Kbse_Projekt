@@ -5,33 +5,34 @@
  */
 package de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.interfaces.AbstractEntity;
-
-import java.util.Set;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author pmarkman
  */
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-//@Vetoed 
-//@Table(name = "Stelle")
-////@NamedQueries ergänzen
-//@Transactional(Transactional.TxType.MANDATORY) // Überprüfen!
+@Table(name = "stelle")
 public class Stelle extends AbstractEntity {
 
-    @Column(name = "bezeichnung")
+    @Column(name = "bezeichnung", length = 5000)//Default ist 255 zu klein -> Truncation-Fehler 
     @NotNull
     @Valid
     String bezeichnung;
@@ -41,22 +42,31 @@ public class Stelle extends AbstractEntity {
 //    @Valid
 //    LocalDate datum;
 
-    @Column(name = "beschreibung")
+    @Column(name = "beschreibung", length = 5000)
     @NotNull
     @Valid
     String beschreibung;
 
-    @Column(name = "ort")
+    @Column(name = "ort",length = 5000)
     @NotNull
     @Valid
     String ort;
 
+    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PERSONAL_ID")
+    @JoinColumn (name="personal_id")
+    @JsonBackReference
     private Personal personal;
 
-    @OneToMany(mappedBy = "stellen", fetch = FetchType.LAZY)
-    private Set<Bewerbung> bewerbung;
+    
+    
+    @OneToMany(fetch = FetchType.LAZY,
+       mappedBy="stelle",
+       cascade = CascadeType.ALL,
+       orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bewerbung> bewerbungen;
+   
 
     public Stelle() {
     }
@@ -82,12 +92,12 @@ public class Stelle extends AbstractEntity {
         this.personal = personal;
     }
 
-    public Set<Bewerbung> getBewerbung() {
-        return bewerbung;
+    public List<Bewerbung> getBewerbungen() {
+        return bewerbungen;
     }
 
-    public void setBewerbung(Set<Bewerbung> bewerbung) {
-        this.bewerbung = bewerbung;
+    public void setBewerbungen(List<Bewerbung> bewerbung) {
+        this.bewerbungen = bewerbung;
     }
 
     public String getBezeichnung() {

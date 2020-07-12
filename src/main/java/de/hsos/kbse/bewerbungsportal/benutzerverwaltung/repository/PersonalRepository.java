@@ -7,7 +7,7 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
 
 import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
-import javax.enterprise.context.Dependent;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author nordm
  */
-@Dependent
+@Named
 public class PersonalRepository extends AbstractRepository<Personal>  {
 
     @PersistenceContext(unitName = "my_persistence_unit")

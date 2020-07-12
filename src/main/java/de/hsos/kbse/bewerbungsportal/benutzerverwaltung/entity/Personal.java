@@ -5,24 +5,29 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.Table;
 
 /**
  *
  * @author pmarkman
  */
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-//@Table(name = "Personal")
-//@Transactional(Transactional.TxType.MANDATORY)
+@Table(name="personal")
 public class Personal extends Benutzer {
 
     //Zusätzliche Attribute
@@ -32,39 +37,52 @@ public class Personal extends Benutzer {
     String durchwahl;
 
     @Column(name = "bueronr")
-//    @NotNull
-    @Valid
+    @NotNull
     String bueroNr;
 
-    @OneToMany(mappedBy = "personal", fetch = FetchType.LAZY)
-    private Set<Stelle> stelle;
+   
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy="personal",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<Stelle> stelle;
 
-//    @OneToMany(mappedBy = "personal")
-    private Set<Bewerbung> bewerbungen;
-
-    public Set<Bewerbung> getBewerbung() {
-        return bewerbungen;
-    }
+     @OneToMany(fetch = FetchType.LAZY,
+            mappedBy="personal",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bewerbung> bewerbungen;
 
     public Personal() {
     }
+
+
+
+    public List<Bewerbung> getBewerbung() {
+        return bewerbungen;
+    }
+
+
     
    public Personal( String name, String vorname, String email, String telefon, String ort, String straße, Integer plz, String durchwahl, String bueroNr) {
         super(name,vorname,email, telefon, straße, ort, plz);
         this.durchwahl = durchwahl;
         this.bueroNr = bueroNr;
+        this.stelle = new ArrayList<>();
     }
     
     
-    public void setBewerbung(Set<Bewerbung> bewerbung) {
+    public void setBewerbung(List<Bewerbung> bewerbung) {
         this.bewerbungen = bewerbung;
     }
 
-    public Set<Stelle> getStelle() {
+    public List<Stelle> getStelle() {
         return stelle;
     }
 
-    public void setStelle(Set<Stelle> stelle) {
+    public void setStelle(List<Stelle> stelle) {
         this.stelle = stelle;
     }
 
