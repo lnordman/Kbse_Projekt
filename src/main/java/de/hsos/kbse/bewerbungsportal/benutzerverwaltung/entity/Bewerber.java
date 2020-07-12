@@ -5,7 +5,6 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import java.util.Objects;
@@ -15,9 +14,9 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.ArrayList;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+
 import javax.persistence.Table;
 /**
  *
@@ -49,7 +48,7 @@ public class Bewerber extends Benutzer {
 
     //Ein Bewerber kann mehrere Bewerbungen haben
     @OneToMany(fetch = FetchType.LAZY,
-        mappedBy="bewerbung",
+        mappedBy="bewerber",
         cascade = CascadeType.ALL,
         orphanRemoval = true)
     @JsonManagedReference
@@ -66,14 +65,14 @@ public class Bewerber extends Benutzer {
 
 
     
-//    public List<Bewerbung> getBewerbung() {
-//        return bewerbung;
-//    }
-//
-//    public void setBewerbung(List<Bewerbung> bewerbung) {
-//        this.bewerbung = bewerbung;
-//    }
-//    
+    public List<Bewerbung> getBewerbung() {
+        return bewerbung;
+    }
+
+    public void setBewerbung(List<Bewerbung> bewerbung) {
+        this.bewerbung = bewerbung;
+    }
+    
 
     public String getUnterlagen_pfad() {
         return unterlagen_pfad;

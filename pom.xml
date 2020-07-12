@@ -17,7 +17,7 @@
     </properties>
     
     <dependencies>
-               
+        
         <!-- https://mvnrepository.com/artifact/javax.json.bind/javax.json.bind-api -->
        <dependency>
            <groupId>javax.json.bind</groupId>
@@ -46,44 +46,6 @@
         </dependency>
 
 
-<!-- alternative möglichkeit mit JSON-P (JSR-353) und JSON-B (JSR-367) APIs.-->
-        <!--<dependency>
-            <groupId>org.apache.geronimo.specs</groupId>
-            <artifactId>geronimo-json_1.1_spec</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.johnzon</groupId>
-            <artifactId>johnzon-jsonb</artifactId>
-            <version>1.1.4</version>
-        </dependency>-->
-<!--
-        <dependency> 
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>6.0.13.Final</version>
-        </dependency> 
-        <dependency> 
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>3.0.0</version>
-         </dependency>
-             -->
-<!--         https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
-        </dependency>-->
-
-<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations 
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-annotations</artifactId>
-    <version>3.5.6-Final</version>
-</dependency>-->
-
-
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.core</artifactId>
@@ -109,12 +71,6 @@
             <artifactId>org.eclipse.persistence.jpa.jpql</artifactId>
             <version>2.5.2</version>
         </dependency>
-<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/javax.persistence 
-<dependency>
-    <groupId>org.eclipse.persistence</groupId>
-    <artifactId>javax.persistence</artifactId>
-    <version>2.2.1</version>
-</dependency>-->
 
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -126,6 +82,24 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.11.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugin-tools</groupId>
+            <artifactId>maven-plugin-annotations</artifactId>
+            <version>3.6.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+          <groupId>joda-time</groupId>
+          <artifactId>joda-time</artifactId>
+          <version>2.10.5</version>
             <type>jar</type>
         </dependency>
         <dependency>

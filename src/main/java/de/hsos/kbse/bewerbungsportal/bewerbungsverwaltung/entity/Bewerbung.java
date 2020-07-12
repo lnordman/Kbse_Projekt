@@ -29,8 +29,8 @@ import javax.persistence.Table;
 //@NamedQueries ergänzen!
 public class Bewerbung extends AbstractEntity {
 
-    @Column(name = "zeitstempel")
-    @Valid
+//    @Column(name = "zeitstempel")
+//    @Valid
     @Temporal(javax.persistence.TemporalType.DATE)
     Date zeitstempel;
 
@@ -63,6 +63,14 @@ public class Bewerbung extends AbstractEntity {
     }
 
     public Bewerbung(Personal personal, Stelle stelle, Bewerber bewerber) {
+        this.personal = personal;
+        this.stelle = stelle;
+        this.bewerber = bewerber;
+    }
+
+    public Bewerbung(Date zeitstempel, String status, Personal personal, Stelle stelle, Bewerber bewerber) {
+        this.zeitstempel = zeitstempel;
+        this.status = status;
         this.personal = personal;
         this.stelle = stelle;
         this.bewerber = bewerber;

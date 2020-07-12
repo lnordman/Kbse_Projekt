@@ -6,11 +6,11 @@
 package de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.interfaces.AbstractEntity;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -37,10 +38,14 @@ public class Stelle extends AbstractEntity {
     @Valid
     String bezeichnung;
 
+    //    @Temporal(TemporalType.DATE)
 //    @Column(name = "datum")
-//    @Temporal(TemporalType.DATE)
 //    @Valid
-//    LocalDate datum;
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonSerialize(using = LocalDateSerializer.class)
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date datum;
 
     @Column(name = "beschreibung", length = 5000)
     @NotNull
@@ -71,12 +76,12 @@ public class Stelle extends AbstractEntity {
     public Stelle() {
     }
 
-//    public Stelle(String bezeichnung, LocalDate datum, String beschreibung, String ort) {
-//        this.bezeichnung = bezeichnung;
-//        this.datum = datum;
-//        this.beschreibung = beschreibung;
-//        this.ort = ort;
-//    }
+    public Stelle(String bezeichnung, Date datum, String beschreibung, String ort) {
+        this.bezeichnung = bezeichnung;
+        this.datum = datum;
+        this.beschreibung = beschreibung;
+        this.ort = ort;
+    }
     
     public Stelle(String bezeichnung, String beschreibung, String ort) {
         this.bezeichnung = bezeichnung;
@@ -84,6 +89,17 @@ public class Stelle extends AbstractEntity {
         this.ort = ort;
     }
 
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
+
+    
+    
+    
     public Personal getPersonal() {
         return personal;
     }

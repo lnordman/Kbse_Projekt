@@ -13,6 +13,9 @@ import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.repository.BewerbungRe
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StelleRepository;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -103,7 +106,8 @@ public class BewerbungFacadeREST {
     @Path("bewerbung")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createBewerbung(
-            //            @QueryParam("status") String status,
+            @QueryParam("zeitstempel") String zeitstempel,
+            @QueryParam("status") String status,
             @QueryParam("stellen_id") Long stellen_id,
             @QueryParam("bewerber_id") Long bewerber_id,
             @QueryParam("personal_id") Long personal_id
@@ -113,14 +117,16 @@ public class BewerbungFacadeREST {
             Personal personal = personalRepository.find(personal_id);
             Bewerber bewerber = bewerberRepository.find(bewerber_id);
             Stelle stelle = stelleRepository.find(stellen_id);
+            DateFormat formatter = DateFormat.getDateTimeInstance();
+            Date stempel  = formatter.parse( zeitstempel );//"24.12.2007 16:59:12"
             
-            Bewerbung bewerbung = new Bewerbung(personal,stelle, bewerber);
+            Bewerbung bewerbung = new Bewerbung(stempel, status, personal,stelle, bewerber);
 
             bewerbungRepository.create(bewerbung);
             return Response
                    .ok(jsonb.toJson(bewerbung))
                     .build();
-        } catch (NullPointerException | IllegalArgumentException ex) {
+        } catch (NullPointerException | IllegalArgumentException|ParseException ex) {
             return Response.status(Response.Status.CONFLICT).build();
         }
     }

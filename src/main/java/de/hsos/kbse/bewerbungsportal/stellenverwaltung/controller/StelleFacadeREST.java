@@ -9,9 +9,13 @@ import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StelleRepository;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
-
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
@@ -28,6 +32,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+
+
+
 
 /**
  *
@@ -104,21 +111,26 @@ public class StelleFacadeREST {
     @POST
     @Path("stelle/{id}")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-//    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createStelle(
             @QueryParam("bezeichnung") String bezeichnung,
             @QueryParam("beschreibung") String beschreibung,
             @QueryParam("ort") String ort,
+            @QueryParam("datum")  String datum,
             @PathParam("id") Long id) {
         try {
             Personal personal = personalRepo.find(id);
-            Stelle stelle = new Stelle(bezeichnung, beschreibung, ort);
+            DateFormat formatter = DateFormat.getDateTimeInstance();
+            Date d  = formatter.parse( datum );//"24.12.2007 16:59:12"
+
+             Stelle stelle = new Stelle(bezeichnung,d, beschreibung, ort);
             stelle.setPersonal(personal);    
 //            personal.getStelle().add(stelle);
             stellenRepo.create(stelle);
 //            personalRepo.edit(personal);
             return Response.ok(jsonb.toJson(stelle)).build();
-        } catch (NullPointerException | IllegalArgumentException ex) {
+//            return Response.ok().build();
+        } catch (NullPointerException | IllegalArgumentException | ParseException ex) {
             return Response.status(Response.Status.CONFLICT).build();
         }
     }
