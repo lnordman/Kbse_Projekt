@@ -8,6 +8,7 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalController;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Login;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
+import de.hsos.kbse.entity.service.SessionService;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
@@ -35,16 +36,24 @@ public class LoginBoundary implements Serializable {
         Personal personaler = pController.login(login.getEmail(), login.getPasswort());
         
         if (personaler != null) {
+            SessionService.getSession().setAttribute("personaler", personaler);
             try {
-                context.getExternalContext().redirect("/Kbse_Projekt_Beta/AlleStellen.xhtml");
+                context.getExternalContext().redirect("/Kbse_Projekt_Beta/PersonalerStart.xhtml");
             } catch (IOException e) {
             }
         }
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Login fehlgeschlagen!", "Bitte überprüfe Benutzernamen und Passwort."));
     }
 
-    //Hier werden die Loginfunktionen gemacht
-    //Loggout und Registrieren vllt auch?
+    public void logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().invalidateSession();
+        try {
+            context.getExternalContext().redirect("/Kbse_Projekt_Beta");
+        }catch (IOException e) {
+        }
+    }
+    
     public Login getLogin() {
         return login;
     }

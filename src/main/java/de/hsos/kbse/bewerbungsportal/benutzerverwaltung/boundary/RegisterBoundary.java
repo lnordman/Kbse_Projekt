@@ -34,8 +34,9 @@ public class RegisterBoundary implements Serializable {
     public RegisterBoundary() {
     }
 
-    public void registerPersonal() {
+    public String registerPersonal() {
         personalerCont.register(personal);
+        return "Login";
     }
 
     public Personal getPersonal() {

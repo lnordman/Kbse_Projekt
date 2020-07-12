@@ -11,4 +11,6 @@ package de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller;
  */
 public class StellenController {
     
+    
+    
 }

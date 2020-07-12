@@ -9,6 +9,6 @@ package de.hsos.kbse.bewerbungsportal.stellenverwaltung.boundary;
  *
  * @author PMark
  */
-public class filler {
+public class StellenBoundary {
     //asdf
 }
