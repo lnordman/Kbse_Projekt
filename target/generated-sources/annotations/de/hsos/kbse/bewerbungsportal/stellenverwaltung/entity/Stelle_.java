@@ -8,13 +8,17 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
+<<<<<<< OURS
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-07-12T14:33:04")
+=======
 @Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-07-09T13:12:16")
+>>>>>>> THEIRS
 @StaticMetamodel(Stelle.class)
 public class Stelle_ extends AbstractEntity_ {
 
     public static volatile SingularAttribute<Stelle, String> ort;
-    public static volatile SetAttribute<Stelle, Bewerbung> bewerbung;
     public static volatile SingularAttribute<Stelle, String> bezeichnung;
+    public static volatile SetAttribute<Stelle, Bewerbung> bewerbungen;
     public static volatile SingularAttribute<Stelle, Personal> personal;
     public static volatile SingularAttribute<Stelle, String> beschreibung;
 
