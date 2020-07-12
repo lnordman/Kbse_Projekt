@@ -7,8 +7,6 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
  */
 import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Benutzer;
-import java.util.List;
-import javax.enterprise.context.Dependent;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -20,7 +18,7 @@ import javax.persistence.TypedQuery;
  *
  * @author nordm
  */
-@Dependent
+@Named
 public class BenutzerRepository extends AbstractRepository<Benutzer> {
 
     @PersistenceContext(unitName = "my_persistence_unit")

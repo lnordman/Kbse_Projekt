@@ -5,11 +5,21 @@
  */
 package de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.controller.rs;
 
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.BewerberRepository;
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.repository.BewerbungRepository;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StelleRepository;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -31,78 +41,92 @@ import javax.ws.rs.core.Response;
 public class BewerbungFacadeREST {
 
     @Inject
-    BewerbungRepository bewerbungsRepo;
-
+    Jsonb jsonb;
+    
+    @Inject
+    PersonalRepository personalRepository;
+    @Inject
+    StelleRepository stelleRepository;
+    @Inject
+    BewerberRepository bewerberRepository;
+    @Inject
+    BewerbungRepository bewerbungRepository;
+    
     public BewerbungFacadeREST() {
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Bewerbung entity) {
-        bewerbungsRepo.create(entity);
+        bewerbungRepository.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Long id, Bewerbung entity) {
-        bewerbungsRepo.edit(entity);
+        bewerbungRepository.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Long id) {
-        bewerbungsRepo.remove(bewerbungsRepo.find(id));
+        bewerbungRepository.remove(bewerbungRepository.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Bewerbung find(@PathParam("id") Long id) {
-        return bewerbungsRepo.find(id);
+        return bewerbungRepository.find(id);
     }
 
     @GET
 
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Bewerbung> findAll() {
-        return bewerbungsRepo.findAll();
+        return bewerbungRepository.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Bewerbung> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return bewerbungsRepo.findRange(new int[]{from, to});
+        return bewerbungRepository.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
-        return String.valueOf(bewerbungsRepo.count());
+        return String.valueOf(bewerbungRepository.count());
     }
 
     @POST
     @Path("bewerbung")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createBewerbung(
-            //            @QueryParam("status") String status,
+            @QueryParam("zeitstempel") String zeitstempel,
+            @QueryParam("status") String status,
             @QueryParam("stellen_id") Long stellen_id,
             @QueryParam("bewerber_id") Long bewerber_id,
             @QueryParam("personal_id") Long personal_id
     ) {
         try {
 //            @QueryParam("zeitstempel") Date zeitstempel,
-            Bewerbung bewerbung = new Bewerbung();
-//            bewerbung.setPersonal(unit.getPersonal().find(personal_id));
-//            bewerbung.setBewerber(unit.getBewerber().find(bewerber_id));
-//            bewerbung.setStellen(unit.getStelle().find(stellen_id));
-            bewerbungsRepo.create(bewerbung);
+            Personal personal = personalRepository.find(personal_id);
+            Bewerber bewerber = bewerberRepository.find(bewerber_id);
+            Stelle stelle = stelleRepository.find(stellen_id);
+            DateFormat formatter = DateFormat.getDateTimeInstance();
+            Date stempel  = formatter.parse( zeitstempel );//"24.12.2007 16:59:12"
+            
+            Bewerbung bewerbung = new Bewerbung(stempel, status, personal,stelle, bewerber);
+
+            bewerbungRepository.create(bewerbung);
             return Response
-                    .status(Response.Status.OK)
+                   .ok(jsonb.toJson(bewerbung))
                     .build();
-        } catch (NullPointerException | IllegalArgumentException ex) {
+        } catch (NullPointerException | IllegalArgumentException|ParseException ex) {
             return Response.status(Response.Status.CONFLICT).build();
         }
     }

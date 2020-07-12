@@ -5,21 +5,27 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
-import de.hsos.kbse.interfaces.AbstractEntity;
-import java.util.Set;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 
+import javax.persistence.Table;
 /**
  *
  * @author pmarkman
  */
+
 @Entity
-@Table(name = "Bewerber")
-public class Bewerber extends AbstractEntity {
+@Table(name="bewerber")
+public class Bewerber extends Benutzer {
 
     //Bemerkung Nachschlagen: Persistierung von Datein in Java
     @Column(name = "name")
@@ -50,8 +56,15 @@ public class Bewerber extends AbstractEntity {
     String portait_pfad;
 
     //Ein Bewerber kann mehrere Bewerbungen haben
-    @OneToMany(mappedBy = "bewerber")
-    private Set<Bewerbung> bewerbung;
+    @OneToMany(fetch = FetchType.LAZY,
+        mappedBy="bewerber",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bewerbung> bewerbung;
+
+    public Bewerber() {
+    }
 
     public Bewerber() {
     }
@@ -67,73 +80,15 @@ public class Bewerber extends AbstractEntity {
         this.unterlagen_pfad = unterlagen_pfad;
         this.portait_pfad = portait_pfad;
     }
-
-    public Bewerber(String name, String vorname, String email, String telefon, String ort, String straße, Integer plz, String portait_pfad) {
-        this.name = name;
-        this.vorname = vorname;
-        this.email = email;
-        this.telefon = telefon;
-        this.straße = straße;
-        this.ort = ort;
-        this.plz = plz;
-        this.portait_pfad = portait_pfad;
+    
+    public List<Bewerbung> getBewerbung() {
+        return bewerbung;
     }
 
-    public String getName() {
-        return name;
+    public void setBewerbung(List<Bewerbung> bewerbung) {
+        this.bewerbung = bewerbung;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVorname() {
-        return vorname;
-    }
-
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefon() {
-        return telefon;
-    }
-
-    public void setTelefon(String telefon) {
-        this.telefon = telefon;
-    }
-
-    public String getStraße() {
-        return straße;
-    }
-
-    public void setStraße(String straße) {
-        this.straße = straße;
-    }
-
-    public String getOrt() {
-        return ort;
-    }
-
-    public void setOrt(String ort) {
-        this.ort = ort;
-    }
-
-    public Integer getPlz() {
-        return plz;
-    }
-
-    public void setPlz(Integer plz) {
-        this.plz = plz;
-    }
+    
 
     public String getUnterlagen_pfad() {
         return unterlagen_pfad;

@@ -5,6 +5,7 @@
  */
 package de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
@@ -14,22 +15,21 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.Valid;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 /**
  *
  * @author pmarkman
  */
 @Entity
-@Table(name = "Berwebungen")
+@Table(name = "bewerbung")
 public class Bewerbung extends AbstractEntity {
 
-    @Column(name = "zeitstempel")
-    @Valid
+//    @Column(name = "zeitstempel")
+//    @Valid
     @Temporal(javax.persistence.TemporalType.DATE)
     Date zeitstempel;
 
@@ -37,36 +37,47 @@ public class Bewerbung extends AbstractEntity {
     @Valid
     String status;
 
-        //_____________Stelle__________________ 
+        //______________Personal__________________
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "STELLEN_ID")
-    private Stelle stellen;
+    @JoinColumn (name="personal_id")
+    @JsonBackReference
+    private Personal personal;
     
-    //______________Bewerber__________________
+//        _____________Stelle__________________ 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "BEWERBUNG_ID")
+    @JoinColumn (name="stelle_id")
+    @JsonBackReference
+    private Stelle stelle;
+    
+    
+//    ______________Bewerber__________________
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name="bewerber_id")
+    @JsonBackReference
     private Bewerber bewerber;
 
-    //______________Personal__________________
-    @ManyToOne
-    @JoinColumn(name = "PERSONAL_ID")
-    private Personal personal;
+
 
    public Bewerbung() {
     }
 
-//    public Bewerbung(String status) {
-//        this.status = status;
-//    }
-//
-//    
-//
-//
-//   
-//    public Bewerbung(Date zeitstempel, String status) {
-//        this.zeitstempel = zeitstempel;
-//        this.status = status;
-//    }
+    public Bewerbung(Personal personal, Stelle stelle, Bewerber bewerber) {
+        this.personal = personal;
+        this.stelle = stelle;
+        this.bewerber = bewerber;
+    }
+
+    public Bewerbung(Date zeitstempel, String status, Personal personal, Stelle stelle, Bewerber bewerber) {
+        this.zeitstempel = zeitstempel;
+        this.status = status;
+        this.personal = personal;
+        this.stelle = stelle;
+        this.bewerber = bewerber;
+    }
+
+
+
+
 
     public Bewerber getBewerber() {
         return bewerber;
@@ -85,11 +96,11 @@ public class Bewerbung extends AbstractEntity {
     }
 
     public Stelle getStellen() {
-        return stellen;
+        return stelle;
     }
 
     public void setStellen(Stelle stellen) {
-        this.stellen = stellen;
+        this.stelle = stellen;
     }
 
  

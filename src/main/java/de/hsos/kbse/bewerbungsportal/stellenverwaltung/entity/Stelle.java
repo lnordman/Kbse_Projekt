@@ -5,66 +5,108 @@
  */
 package de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.interfaces.AbstractEntity;
-import java.util.Objects;
-
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
  * @author pmarkman
  */
 @Entity
-//@Vetoed 
-//@Table(name = "Stelle")
-////@NamedQueries ergänzen
-//@Transactional(Transactional.TxType.MANDATORY) // Überprüfen!
+@Table(name = "stelle")
 public class Stelle extends AbstractEntity {
 
-    @Column(name = "bezeichnung")
+    @Column(name = "bezeichnung", length = 5000)//Default ist 255 zu klein -> Truncation-Fehler 
     @NotNull
     @Valid
     String bezeichnung;
 
-//    @Column(name = "datum")
-//    @Temporal(TemporalType.DATE)
-//    @Valid
-//    LocalDate datum;
-    @Column(name = "beschreibung")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date datum;
+
+    @Column(name = "beschreibung", length = 5000)
     @NotNull
     @Valid
     String beschreibung;
 
-    @Column(name = "ort")
+    @Column(name = "ort",length = 5000)
     @NotNull
     @Valid
     String ort;
 
-    @ManyToOne
-    @JoinColumn(name = "PERSONAL_ID")
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn (name="personal_id")
+    @JsonBackReference
     private Personal personal;
 
-    @OneToMany
-    private Set<Bewerbung> bewerbungen;
+    
+    
+    @OneToMany(fetch = FetchType.LAZY,
+       mappedBy="stelle",
+       cascade = CascadeType.ALL,
+       orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bewerbung> bewerbungen;
+   
 
     public Stelle() {
     }
 
+    public Stelle(String bezeichnung, Date datum, String beschreibung, String ort) {
+        this.bezeichnung = bezeichnung;
+        this.datum = datum;
+        this.beschreibung = beschreibung;
+        this.ort = ort;
+    }
+    
     public Stelle(String bezeichnung, String beschreibung, String ort) {
         this.bezeichnung = bezeichnung;
         this.beschreibung = beschreibung;
         this.ort = ort;
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
+
+    
+    
+    
+    public Personal getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
+    public List<Bewerbung> getBewerbungen() {
+        return bewerbungen;
+    }
+
+    public void setBewerbungen(List<Bewerbung> bewerbung) {
+        this.bewerbungen = bewerbung;
     }
 
     public String getBezeichnung() {

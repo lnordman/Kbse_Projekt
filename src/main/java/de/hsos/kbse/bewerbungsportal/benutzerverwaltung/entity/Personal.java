@@ -5,113 +5,81 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
-import de.hsos.kbse.interfaces.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Table;
 
 /**
  *
  * @author pmarkman
  */
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
-@Table(name = "PERSONAL")
-public class Personal extends AbstractEntity {
-
-    // Attribute
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "vorname")
-    private String vorname;
-
-    @Column(name = "telefon")
-    private String telefon;
-
-    @Column(name = "straße")
-    private String straße;
-
-    @Column(name = "ort")
-    private String ort;
-
-    @Column(name = "plz")
-    private Integer plz;
+@Table(name="personal")
+public class Personal extends Benutzer {
 
     @Column(name = "durchwahl")
     String durchwahl;
 
     @Column(name = "bueronr")
+    @NotNull
     String bueroNr;
 
-    @Embedded
-    private Login login = new Login();
+    @OneToMany(fetch = FetchType.LAZY,
+            mappedBy="personal",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<Stelle> stelle;
+
+     @OneToMany(fetch = FetchType.LAZY,
+            mappedBy="personal",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonManagedReference
+    private List<Bewerbung> bewerbungen;
 
     public Personal() {
     }
 
-    public Personal(String name, String vorname, String telefon, String straße, String ort, Integer plz, String durchwahl, String bueroNr) {
-        this.name = name;
-        this.vorname = vorname;
-        this.telefon = telefon;
-        this.straße = straße;
-        this.ort = ort;
-        this.plz = plz;
+
+
+    public List<Bewerbung> getBewerbung() {
+        return bewerbungen;
+    }
+
+
+    
+   public Personal( String name, String vorname, String email, String telefon, String ort, String straße, Integer plz, String durchwahl, String bueroNr) {
+        super(name,vorname,email, telefon, straße, ort, plz);
         this.durchwahl = durchwahl;
         this.bueroNr = bueroNr;
+        this.stelle = new ArrayList<>();
+    }
+    
+    public void setBewerbung(List<Bewerbung> bewerbung) {
+        this.bewerbungen = bewerbung;
     }
 
-    public Personal(String name, String vorname, String email, String telefon, String ort, String straße, Integer plz, String durchwahl, String bueroNr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Stelle> getStelle() {
+        return stelle;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVorname() {
-        return vorname;
-    }
-
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public String getTelefon() {
-        return telefon;
-    }
-
-    public void setTelefon(String telefon) {
-        this.telefon = telefon;
-    }
-
-    public String getStraße() {
-        return straße;
-    }
-
-    public void setStraße(String straße) {
-        this.straße = straße;
-    }
-
-    public String getOrt() {
-        return ort;
-    }
-
-    public void setOrt(String ort) {
-        this.ort = ort;
-    }
-
-    public Integer getPlz() {
-        return plz;
-    }
-
-    public void setPlz(Integer plz) {
-        this.plz = plz;
+    public void setStelle(List<Stelle> stelle) {
+        this.stelle = stelle;
     }
 
     public String getDurchwahl() {

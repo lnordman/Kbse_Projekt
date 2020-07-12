@@ -22,6 +22,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
 
 /**
  *
@@ -37,6 +38,8 @@ public class BewerberFacadeREST {
 
     @Inject
     BewerberRepository bewerberRepo;
+    @Inject
+    Jsonb jsonb;
 
     @POST
     @Path("bewerber")
@@ -52,18 +55,14 @@ public class BewerberFacadeREST {
             @QueryParam("portait_pfad") String portait_pfad) {
         try {
             Bewerber bewerber = new Bewerber(name, vorname, email, telefon, ort, straße, plz, portait_pfad);
-
             bewerberRepo.create(bewerber);
-            return Response
-                    .status(Response.Status.FOUND)
-                    .build();
+            return Response.ok(jsonb.toJson(bewerber)).build();
         } catch (NullPointerException | IllegalArgumentException | JsonbException ex) {
             return Response.status(Response.Status.CONFLICT).build();
         }
     }
 
     @POST
-
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Bewerber entity) {
         bewerberRepo.create(entity);
@@ -90,10 +89,9 @@ public class BewerberFacadeREST {
     }
 
     @GET
-
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Bewerber> findAll() {
-        return bewerberRepo.findAll();
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public Response findAll() {
+        return Response.ok(jsonb.toJson(bewerberRepo.findAll())).build();
     }
 
     @GET

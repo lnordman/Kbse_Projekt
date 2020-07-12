@@ -8,22 +8,23 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 import de.hsos.kbse.interfaces.AbstractEntity;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.xml.bind.annotation.XmlRootElement;
-
+import javax.persistence.MappedSuperclass;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 /**
  *
  * @author pmarkman
  */
-//@Transactional(Transactional.TxType.MANDATORY) 
-//@Vetoed
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Entity
-//@Table(name="Benutzer")
-@XmlRootElement
-public class Benutzer extends AbstractEntity {
 
-    @Column(name = "name")
+//@Entity
+@MappedSuperclass
+public class Benutzer extends AbstractEntity {
+    
+    
+    @Column(name="name")
+    @NotNull()
+    @Valid // Gute Erklärung nötig
+//    @JsonbProperty("person-name")
     private String name;
 
     @Column(name = "vorname")
