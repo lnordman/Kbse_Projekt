@@ -2,8 +2,6 @@ package de.hsos.kbse.interfaces;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.GenerationType;

@@ -12,7 +12,7 @@ import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.repository.BewerbungRepository;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
-import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StelleRepository;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -46,7 +46,7 @@ public class BewerbungFacadeREST {
     @Inject
     PersonalRepository personalRepository;
     @Inject
-    StelleRepository stelleRepository;
+    StellenRepository stelleRepository;
     @Inject
     BewerberRepository bewerberRepository;
     @Inject

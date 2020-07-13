@@ -8,7 +8,7 @@ package de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.rs;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
-import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StelleRepository;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,7 +45,7 @@ import javax.ws.rs.core.UriInfo;
 public class StelleFacadeREST {
 
     @Inject
-    StelleRepository stellenRepo;
+    StellenRepository stellenRepo;
     @Inject
     PersonalRepository personalRepo;
 

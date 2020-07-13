@@ -7,12 +7,9 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;

@@ -5,8 +5,10 @@
  */
 package de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller;
 
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
-import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StelleRepository;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -16,14 +18,19 @@ import javax.inject.Inject;
  */
 @Stateless
 public class StellenController {
-    
+
     @Inject
-    private StelleRepository stellenRepo;
-    
+    private StellenRepository stellenRepo;
+
     public void createStelle(Stelle stelle) {
         System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController.createStelle()");
         this.stellenRepo.create(stelle);
     }
-       
-    
+
+    public List<Stelle> getStelleFromPersonal(Long personal_id) {
+
+        return this.stellenRepo.getStelleByPersonal(personal_id);
+
+    }
+
 }

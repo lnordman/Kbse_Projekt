@@ -22,7 +22,7 @@ import javax.persistence.TypedQuery;
  * @author nordm
  */
 @Named
-public class PersonalRepository extends AbstractRepository<Personal>  {
+public class PersonalRepository extends AbstractRepository<Personal> {
 
     @PersistenceContext(unitName = "my_persistence_unit")
     private EntityManager em;

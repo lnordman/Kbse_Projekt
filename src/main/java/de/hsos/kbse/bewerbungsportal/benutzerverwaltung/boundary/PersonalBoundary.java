@@ -8,6 +8,7 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalController;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.entity.service.SessionService;
 import java.io.Serializable;
@@ -27,22 +28,31 @@ public class PersonalBoundary implements Serializable {
     @Inject
     private PersonalController persoController;
 
-    /*    @Inject
-    private StelleRepository stellenrepo;*/
+    @Inject
+    private StellenController stellenController;
 
     private Personal personaler = new Personal();
-
-    private Bewerbung b;
 
     private List<Stelle> stellenOfPersonaler;
     private List<Bewerbung> bewerbungenOfPersonaler;
 
     public void init() {
 
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init()");
+
         this.personaler = SessionService.getPersonaler();
 
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init()");
-        System.out.println("Personaler: " + this.personaler.toString());
+        if (this.personaler != null) {
+
+            System.out.println("Personaler ist gesetezt!");
+            System.out.println("Personaler_ID: " + this.personaler.getId());
+            //Holen der Stellen die der Personaler erstellt hat
+            this.stellenOfPersonaler = stellenController.getStelleFromPersonal(this.personaler.getId());
+            
+            //Holen der Bewerbungen die der Personaler verwaltet
+            //this.bewerbungOfPersonaler = bewerbungsController.getBewerbungFromPersonal(this.personal.getId());
+        }
+
         // stellenOfPersonaler = new ArrayList(persoController.getBewerbungenOfPersonaler(personaler));
     }
 
@@ -54,13 +64,13 @@ public class PersonalBoundary implements Serializable {
         this.persoController = persoController;
     }
 
-    /*    public StelleRepository getStellenrepo() {
-    return stellenrepo;
+    public StellenController getStellenController() {
+        return stellenController;
     }
-    
-    public void setStellenrepo(StelleRepository stellenrepo) {
-    this.stellenrepo = stellenrepo;
-    }*/
+
+    public void setStellenController(StellenController stellenController) {
+        this.stellenController = stellenController;
+    }
 
     public Personal getPersonaler() {
         return personaler;
@@ -68,14 +78,6 @@ public class PersonalBoundary implements Serializable {
 
     public void setPersonaler(Personal personaler) {
         this.personaler = personaler;
-    }
-
-    public Bewerbung getB() {
-        return b;
-    }
-
-    public void setB(Bewerbung b) {
-        this.b = b;
     }
 
     public List<Stelle> getStellenOfPersonaler() {
