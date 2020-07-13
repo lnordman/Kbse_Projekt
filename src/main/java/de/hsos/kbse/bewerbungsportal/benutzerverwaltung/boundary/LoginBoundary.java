@@ -21,8 +21,13 @@ import javax.inject.Named;
 
 /**
  *
- * @author PMark
+ * @author Philipp Markmann 
+ * @author Leander Nordmann
+ * @version 3
+ * 
  */
+
+
 @Named(value = "LoginModel")
 @RequestScoped
 public class LoginBoundary implements Serializable {
@@ -66,6 +71,9 @@ public class LoginBoundary implements Serializable {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Login fehlgeschlagen!", "Bitte überprüfe Benutzernamen und Passwort."));
     }
 
+    /**
+     *
+     */
     public void logout() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().invalidateSession();
@@ -74,11 +82,19 @@ public class LoginBoundary implements Serializable {
         } catch (IOException e) {
         }
     }
-
+    
+    /**
+     *
+     * @return
+     */
     public Login getLogin() {
         return login;
     }
 
+    /**
+     *
+     * @param login
+     */
     public void setLogin(Login login) {
         this.login = login;
     }
