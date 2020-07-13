@@ -7,6 +7,9 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
 
 import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
+import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
+import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

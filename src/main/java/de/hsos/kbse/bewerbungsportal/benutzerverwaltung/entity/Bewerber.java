@@ -15,16 +15,17 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.FetchType;
 
 import javax.persistence.Table;
+
 /**
  *
  * @author pmarkman
  */
-
 @Entity
-@Table(name="bewerber")
+@Table(name = "bewerber")
 public class Bewerber extends Benutzer {
 
     //Bemerkung Nachschlagen: Persistierung von Datein in Java
@@ -57,14 +58,14 @@ public class Bewerber extends Benutzer {
 
     //Ein Bewerber kann mehrere Bewerbungen haben
     @OneToMany(fetch = FetchType.LAZY,
-        mappedBy="bewerber",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true)
+            mappedBy = "bewerber",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonManagedReference
     private List<Bewerbung> bewerbung;
 
-    public Bewerber() {
-    }
+    @Embedded
+    Login login;
 
     public Bewerber() {
     }
@@ -80,7 +81,11 @@ public class Bewerber extends Benutzer {
         this.unterlagen_pfad = unterlagen_pfad;
         this.portait_pfad = portait_pfad;
     }
-    
+
+    public Bewerber(String name, String vorname, String email, String telefon, String ort, String straße, Integer plz, String portait_pfad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public List<Bewerbung> getBewerbung() {
         return bewerbung;
     }
@@ -88,7 +93,6 @@ public class Bewerber extends Benutzer {
     public void setBewerbung(List<Bewerbung> bewerbung) {
         this.bewerbung = bewerbung;
     }
-    
 
     public String getUnterlagen_pfad() {
         return unterlagen_pfad;
@@ -104,14 +108,6 @@ public class Bewerber extends Benutzer {
 
     public void setPortait_pfad(String portait_pfad) {
         this.portait_pfad = portait_pfad;
-    }
-
-    public Set<Bewerbung> getBewerbung() {
-        return bewerbung;
-    }
-
-    public void setBewerbung(Set<Bewerbung> bewerbung) {
-        this.bewerbung = bewerbung;
     }
 
 }

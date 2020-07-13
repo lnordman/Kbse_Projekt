@@ -25,15 +25,15 @@ and open the template in the editor.
                 <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="AlleStellen" style=" height: 45px; left: 10px; top: 25px; position:  fixed;" />  
                 <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Profil" style=" height: 45px; right: 70px; top: 25px; position:  fixed" />  
                 <h:commandButton image="https://image.flaticon.com/icons/svg/483/483343.svg" action="#{LoginModel.logout()}" style=" height: 45px; right: 10px; top: 25px; position:  fixed" />   
-                <h3>Wilkommen</h3>
-
+                <h3>Wilkommen <h:outputLabel value="#{personalModel.personaler.name}" /> </h3>
+                
             </h:form>
         </header>
 
         <h2 style="text-align: center; margin-top: 25px;"> Was möchten Sie tun? Keine Ahnung </h2>
-        <h:outputText value="#{personalModel.personaler.id} asdasd" />
-        <h:outputText value="#{personalModel.personaler.toString()}" />
+
         <h:outputLabel style="border: 5px; border-style: dotted; border-color: black" value="#{personalModel.personaler.login.email}" />
+        <h:outputLabel style="border: 5px; border-style: dotted; border-color: black" value="#{personalModel.personaler.id}" />
         <h:form>
             <div style="text-align: center; margin-top: 100px;">
                 <h:commandButton id="bwbng" value="Bewerbungen bearbeiten" action="PersonalerAlle" />

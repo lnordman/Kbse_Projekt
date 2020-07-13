@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
 /**
  *
  * @author pmarkman
@@ -19,9 +20,8 @@ import javax.validation.constraints.NotNull;
 //@Entity
 @MappedSuperclass
 public class Benutzer extends AbstractEntity {
-    
-    
-    @Column(name="name")
+
+    @Column(name = "name")
     @NotNull()
     @Valid // Gute Erklärung nötig
 //    @JsonbProperty("person-name")
@@ -29,9 +29,6 @@ public class Benutzer extends AbstractEntity {
 
     @Column(name = "vorname")
     private String vorname;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "telefon")
     private String telefon;
@@ -45,10 +42,9 @@ public class Benutzer extends AbstractEntity {
     @Column(name = "plz")
     private Integer plz;
 
-    public Benutzer(String name, String vorname, String email, String telefon, String straße, String ort, Integer plz) {
+    public Benutzer(String name, String vorname, String telefon, String straße, String ort, Integer plz) {
         this.name = name;
         this.vorname = vorname;
-        this.email = email;
         this.telefon = telefon;
         this.straße = straße;
         this.ort = ort;
@@ -77,14 +73,6 @@ public class Benutzer extends AbstractEntity {
 
     public void setVorname(String vorname) {
         this.vorname = vorname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getTelefon() {
@@ -124,7 +112,6 @@ public class Benutzer extends AbstractEntity {
         int hash = 3;
         hash = 73 * hash + Objects.hashCode(this.name);
         hash = 73 * hash + Objects.hashCode(this.vorname);
-        hash = 73 * hash + Objects.hashCode(this.email);
         hash = 73 * hash + Objects.hashCode(this.telefon);
         hash = 73 * hash + Objects.hashCode(this.straße);
         hash = 73 * hash + Objects.hashCode(this.ort);
@@ -150,9 +137,6 @@ public class Benutzer extends AbstractEntity {
         if (!Objects.equals(this.vorname, other.vorname)) {
             return false;
         }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
         if (!Objects.equals(this.telefon, other.telefon)) {
             return false;
         }
@@ -170,7 +154,7 @@ public class Benutzer extends AbstractEntity {
 
     @Override
     public String toString() {
-        return "Benutzer{" + "name=" + name + ", vorname=" + vorname + ", email=" + email + ", telefon=" + telefon + ", stra\u00dfe=" + straße + ", ort=" + ort + ", plz=" + plz + '}';
+        return "Benutzer{" + "name=" + name + ", vorname=" + vorname + ", telefon=" + telefon + ", stra\u00dfe=" + straße + ", ort=" + ort + ", plz=" + plz + '}';
     }
 
 }

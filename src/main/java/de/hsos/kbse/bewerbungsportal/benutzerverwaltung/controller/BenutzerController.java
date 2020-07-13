@@ -40,7 +40,7 @@ public class BenutzerController {
         
         //getAllUser
         public List<Benutzer> getAllBenutzer() {
-            return this.benutzerRepo.getAllBenutzer();
+            return (List<Benutzer>) this.benutzerRepo.getAllBenutzer();
         }
         
         //getUserById

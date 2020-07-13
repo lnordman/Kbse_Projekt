@@ -26,7 +26,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author pmarkman
+ * @author pmarkman, lnordman
  */
 @Entity
 @Table(name = "stelle")
@@ -45,26 +45,22 @@ public class Stelle extends AbstractEntity {
     @Valid
     String beschreibung;
 
-    @Column(name = "ort",length = 5000)
+    @Column(name = "ort", length = 5000)
     @NotNull
     @Valid
     String ort;
 
-    
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="personal_id")
+    @JoinColumn(name = "personal_id")
     @JsonBackReference
     private Personal personal;
 
-    
-    
     @OneToMany(fetch = FetchType.LAZY,
-       mappedBy="stelle",
-       cascade = CascadeType.ALL,
-       orphanRemoval = true)
+            mappedBy = "stelle",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @JsonManagedReference
     private List<Bewerbung> bewerbungen;
-   
 
     public Stelle() {
     }
@@ -75,38 +71,11 @@ public class Stelle extends AbstractEntity {
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
-    
+
     public Stelle(String bezeichnung, String beschreibung, String ort) {
         this.bezeichnung = bezeichnung;
         this.beschreibung = beschreibung;
         this.ort = ort;
-    }
-
-    public Date getDatum() {
-        return datum;
-    }
-
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
-
-    
-    
-    
-    public Personal getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(Personal personal) {
-        this.personal = personal;
-    }
-
-    public List<Bewerbung> getBewerbungen() {
-        return bewerbungen;
-    }
-
-    public void setBewerbungen(List<Bewerbung> bewerbung) {
-        this.bewerbungen = bewerbung;
     }
 
     public String getBezeichnung() {
@@ -115,6 +84,14 @@ public class Stelle extends AbstractEntity {
 
     public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
     }
 
     public String getBeschreibung() {
@@ -141,50 +118,13 @@ public class Stelle extends AbstractEntity {
         this.personal = personal;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.bezeichnung);
-        hash = 73 * hash + Objects.hashCode(this.beschreibung);
-        hash = 73 * hash + Objects.hashCode(this.ort);
-        hash = 73 * hash + Objects.hashCode(this.personal);
-        hash = 73 * hash + Objects.hashCode(this.bewerbungen);
-        return hash;
+    public List<Bewerbung> getBewerbungen() {
+        return bewerbungen;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Stelle other = (Stelle) obj;
-        if (!Objects.equals(this.bezeichnung, other.bezeichnung)) {
-            return false;
-        }
-        if (!Objects.equals(this.beschreibung, other.beschreibung)) {
-            return false;
-        }
-        if (!Objects.equals(this.ort, other.ort)) {
-            return false;
-        }
-        if (!Objects.equals(this.personal, other.personal)) {
-            return false;
-        }
-        if (!Objects.equals(this.bewerbungen, other.bewerbungen)) {
-            return false;
-        }
-        return true;
+    public void setBewerbungen(List<Bewerbung> bewerbungen) {
+        this.bewerbungen = bewerbungen;
     }
 
-    @Override
-    public String toString() {
-        return "Stelle{" + "bezeichnung=" + bezeichnung + ", beschreibung=" + beschreibung + ", ort=" + ort + ", personal=" + personal + ", bewerbungen=" + bewerbungen + '}';
-    }
-
+    
 }

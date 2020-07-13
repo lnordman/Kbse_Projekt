@@ -41,19 +41,17 @@ public class PersonalFacadeREST {
 
     @Inject
     PersonalRepository personalRepo;
-    @Inject 
-    Jsonb jsonb ;
+    @Inject
+    Jsonb jsonb;
     @Context
     UriInfo uriInfo;
-    
-    
+
     @POST
     @Path("personal")
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response createPersonal(
             @QueryParam("name") String name,
             @QueryParam("vorname") String vorname,
-            @QueryParam("email") String email,
             @QueryParam("telefon") String telefon,
             @QueryParam("ort") String ort,
             @QueryParam("straße") String straße,
@@ -61,7 +59,7 @@ public class PersonalFacadeREST {
             @QueryParam("durchwahl") String durchwahl,
             @QueryParam("bueroNr") String bueroNr) {
         try {
-            Personal personal = new Personal(name, vorname, email, telefon, ort, straße, plz, durchwahl, bueroNr);
+            Personal personal = new Personal(name, vorname, telefon, ort, straße, plz, durchwahl, bueroNr);
 
             personalRepo.create(personal);
             return Response.ok(jsonb.toJson(personal)).build();
@@ -104,19 +102,18 @@ public class PersonalFacadeREST {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response findAll() {
         Collection<Personal> all = personalRepo.findAll();
-        if(all.isEmpty()){
+        if (all.isEmpty()) {
             return Response.noContent().build();
         }
         return Response.ok(jsonb.toJson(all)).build();
     }
-    
+
 //    @GET
 //    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 //    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 //    public List<Personal> findAll() {
 //        return personalRepo.findAll();
 //    }
-
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

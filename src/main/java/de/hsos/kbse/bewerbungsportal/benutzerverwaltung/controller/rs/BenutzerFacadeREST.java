@@ -117,13 +117,12 @@ public class BenutzerFacadeREST {
     public Response createBenutzer(
             @QueryParam("name") String name,
             @QueryParam("vorname") String vorname,
-            @QueryParam("email") String email,
             @QueryParam("telefon") String telefon,
             @QueryParam("ort") String ort,
             @QueryParam("straße") String straße,
             @QueryParam("plz") Integer plz) {
         try {
-            Benutzer benutzer = new Benutzer(name, vorname, email, telefon, ort, straße, plz);
+            Benutzer benutzer = new Benutzer(name, vorname, telefon, ort, straße, plz);
             benutzerRepo.create(benutzer);
             return Response.ok(jsonb.toJson(benutzer)).build();
         } catch (NullPointerException | IllegalArgumentException ex) {

@@ -6,6 +6,7 @@
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalController;
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Login;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -23,6 +24,8 @@ public class RegisterBoundary implements Serializable {
 
     @Inject
     transient private PersonalController personalerCont;
+    //@Inject
+    //transient private BewerberController bewerberCont;
 
     private Personal personal;
 
@@ -34,6 +37,8 @@ public class RegisterBoundary implements Serializable {
     public RegisterBoundary() {
     }
 
+    //registerBewerber() {}
+    
     public String registerPersonal() {
         personalerCont.register(personal);
         return "Login";
