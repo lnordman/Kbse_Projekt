@@ -6,6 +6,7 @@
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.rs;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Login;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.BewerberRepository;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -48,13 +49,16 @@ public class BewerberFacadeREST {
             @QueryParam("name") String name,
             @QueryParam("vorname") String vorname,
             @QueryParam("email") String email,
+            @QueryParam("password") String password,
             @QueryParam("telefon") String telefon,
             @QueryParam("ort") String ort,
             @QueryParam("straße") String straße,
             @QueryParam("plz") Integer plz,
             @QueryParam("portait_pfad") String portait_pfad) {
         try {
-            Bewerber bewerber = new Bewerber(name, vorname, email, telefon, ort, straße, plz, portait_pfad);
+            Login login = new Login(email, password);
+//            Bewerber bewerber = new Bewerber(name, vorname, email, telefon, ort, straße, plz, portait_pfad);
+              Bewerber bewerber = new Bewerber(name, vorname, telefon, straße, ort, plz, portait_pfad, portait_pfad, login);
             bewerberRepo.create(bewerber);
             return Response.ok(jsonb.toJson(bewerber)).build();
         } catch (NullPointerException | IllegalArgumentException | JsonbException ex) {
