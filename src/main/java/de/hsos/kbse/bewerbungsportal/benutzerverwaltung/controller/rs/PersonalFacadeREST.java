@@ -5,6 +5,7 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.rs;
 
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Login;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository;
 import java.util.Collection;
@@ -52,6 +53,8 @@ public class PersonalFacadeREST {
     public Response createPersonal(
             @QueryParam("name") String name,
             @QueryParam("vorname") String vorname,
+            @QueryParam("email") String email,
+            @QueryParam("password") String password,
             @QueryParam("telefon") String telefon,
             @QueryParam("ort") String ort,
             @QueryParam("straße") String straße,
@@ -59,13 +62,11 @@ public class PersonalFacadeREST {
             @QueryParam("durchwahl") String durchwahl,
             @QueryParam("bueroNr") String bueroNr) {
         try {
-            Personal personal = new Personal(name, vorname, telefon, ort, straße, plz, durchwahl, bueroNr);
+            Login login = new Login(email, password);
+            Personal personal = new Personal(durchwahl, bueroNr, name, vorname, telefon, straße, ort, plz, login);
 
             personalRepo.create(personal);
             return Response.ok(jsonb.toJson(personal)).build();
-//            return Response
-//                    .status(Response.Status.FOUND)
-//                    .build();
         } catch (NullPointerException | IllegalArgumentException | JsonbException ex) {
             return Response.status(Response.Status.CONFLICT).build();
         }
