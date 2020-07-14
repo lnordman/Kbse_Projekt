@@ -55,6 +55,7 @@ public class Personal extends Benutzer {
 
     public Personal() {
     }
+    
 
     public Personal(String durchwahl, String bueroNr, String name, String vorname, String telefon, String straße, String ort, Integer plz, Login login) {
         super(name, vorname, telefon, straße, ort, plz, login);

@@ -47,7 +47,7 @@ public class PersonalBoundary implements Serializable {
             System.out.println("Personaler ist gesetezt!");
             System.out.println("Personaler_ID: " + this.personaler.getId());
             //Holen der Stellen die der Personaler erstellt hat
-            this.stellenOfPersonaler = stellenController.getStelleFromPersonal(this.personaler.getId());
+            //this.stellenOfPersonaler = stellenController.getStelleFromPersonal(this.personaler.getId());
             
             //Holen der Bewerbungen die der Personaler verwaltet
             //this.bewerbungOfPersonaler = bewerbungsController.getBewerbungFromPersonal(this.personal.getId());

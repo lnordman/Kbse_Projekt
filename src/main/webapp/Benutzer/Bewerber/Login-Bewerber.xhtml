@@ -15,14 +15,14 @@ and open the template in the editor.
     <h:body>
         
         <h:form>
-            <h:outputLabel for="email" value="Email" />
+            <p:outputLabel value="Email" />
             <p:inputText id="email" value="#{LoginModel.login.email}" />
-            <h:outputLabel for="password" value="Passwort" />
-            <h:inputText id="password" value="#{LoginModel.login.password}" />
+            <p:outputLabel value="Passwort" />
+            <p:inputText id="password" value="#{LoginModel.login.password}" />
 
-            <p:commandButton value="Login" update="" action="#{LoginModel.loginUser()}"/>
+            <p:commandButton value="Login" update="" action="#{LoginModel.loginBewerber()}"/>
             
-            <h:link value="Register" outcome="Register"/>
+            <p:link value="Register" outcome="/Benutzer/Register"/>
             
         </h:form>
     </h:body>

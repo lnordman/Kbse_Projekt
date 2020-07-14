@@ -6,6 +6,7 @@
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalController;
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Login;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class RegisterBoundary implements Serializable {
     //transient private BewerberController bewerberCont;
 
     private Personal personal;
+    private Bewerber bewerber;
 
     @PostConstruct
     public void init() {
@@ -40,6 +42,7 @@ public class RegisterBoundary implements Serializable {
     //registerBewerber() {}
     
     public String registerPersonal() {
+        System.out.print("Register Personal in DB schreiben"+personal.toString() + personal.getLogin().toString());
         personalerCont.register(personal);
         return "Login";
     }
@@ -52,4 +55,9 @@ public class RegisterBoundary implements Serializable {
         this.personal = personal;
     }
 
+    public String updatePersonal(){
+        System.out.print("Update Personal in DB schreiben"+personal.toString() + personal.getLogin().toString());
+        personalerCont.updatePersonaler(personal);
+        return "/PersonalerStart";
+    }
 }

@@ -37,7 +37,7 @@ and open the template in the editor.
                 <table style="border: black; width: 100%; border-style: solid; border-width: thin; padding: 15px; align-self: center">
                     <tr>
                         <td style="width: 150px;">
-                            <h:outputLabel for="bezeichnung" value="Stellenname: "/>
+                            <p:outputLabel value="Stellenname: "/>
                         </td>
                         <td>
                             <p:inputText style="width: 100%;" id="bezeichnung" value="#{stellenModel.stelle.bezeichnung}" label="Stellenname"/><br/>
@@ -45,25 +45,25 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <td>
-                            <h:outputLabel for="beschreibung" value="Stellenbeschreibung: "/>
+                            <p:outputLabel value="Stellenbeschreibung: "/>
                         </td>
                         <td>
-                            <h:inputTextarea style="width: 100%" rows="15" id="beschreibung" value='#{stellenModel.stelle.beschreibung}' label="Stellenbeschreibung"/><br/>
+                            <p:inputTextarea style="width: 100%" rows="15" id="beschreibung" value='#{stellenModel.stelle.beschreibung}' label="Stellenbeschreibung"/><br/>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h:outputLabel for="ort" value="Ort:  "/>
+                            <p:outputLabel value="Ort:  "/>
                         </td>
                         <td>
-                            <h:inputText style="width: 100%" id="ort" value="#{stellenModel.stelle.ort}" label="Ort"/><br/>
+                            <p:inputText style="width: 100%" id="ort" value="#{stellenModel.stelle.ort}" label="Ort"/><br/>
                         </td>
                     </tr>
                 </table>
             </div>
 
 
-            <h:commandButton id="bck" value="Zurück" action="PersonalerStart" />
+            <p:commandButton id="bck" value="Zurück" action="PersonalerStart" />
             <p:commandButton style="float: right" value="Stelle speichern" action="#{stellenModel.createStelleWithPersonaler()}" />
         </h:form>
     </h:body>

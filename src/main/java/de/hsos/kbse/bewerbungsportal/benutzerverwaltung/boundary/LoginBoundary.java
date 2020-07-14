@@ -43,12 +43,12 @@ public class LoginBoundary implements Serializable {
     public void loginPersonaler() {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        Personal personaler = pController.login(login.getEmail(), login.getPasswort());
+        Personal personaler = pController.login(login.getEmail(), login.getPassword());
 
         if (personaler != null) {
             SessionService.getSession().setAttribute("personaler", personaler);
             try {
-                context.getExternalContext().redirect("/Kbse_Projekt_Beta/PersonalerStart.xhtml");
+                context.getExternalContext().redirect("/Bewerbungsportal/Benutzer/Personal/PersonalerStart.xhtml");
             } catch (IOException e) {
             }
         }
@@ -59,12 +59,12 @@ public class LoginBoundary implements Serializable {
     public void loginBewerber() {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        Bewerber bewerber = bController.login(login.getEmail(), login.getPasswort());
+        Bewerber bewerber = bController.login(login.getEmail(), login.getPassword());
 
         if (bewerber != null) {
             SessionService.getSession().setAttribute("bewerber", bewerber);
             try {
-                context.getExternalContext().redirect("/Kbse_Projekt_Beta/PersonalerStart.xhtml");
+                context.getExternalContext().redirect("/Bewerbungsportal/Benutzer/Bewerber/Bewerber-Profil.xhtml"); 
             } catch (IOException e) {
             }
         }
@@ -78,7 +78,7 @@ public class LoginBoundary implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().invalidateSession();
         try {
-            context.getExternalContext().redirect("/Kbse_Projekt_Beta");
+            context.getExternalContext().redirect("/Bewerbungsportal");
         } catch (IOException e) {
         }
     }

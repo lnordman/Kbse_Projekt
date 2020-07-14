@@ -55,6 +55,7 @@ public class PersonalRepository extends AbstractRepository<Personal> {
             query.setParameter("password", password);
             return query.getSingleResult();
         } catch (NoResultException | NonUniqueResultException e) {
+            System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository.findByLogin FEHLER");
             return null;
         }
     }

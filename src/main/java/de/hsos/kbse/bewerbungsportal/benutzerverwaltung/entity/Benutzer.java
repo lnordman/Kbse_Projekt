@@ -56,7 +56,7 @@ public class Benutzer extends AbstractEntity {
     private Integer plz;
 
     @Embedded
-    Login login;
+    Login login = new Login();
 
     public Benutzer() {
     }
