@@ -33,5 +33,7 @@ public class BewerberBoundary {
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         this.bewerber = SessionService.getBewerber();
     }
+    
+    
 
 }

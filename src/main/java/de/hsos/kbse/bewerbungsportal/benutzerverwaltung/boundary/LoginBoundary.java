@@ -64,7 +64,7 @@ public class LoginBoundary implements Serializable {
         if (bewerber != null) {
             SessionService.getSession().setAttribute("bewerber", bewerber);
             try {
-                context.getExternalContext().redirect("/Bewerbungsportal/Benutzer/Bewerber/Bewerber-Profil.xhtml"); 
+                context.getExternalContext().redirect("/Bewerbungsportal/Benutzer/Bewerber/AlleStellen.xhtml"); 
             } catch (IOException e) {
             }
         }

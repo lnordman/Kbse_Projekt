@@ -23,5 +23,10 @@ public class BewerberController {
     public Bewerber login(String email, String password) {
         return this.bewRepo.findByLogin(email, password);
     }
+    
+    public void register(Bewerber bewerber) {
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.BewerberController.register()" + bewerber.toString());
+        this.bewRepo.create(bewerber);
+    }
 
 }

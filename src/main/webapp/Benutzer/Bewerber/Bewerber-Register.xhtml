@@ -21,7 +21,7 @@ and open the template in the editor.
                         <p:outputLabel value="Email" />
                     </td>
                     <td>
-                        <p:inputText id="mail" value="#{RegisterModel.personal.login.email}" />
+                        <p:inputText id="mail" value="#{RegisterModel.bewerber.login.email}" />
                     </td>
                 </tr>
                 <tr>
@@ -29,7 +29,7 @@ and open the template in the editor.
                         <p:outputLabel value="Vorname" />
                     </td>
                     <td>
-                        <p:inputText id="vname" value="#{RegisterModel.personal.vorname}" />
+                        <p:inputText id="vname" value="#{RegisterModel.bewerber.vorname}" />
                     </td>
                 </tr>
                 <tr>
@@ -37,7 +37,7 @@ and open the template in the editor.
                         <p:outputLabel value="Nachname" />
                     </td>
                     <td>
-                        <p:inputText id="nname" value="#{RegisterModel.personal.name}" />
+                        <p:inputText id="nname" value="#{RegisterModel.bewerber.name}" />
                     </td>
                 </tr>
                 <tr>
@@ -45,7 +45,7 @@ and open the template in the editor.
                         <p:outputLabel value="Telefon" />
                     </td>
                     <td>
-                        <p:inputText id="telefon" value="#{RegisterModel.personal.telefon}" />
+                        <p:inputText id="telefon" value="#{RegisterModel.bewerber.telefon}" />
                     </td>
                 </tr>
                 <tr>
@@ -53,7 +53,7 @@ and open the template in the editor.
                         <p:outputLabel value="Straße" />
                     </td>
                     <td>
-                        <p:inputText id="straße" value="#{RegisterModel.personal.straße}" />
+                        <p:inputText id="straße" value="#{RegisterModel.bewerber.straße}" />
                     </td>
                 </tr>
                 <tr>
@@ -61,7 +61,7 @@ and open the template in the editor.
                         <p:outputLabel value="Ort" />
                     </td>
                     <td>
-                        <p:inputText id="ort" value="#{RegisterModel.personal.ort}" />
+                        <p:inputText id="ort" value="#{RegisterModel.bewerber.ort}" />
                     </td>
                 </tr>
                 <tr>
@@ -69,23 +69,7 @@ and open the template in the editor.
                         <p:outputLabel value="PLZ" />
                     </td>
                     <td>
-                        <p:inputText id="plz" value="#{RegisterModel.personal.plz}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Durchwahl" />
-                    </td>
-                    <td>
-                        <p:inputText id="durchwahl" value="#{RegisterModel.personal.durchwahl}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="BüroNr" />
-                    </td>
-                    <td>
-                        <p:inputText id="bueronr" value="#{RegisterModel.personal.bueroNr}" />
+                        <p:inputText id="plz" value="#{RegisterModel.bewerber.plz}" />
                     </td>
                 </tr>
                 <tr>
@@ -93,17 +77,17 @@ and open the template in the editor.
                         <p:outputLabel value="Passwort" />
                     </td>
                     <td>
-                        <p:inputText id="password" value="#{RegisterModel.personal.login.password}" />
+                        <p:inputText id="password" value="#{RegisterModel.bewerber.login.password}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p:commandButton value="Register" update="" action="#{RegisterModel.registerPersonal()}" />
+                        <p:commandButton value="Register" update="" action="#{RegisterModel.registerBewerber()}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p:link value="Schon registriert? login" outcome="/Benutzer/Personal/Login-Personal"/>
+                        <p:link value="Schon registriert? login" outcome="/Benutzer/Bewerber/Login-Bewerber"/>
                     </td>
                 </tr>
             </table>

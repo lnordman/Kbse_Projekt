@@ -7,6 +7,8 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
 
 import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
+import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -35,7 +37,7 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
 
     public Bewerber findByLogin(String email, String password) {
         try {
-            TypedQuery<Bewerber> query = this.em.createQuery("select p from Personal p where p.login.email = :email and p.login.password = :password", Bewerber.class);
+            TypedQuery<Bewerber> query = this.em.createQuery("select b from Bewerber b where b.login.email = :email and b.login.password = :password", Bewerber.class);
             query.setParameter("email", email);
             query.setParameter("password", password);
             return query.getSingleResult();
@@ -43,4 +45,14 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
             return null;
         }
     }
+    
+    public List<Stelle> getAlleStellen(){
+         try {
+            TypedQuery<Stelle> query = this.em.createQuery("select s from Stelle s", Stelle.class);
+            return query.getResultList();
+        } catch (NoResultException | NonUniqueResultException e) {
+            return null;
+        }
+    }
+    
 }

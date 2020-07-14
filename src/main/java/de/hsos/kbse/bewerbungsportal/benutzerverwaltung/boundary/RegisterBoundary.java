@@ -5,6 +5,7 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary;
 
+import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.BewerberController;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalController;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Login;
@@ -25,8 +26,8 @@ public class RegisterBoundary implements Serializable {
 
     @Inject
     transient private PersonalController personalerCont;
-    //@Inject
-    //transient private BewerberController bewerberCont;
+    @Inject
+    transient private BewerberController bewerberCont;
 
     private Personal personal;
     private Bewerber bewerber;
@@ -34,6 +35,7 @@ public class RegisterBoundary implements Serializable {
     @PostConstruct
     public void init() {
         personal = new Personal();
+        bewerber = new Bewerber();
     }
 
     public RegisterBoundary() {
@@ -44,7 +46,19 @@ public class RegisterBoundary implements Serializable {
     public String registerPersonal() {
         System.out.print("Register Personal in DB schreiben"+personal.toString() + personal.getLogin().toString());
         personalerCont.register(personal);
-        return "Login";
+        return "Login-Personal";
+    }
+    
+    public String updatePersonal(){
+        System.out.print("Update Personal in DB schreiben"+personal.toString() + personal.getLogin().toString());
+        personalerCont.updatePersonaler(personal);
+        return "/PersonalerStart";
+    }
+    
+    public String registerBewerber(){
+        System.out.print("Register Bewerber in DB schreiben"+bewerber.toString() + bewerber.getLogin().toString());
+        bewerberCont.register(bewerber);
+        return  "Login-Bewerber";
     }
 
     public Personal getPersonal() {
@@ -55,9 +69,15 @@ public class RegisterBoundary implements Serializable {
         this.personal = personal;
     }
 
-    public String updatePersonal(){
-        System.out.print("Update Personal in DB schreiben"+personal.toString() + personal.getLogin().toString());
-        personalerCont.updatePersonaler(personal);
-        return "/PersonalerStart";
+    public Bewerber getBewerber() {
+        return bewerber;
     }
+
+    public void setBewerber(Bewerber bewerber) {
+        this.bewerber = bewerber;
+    }
+    
+    
+
+    
 }
