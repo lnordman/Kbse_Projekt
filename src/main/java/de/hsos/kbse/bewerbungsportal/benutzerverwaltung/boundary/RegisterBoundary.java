@@ -10,6 +10,7 @@ import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalContr
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Login;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
+import de.hsos.kbse.entity.service.SessionService;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -46,19 +47,27 @@ public class RegisterBoundary implements Serializable {
     public String registerPersonal() {
         System.out.print("Register Personal in DB schreiben"+personal.toString() + personal.getLogin().toString());
         personalerCont.register(personal);
-        return "Login-Personal";
+        return "/Benutzer/Personal/Login-Personal";
     }
     
     public String updatePersonal(){
         System.out.print("Update Personal in DB schreiben"+personal.toString() + personal.getLogin().toString());
+        SessionService.getSession().setAttribute("personaler", personal);
         personalerCont.updatePersonaler(personal);
-        return "/PersonalerStart";
+        return "/Benutzer/Personal/PersonalerStart";
     }
     
     public String registerBewerber(){
         System.out.print("Register Bewerber in DB schreiben"+bewerber.toString() + bewerber.getLogin().toString());
         bewerberCont.register(bewerber);
         return  "Login-Bewerber";
+    }
+    
+    public String updateBewerber(){
+        System.out.print("Update Bewerber in DB schreiben"+bewerber.toString() + bewerber.getLogin().toString());
+        SessionService.getSession().setAttribute("bewerber", bewerber);
+        bewerberCont.updateBewerber(bewerber);
+        return  "AlleStellen";
     }
 
     public Personal getPersonal() {

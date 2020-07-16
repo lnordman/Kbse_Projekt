@@ -28,5 +28,9 @@ public class BewerberController {
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.BewerberController.register()" + bewerber.toString());
         this.bewRepo.create(bewerber);
     }
-
+    
+    public Bewerber updateBewerber(Bewerber bewerber) {
+        return this.bewRepo.edit(bewerber);
+    }
+    
 }

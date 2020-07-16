@@ -7,6 +7,7 @@ package de.hsos.kbse.entity.service;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -28,5 +29,10 @@ public class SessionService {
     public static Bewerber getBewerber() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return (Bewerber) session.getAttribute("bewerber");
+    }
+    
+    public static Stelle getGewaehlteStelle(){
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        return (Stelle) session.getAttribute("stelle");
     }
 }

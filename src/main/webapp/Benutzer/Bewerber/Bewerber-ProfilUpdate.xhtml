@@ -1,15 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Register Bewerber</title>
+        <title>Update Bewerber</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
@@ -82,12 +75,12 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>
-                        <p:commandButton value="Register" update="" action="#{RegisterModel.registerBewerber()}" />
+                        <p:commandButton value="Update" update="" action="#{RegisterModel.updateBewerber()}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p:link value="Schon registriert? login" outcome="/Benutzer/Bewerber/Login-Bewerber"/>
+                        <p:link value="zurück" outcome="/Benutzer/Bewerber/AlleStellen"/>
                     </td>
                 </tr>
             </table>

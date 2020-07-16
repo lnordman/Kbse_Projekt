@@ -7,13 +7,17 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
      xmlns:h="http://xmlns.jcp.org/jsf/html"
-     xmlns:p="http://primefaces.org/ui">
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:f="http://xmlns.jcp.org/jsf/core">
  <h:head>
         <title>Profil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
          
     </h:head>
     <h:body style="background-color: #ffffff;">
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{personalModel.init()}" />
+        </f:metadata>
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
            <h:form>
                 <table style="width: 100%">
@@ -119,12 +123,12 @@ and open the template in the editor.
                 </tr>
                 <tr>
                     <td>
-                        <p:commandButton value="Register" update="" action="#{RegisterModel.updatePersonal()}" />
+                        <p:commandButton value="Update" update="" action="#{RegisterModel.updatePersonal()}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <p:link value="Schon registriert? login" outcome="/Benutzer/Personal/Login-Personal"/>
+                        <p:link value="zurück" outcome="/Benutzer/Personal/PersonalerStart"/>
                     </td>
                 </tr>
             </table>

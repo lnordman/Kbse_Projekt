@@ -19,14 +19,27 @@ and open the template in the editor.
     </f:metadata>
 
     <h:body >
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{personalModel.init()}" />
+        </f:metadata>
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
-            <h:form>
-                <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="AlleStellen" style=" height: 45px; left: 10px; top: 25px; position:  fixed;" />  
-                <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Profil" style=" height: 45px; right: 70px; top: 25px; position:  fixed" />  
-                <h:commandButton image="https://image.flaticon.com/icons/svg/483/483343.svg" action="Login" style=" height: 45px; right: 10px; top: 25px; position:  fixed" />   
-                <h3>Wilkommen</h3>
-                <h:outputLabel style="border: 5px; border-style: dotted; border-color: black" value="#{stellenModel.personaler.name}" />
-                <h:outputLabel style="border: 5px; border-style: dotted; border-color: black" value="#{stellenModel.personaler.id}" />
+           <h:form>
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="PersonalerStart" style=" height: 45px; left: 10px; top: 25px;" />  
+                        </td>
+                        <td style="width: 80%">
+                            <h3>Wilkommen <h:outputLabel value="#{personalModel.personaler.vorname} #{personalModel.personaler.name}" /> </h3>
+                        </td>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Personaler-Profil" style=" height: 45px; right: 70px; top: 25px;" />  
+                        </td>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/483/483343.svg" action="#{LoginModel.logout()}" style=" height: 45px; right: 10px; top: 25px;" />   
+                        </td>
+                    </tr>
+                </table>
             </h:form>
         </header>
 

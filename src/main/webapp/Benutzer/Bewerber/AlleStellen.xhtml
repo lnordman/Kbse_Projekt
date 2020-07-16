@@ -6,42 +6,57 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://xmlns.jcp.org/jsf/html"
-     xmlns:p="http://primefaces.org/ui"
-     xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Alle Stellen</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{bewerberModel.init()}" />
+    </f:metadata>
     <h:body>
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
-            <h:form>
-                <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="AlleStellen" style=" height: 45px; left: 10px; top: 25px; position:  fixed;" />  
-                <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Profil" style=" height: 45px; right: 70px; top: 25px; position:  fixed" />  
-                <h:commandButton image="https://image.flaticon.com/icons/svg/483/483343.svg" action="Login" style=" height: 45px; right: 10px; top: 25px; position:  fixed" />   
-                <h3>Wilkommen</h3>
+           <h:form>
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="AlleStellen" style=" height: 45px; left: 10px; top: 25px;" />  
+                        </td>
+                        <td style="width: 80%">
+                            <h3>Wilkommen <h:outputLabel value="#{bewerberModel.bewerber.vorname} #{bewerberModel.bewerber.name}" /> </h3>
+                        </td>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Bewerber-Profil" style=" height: 45px; right: 70px; top: 25px;" />  
+                        </td>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/483/483343.svg" action="#{LoginModel.logout()}" style=" height: 45px; right: 10px; top: 25px;" />   
+                        </td>
+                    </tr>
+                </table>
             </h:form>
         </header>
-        <p:dataTable var="Stelle" selection="#{BewerberModel.gewaehlteStelle}" value="#{bewerberRepository.alleStellen}">
-            <p:column headerText="Stellenname">
-                <p:outputLabel value="#{Stelle.bezeichnung}" />  
-            </p:column>
-            <p:column headerText="Beschreibung">
-                <p:outputLabel value="#{Stelle.beschreibung}" />  
-            </p:column>
-            <p:column headerText="Standort">
-                <p:outputLabel value="#{Stelle.ort}" />    
-            </p:column>
-            <p:column headerText="Beginn">
-                <p:outputLabel value="#{Stelle.datum.date}.#{Stelle.datum.month+1}.#{Stelle.datum.year+1900}" />  <!-- Stelle.datum.date + Stelle.datum.month -->
-            </p:column>
-            <p:column headerText="">
-                <p:link value="bewerben" outcome="Bewerbung" />
-            </p:column>
-            
-            
-            
-        </p:dataTable>
-
+        <h:form>
+            <p:dataTable var="Stelle" selectionMode="single" rowKey="#{Stelle.id}" selection="#{bewerberModel.gewaehlteStelle}" value="#{bewerberRepository.alleStellen}">
+                <p:ajax event="rowSelect" listener="#{bewerberModel.setSessionStelle()}"/>
+                <p:column headerText="Stellenname">
+                    <p:outputLabel value="#{Stelle.bezeichnung}" />  
+                </p:column>
+                <p:column headerText="Beschreibung">
+                    <p:outputLabel value="#{Stelle.beschreibung}" />  
+                </p:column>
+                <p:column headerText="Standort">
+                    <p:outputLabel value="#{Stelle.ort}" />    
+                </p:column>
+                <p:column headerText="Beginn">
+                    <p:outputLabel value="#{Stelle.datum.date}.#{Stelle.datum.month+1}.#{Stelle.datum.year+1900}" />  <!-- Stelle.datum.date + Stelle.datum.month -->
+                </p:column>
+                <p:column headerText="">
+                    <!--<p:commandButton action="#{bewerberModel.setSessionStelle()}" value="bewerben" /> -->
+                    <p:link outcome="Bewerbung" value="bewerben" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>

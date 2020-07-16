@@ -39,11 +39,9 @@ public class PersonalBoundary implements Serializable {
     public void init() {
 
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init()");
-
         this.personaler = SessionService.getPersonaler();
 
         if (this.personaler != null) {
-
             System.out.println("Personaler ist gesetezt!");
             System.out.println("Personaler_ID: " + this.personaler.getId());
             //Holen der Stellen die der Personaler erstellt hat
