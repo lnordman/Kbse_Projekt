@@ -7,6 +7,8 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.BewerberRepository;
+import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -31,6 +33,10 @@ public class BewerberController {
     
     public Bewerber updateBewerber(Bewerber bewerber) {
         return this.bewRepo.edit(bewerber);
+    }
+    
+    public List<Stelle> getAlleStellen(){
+       return bewRepo.getAlleStellen();
     }
     
 }

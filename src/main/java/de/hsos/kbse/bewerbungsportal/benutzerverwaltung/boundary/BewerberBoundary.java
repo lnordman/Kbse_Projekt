@@ -12,6 +12,8 @@ import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController;
 import de.hsos.kbse.entity.service.SessionService;
+import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
@@ -24,7 +26,7 @@ import javax.inject.Named;
  */
 @Named(value = "bewerberModel")
 @RequestScoped
-public class BewerberBoundary {
+public class BewerberBoundary implements Serializable{
 
     @Inject
     private BewerberController bewerberController;
@@ -38,6 +40,7 @@ public class BewerberBoundary {
     private Bewerber bewerber;
     private Stelle gewaehlteStelle;
     private Bewerbung bewerbung;
+    private List<Stelle> alleStellen;
     
     @PostConstruct
     public void init() {
@@ -47,6 +50,7 @@ public class BewerberBoundary {
         
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         this.bewerber = SessionService.getBewerber();
+        alleStellen = bewerberController.getAlleStellen();
         System.out.println("Bewerber: " + this.bewerber.toString());
     }
     
@@ -98,6 +102,14 @@ public class BewerberBoundary {
 
     public void setGewaehlteStelle(Stelle gewaehlteStelle) {
         this.gewaehlteStelle = gewaehlteStelle;
+    }
+
+    public List<Stelle> getAlleStellen() {
+        return alleStellen;
+    }
+
+    public void setAlleStellen(List<Stelle> alleStellen) {
+        this.alleStellen = alleStellen;
     }
 
     

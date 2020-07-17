@@ -16,7 +16,7 @@ and open the template in the editor.
     
     <h:body>
         <f:metadata>
-            <f:event type="preRenderView" listener="#{personalModel.init()}" />
+            <f:event type="preRenderView" listener="#{personalModel.init2()}" />
         </f:metadata>
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
            <h:form>
@@ -39,7 +39,8 @@ and open the template in the editor.
             </h:form>
         </header>
         <div>
-            Bewerber: *Vorname*, *Nachname*
+            Bewerber: #{personalModel.bearbeitendeBewerbung.bewerber.vorname}, #{personalModel.bearbeitendeBewerbung.bewerber.name} <br/>
+            Stelle: #{personalModel.bearbeitendeBewerbung.stelle.bezeichnung}
         </div>
         
         <h:form>

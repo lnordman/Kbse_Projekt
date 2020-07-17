@@ -6,9 +6,9 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://xmlns.jcp.org/jsf/html"
-     xmlns:p="http://primefaces.org/ui"
-     xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Alle Bewerbungen</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -17,8 +17,8 @@ and open the template in the editor.
         <f:metadata>
             <f:event type="preRenderView" listener="#{personalModel.init()}" />
         </f:metadata>
-       <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
-           <h:form>
+        <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
+            <h:form>
                 <table style="width: 100%">
                     <tr>
                         <td>
@@ -37,23 +37,27 @@ and open the template in the editor.
                 </table>
             </h:form>
         </header>
-        
-        <p:dataTable>
-            <p:column headerText="Beworbene Stelle">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            <p:column headerText="eingereicht am">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            <p:column headerText="Status">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            <p:column headerText="Bearbeiten">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            
-        </p:dataTable>
-        
+        <h:form>
+            <p:dataTable var="Bewerbung" selectionMode="single" rowKey="#{Bewerbung.id}" selection="#{personalModel.bearbeitendeBewerbung}" value="#{personalRepository.getAlleBewerbungenByPersonal(personalModel.personaler.id)}">
+                <p:ajax event="rowSelect" listener="#{personalModel.setSessionBewerbung()}"/>
+                <p:column headerText="Beworbene Stelle">
+                    <p:outputLabel value="#{Bewerbung.stelle.bezeichnung}" />  
+                </p:column>
+                <p:column headerText="Bewerber">
+                    <p:outputLabel value="#{Bewerbung.bewerber.vorname} #{Bewerbung.bewerber.name}" />
+                </p:column>
+                <p:column headerText="eingereicht am">
+                    <p:outputLabel value="#{Bewerbung.zeitstempel}" />  
+                </p:column>
+                <p:column headerText="Status">
+                    <p:outputLabel value="#{Bewerbung.status}" />
+                </p:column>
+                <p:column headerText="Bearbeiten">
+                    <p:link outcome="PersonalerEine" value="bearbeiten" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
         <h:form>
             <h:commandButton id="bck" value="Zurück" action="PersonalerStart" />
         </h:form>

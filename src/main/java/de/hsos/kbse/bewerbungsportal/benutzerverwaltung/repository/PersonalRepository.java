@@ -58,5 +58,18 @@ public class PersonalRepository extends AbstractRepository<Personal> {
             return null;
         }
     }
+    
+    public List<Bewerbung> getAlleBewerbungenByPersonal(int id){
+        
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository.getAlleBewerbungen()");
+
+        try {
+            TypedQuery<Bewerbung> query = this.em.createQuery("select b from Bewerbung b where b.personal.id = :id", Bewerbung.class);
+            query.setParameter("id", id);
+            return query.getResultList();
+        } catch (NoResultException | NonUniqueResultException e) {
+            return null;
+        }
+    }
 
 }
