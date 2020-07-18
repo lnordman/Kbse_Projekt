@@ -38,7 +38,7 @@ and open the template in the editor.
             </h:form>
         </header>
         <h:form>
-            <p:dataTable var="Bewerbung" selectionMode="single" rowKey="#{Bewerbung.id}" selection="#{personalModel.bearbeitendeBewerbung}" value="#{personalRepository.getAlleBewerbungenByPersonal(personalModel.personaler.id)}">
+            <p:dataTable var="Bewerbung" selectionMode="single" rowKey="#{Bewerbung.id}" selection="#{personalModel.bearbeitendeBewerbung}" value="#{personalModel.bewerbungenOfPersonaler}">
                 <p:ajax event="rowSelect" listener="#{personalModel.setSessionBewerbung()}"/>
                 <p:column headerText="Beworbene Stelle">
                     <p:outputLabel value="#{Bewerbung.stelle.bezeichnung}" />  

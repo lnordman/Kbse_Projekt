@@ -13,6 +13,7 @@ import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController;
 import de.hsos.kbse.entity.service.SessionService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -41,16 +42,24 @@ public class BewerberBoundary implements Serializable{
     private Stelle gewaehlteStelle;
     private Bewerbung bewerbung;
     private List<Stelle> alleStellen;
+    private List<Bewerbung> eigeneBewerbungen;
+    
     
     @PostConstruct
     public void init() {
         bewerber = new Bewerber();
         gewaehlteStelle= new Stelle();
         bewerbung= new Bewerbung();
+        eigeneBewerbungen = new ArrayList<>();
         
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         this.bewerber = SessionService.getBewerber();
+        System.out.println("Bewerber: " + bewerber.getName());
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         alleStellen = bewerberController.getAlleStellen();
+        
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
+        eigeneBewerbungen = bewerberController.getEigeneBewerbungen(bewerber.getId());
         System.out.println("Bewerber: " + this.bewerber.toString());
     }
     
@@ -70,6 +79,12 @@ public class BewerberBoundary implements Serializable{
         Stelle s = this.gewaehlteStelle;
         SessionService.getSession().setAttribute("stelle", s);
         return "Bewerbung";
+    }
+    public String setSessionBewerbung() {
+        Bewerbung bewerb = this.bewerbung;
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.setSessionBewerbung() BEWERBUNG" + bewerbung.getStelle().getBezeichnung());
+        SessionService.getSession().setAttribute("bewerbung", bewerb);
+        return "EigeneBewerbungen";
     }
     
     public String neueBewerbung() {
@@ -111,6 +126,24 @@ public class BewerberBoundary implements Serializable{
     public void setAlleStellen(List<Stelle> alleStellen) {
         this.alleStellen = alleStellen;
     }
+
+    public List<Bewerbung> getEigeneBewerbungen() {
+        return eigeneBewerbungen;
+    }
+
+    public void setEigeneBewerbungen(List<Bewerbung> eigeneBewerbungen) {
+        this.eigeneBewerbungen = eigeneBewerbungen;
+    }
+
+    public Bewerbung getBewerbung() {
+        return bewerbung;
+    }
+
+    public void setBewerbung(Bewerbung bewerbung) {
+        this.bewerbung = bewerbung;
+    }
+    
+    
 
     
     

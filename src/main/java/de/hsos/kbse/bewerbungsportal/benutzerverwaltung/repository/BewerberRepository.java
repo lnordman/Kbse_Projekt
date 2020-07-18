@@ -7,6 +7,7 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
 
 import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
+import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.List;
 import javax.inject.Named;
@@ -49,6 +50,18 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
     public List<Stelle> getAlleStellen(){
          try {
             TypedQuery<Stelle> query = this.em.createQuery("select s from Stelle s", Stelle.class);
+            return query.getResultList();
+        } catch (NoResultException | NonUniqueResultException e) {
+            return null;
+        }
+    }
+    
+    public List<Bewerbung> getEigeneBewerbungen(long id){
+        
+        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.BewerberRepository.getAlleBewerbungen()");
+         try {
+            TypedQuery<Bewerbung> query = this.em.createQuery("select bew from Bewerbung bew where bew.bewerber.id = :id", Bewerbung.class);
+            query.setParameter("id", id);
             return query.getResultList();
         } catch (NoResultException | NonUniqueResultException e) {
             return null;

@@ -59,7 +59,7 @@ public class PersonalRepository extends AbstractRepository<Personal> {
         }
     }
     
-    public List<Bewerbung> getAlleBewerbungenByPersonal(int id){
+    public List<Bewerbung> getAlleBewerbungenByPersonal(long id){
         
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository.getAlleBewerbungen()");
 

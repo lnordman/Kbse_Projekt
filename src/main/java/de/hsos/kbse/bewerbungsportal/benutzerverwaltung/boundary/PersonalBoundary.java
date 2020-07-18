@@ -13,6 +13,7 @@ import de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenControl
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.entity.service.SessionService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -48,6 +49,7 @@ public class PersonalBoundary implements Serializable {
     public void init() {
         personaler = new Personal();
         bearbeitendeBewerbung = new Bewerbung();
+        bewerbungenOfPersonaler = new ArrayList<>();
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init()");
         this.personaler = SessionService.getPersonaler();
 
@@ -56,7 +58,7 @@ public class PersonalBoundary implements Serializable {
             System.out.println("Personaler_ID: " + this.personaler.getId());
             //Holen der Stellen die der Personaler erstellt hat
             //this.stellenOfPersonaler = stellenController.getStelleFromPersonal(this.personaler.getId());
-
+            bewerbungenOfPersonaler = persoController.getAlleBewerbungenByPersonal(this.personaler.getId());
             //Holen der Bewerbungen die der Personaler verwaltet
             //this.bewerbungOfPersonaler = bewerbungsController.getBewerbungFromPersonal(this.personal.getId());
         }
@@ -128,7 +130,7 @@ public class PersonalBoundary implements Serializable {
     }
 
     public List<Bewerbung> getBewerbungenOfPersonaler() {
-        return bewerbungenOfPersonaler;
+        return this.bewerbungenOfPersonaler;
     }
 
     public void setBewerbungenOfPersonaler(List<Bewerbung> bewerbungenOfPersonaler) {

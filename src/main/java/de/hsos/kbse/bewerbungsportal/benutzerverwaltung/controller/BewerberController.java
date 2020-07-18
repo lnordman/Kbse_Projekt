@@ -7,6 +7,7 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.BewerberRepository;
+import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -37,6 +38,10 @@ public class BewerberController {
     
     public List<Stelle> getAlleStellen(){
        return bewRepo.getAlleStellen();
+    }
+    
+    public List<Bewerbung> getEigeneBewerbungen(long id){
+        return this.bewRepo.getEigeneBewerbungen(id);
     }
     
 }

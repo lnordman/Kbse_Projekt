@@ -34,24 +34,27 @@ and open the template in the editor.
                 </table>
             </h:form>
         </header>
-        <p:dataTable>
-            <p:column headerText="Beworbene Stelle">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            <p:column headerText="eingereicht am">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            <p:column headerText="Status">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            <p:column headerText="Bearbeiten">
-               <!-- TODO zeile Einfuegen -->  
-            </p:column>
-            
-        </p:dataTable>
+         <h:form>
+             <p:dataTable var="Bewerbung" selectionMode="single" rowKey="#{Bewerbung.id}" selection="#{bewerberModel.bewerbung}" value="#{bewerberModel.eigeneBewerbungen}">
+                <p:ajax event="rowSelect" listener="#{bewerberModel.setSessionBewerbung()}"/>
+                <p:column headerText="Beworbene Stelle">
+                    <p:outputLabel value="#{Bewerbung.stelle.bezeichnung}" />  
+                </p:column>
+                <p:column headerText="eingereicht am">
+                    <p:outputLabel value="#{Bewerbung.zeitstempel}" />  
+                </p:column>
+                <p:column headerText="Status">
+                    <p:outputLabel value="#{Bewerbung.status}" />
+                </p:column>
+                <p:column headerText="Bearbeiten">
+                    <p:link outcome="Bewerbung" value="bearbeiten" />
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
         
         <h:form>
-            <h:commandButton id="bck" value="Zurück" action="Profil" />
+            <h:commandButton id="bck" value="Zurück" action="AlleStellen" />
         </h:form>
     </h:body>
 </html>

@@ -7,6 +7,7 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository;
+import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository;
 
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
@@ -42,6 +43,9 @@ public class PersonalController {
         return this.persoRepo.edit(personal);
     }
 
+    public List<Bewerbung> getAlleBewerbungenByPersonal(long id){
+        return this.persoRepo.getAlleBewerbungenByPersonal(id);
+    }
     /**
      * Liefert die Stelle mit der ausgewählten ID zurück
      *
