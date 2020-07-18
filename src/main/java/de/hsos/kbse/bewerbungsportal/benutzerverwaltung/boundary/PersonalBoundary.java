@@ -7,6 +7,7 @@ package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary;
 
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalController;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
+import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.controller.BewerbungsController;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
@@ -31,6 +32,9 @@ public class PersonalBoundary implements Serializable {
 
     @Inject
     private StellenController stellenController;
+    
+    @Inject
+    private BewerbungsController bewerbungController;
 
     private Personal personaler;
 
@@ -38,6 +42,7 @@ public class PersonalBoundary implements Serializable {
     private List<Bewerbung> bewerbungenOfPersonaler;
 
     private Bewerbung bearbeitendeBewerbung;
+    private String status;
 
     @PostConstruct
     public void init() {
@@ -76,6 +81,20 @@ public class PersonalBoundary implements Serializable {
         return "PersonalerEine";
     }
 
+    public void updateStatus(){
+        Bewerbung bew = SessionService.getBearbeitendeBewerbung();
+        bew.setStatus(status);
+        System.out.print("Update Bewerbung durch Personaler Session schreiben"+bew.toString());
+        SessionService.getSession().setAttribute("bewerbung", bew);
+    }
+    
+    public String updateBewerbung(){
+        Bewerbung bew = SessionService.getBearbeitendeBewerbung();
+        System.out.print("Update Bewerbung durch Personaler in DB schreiben"+bew.toString());
+        bewerbungController.updateBewerbung(bew);
+        return"PersonalerStart";
+    }
+    
     public PersonalController getPersoController() {
         return persoController;
     }
@@ -124,4 +143,13 @@ public class PersonalBoundary implements Serializable {
         this.bearbeitendeBewerbung = bearbeitendeBewerbung;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
 }

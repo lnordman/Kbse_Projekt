@@ -6,20 +6,20 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://xmlns.jcp.org/jsf/html"
-     xmlns:p="http://primefaces.org/ui"
-     xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Bewerbung</title>
+        <title>Bewerbung bearbeiten</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    
+
     <h:body>
         <f:metadata>
             <f:event type="preRenderView" listener="#{personalModel.init2()}" />
         </f:metadata>
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
-           <h:form>
+            <h:form>
                 <table style="width: 100%">
                     <tr>
                         <td>
@@ -42,23 +42,24 @@ and open the template in the editor.
             Bewerber: #{personalModel.bearbeitendeBewerbung.bewerber.vorname}, #{personalModel.bearbeitendeBewerbung.bewerber.name} <br/>
             Stelle: #{personalModel.bearbeitendeBewerbung.stelle.bezeichnung}
         </div>
-        
+
         <h:form>
             Lebenslauf: *PDF anfuegen oder wie?"* <br/>
             .<br/>
             .<br/>
-            Status: 
-            <h:selectOneMenu value="Test"> <!--  TODO: VALUE passend aendern! -->
-                <f:selectItem itemValue="Cream Latte" itemLabel="eingeganen" />
-                <f:selectItem itemValue="Extreme Mocha" itemLabel="in Bearbeitung" />
-                <f:selectItem itemValue="Buena Vista" itemLabel="angenommen" />
-                <f:selectItem itemValue="Buena Vista" itemLabel="abgelehnt" />
-        </h:selectOneMenu>
+            Status:
+            <p:selectOneMenu value="#{personalModel.status}"> <!--  TODO: VALUE passend aendern! -->
+                <p:ajax event="itemSelect" listener="#{personalModel.updateStatus()}"/>
+                <f:selectItem itemValue="eingegangen" itemLabel="eingeganen" />
+                <f:selectItem itemValue="in Bearbeitung" itemLabel="in Bearbeitung" />
+                <f:selectItem itemValue="angenommen" itemLabel="angenommen" />
+                <f:selectItem itemValue="abgelehnt" itemLabel="abgelehnt" />
+            </p:selectOneMenu>
         </h:form>
-        
+
         <h:form>
-        <h:commandButton id="bck" value="Zurück" action="PersonalerStart" />
-        <h:commandButton id="save" value="Speichern" action="PersonalerStart" />
+            <h:commandButton id="bck" value="Zurück" action="PersonalerStart" />
+            <h:commandButton id="save" value="Speichern" action="#{personalModel.updateBewerbung()}" />
         </h:form>
     </h:body>
 </html>

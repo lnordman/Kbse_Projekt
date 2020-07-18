@@ -24,4 +24,8 @@ public class BewerbungsController {
         this.bewerbungRepo.create(bewerbung);
     }
     
+    public Bewerbung updateBewerbung(Bewerbung bewerbung){
+        System.out.println("de.hsos.kbse.bewerbungsportal.bewerbungverwaltung.controller.updateBewerbung() " + bewerbung.toString());
+        return this.bewerbungRepo.edit(bewerbung);
+    }
 }
