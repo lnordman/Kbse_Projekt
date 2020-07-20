@@ -38,16 +38,13 @@ and open the template in the editor.
             </h:form>
         </header>
         <div style=" margin: 20px; padding: 10px; text-align: center; border-style: dashed; border-width: thin; border-color: black;">
-            Bewerbung für die Stelle *Stellenname* einreichen. <br/><br/> 
-            *Stellenspezifikationen/ Details* <br/>
+            Bewerbung für die Stelle #{bewerberModel.gewaehlteStelle.bezeichnung} einreichen. <br/><br/> 
             Folgendes wird benötigt: <br/>
+            #{bewerberModel.gewaehlteStelle.beschreibung}    
         </div>
-        Stelle:
-        #{bewerberModel.gewaehlteStelle.toString()}
-        #{bewerberModel.gewaehlteStelle.bezeichnung}
-        Ende
+        
         <h:form>
-            <div style="padding: 40px;">
+            <div style="margin: 40px;">
                 <table>
                     <tr>
                         <td>
@@ -81,13 +78,13 @@ and open the template in the editor.
                             <p:fileUpload value="Hochladen" mode="simple" label="Hochladen" skinSimple="true"  />
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton style="margin-top: 25px;" action="#{bewerberModel.neueBewerbung()}" value="Bewerben"/>
+                        </td>
+                    </tr>
                 </table>
             </div>
-        </h:form>
-
-
-        <h:form style=" margin-top: 50px;">
-            <h:commandButton action="#{bewerberModel.neueBewerbung()}" value="Bewerben"/>
         </h:form>
     </h:body>
 </html>

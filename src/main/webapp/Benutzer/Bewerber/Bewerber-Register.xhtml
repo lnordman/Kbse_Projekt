@@ -14,83 +14,85 @@ and open the template in the editor.
     </h:head>
     <h:body>
 
-        <h:form style="margin-left: 20px">
-            <table>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Email" />
-                    </td>
-                    <td>
-                        <p:inputText id="mail" value="#{RegisterModel.bewerber.login.email}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Vorname" />
-                    </td>
-                    <td>
-                        <p:inputText id="vname" value="#{RegisterModel.bewerber.vorname}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Nachname" />
-                    </td>
-                    <td>
-                        <p:inputText id="nname" value="#{RegisterModel.bewerber.name}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Telefon" />
-                    </td>
-                    <td>
-                        <p:inputText id="telefon" value="#{RegisterModel.bewerber.telefon}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Straße" />
-                    </td>
-                    <td>
-                        <p:inputText id="straße" value="#{RegisterModel.bewerber.straße}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Ort" />
-                    </td>
-                    <td>
-                        <p:inputText id="ort" value="#{RegisterModel.bewerber.ort}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="PLZ" />
-                    </td>
-                    <td>
-                        <p:inputText id="plz" value="#{RegisterModel.bewerber.plz}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Passwort" />
-                    </td>
-                    <td>
-                        <p:inputText id="password" value="#{RegisterModel.bewerber.login.password}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:commandButton value="Register" update="" action="#{RegisterModel.registerBewerber()}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:link value="Schon registriert? login" outcome="/Benutzer/Bewerber/Login-Bewerber"/>
-                    </td>
-                </tr>
-            </table>
+        <h:form>
+            <div style="margin-top: 50px;">
+                <table style="margin: auto;">
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Email" />
+                        </td>
+                        <td>
+                            <p:inputText id="mail" value="#{RegisterModel.bewerber.login.email}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Vorname" />
+                        </td>
+                        <td>
+                            <p:inputText id="vname" value="#{RegisterModel.bewerber.vorname}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Nachname" />
+                        </td>
+                        <td>
+                            <p:inputText id="nname" value="#{RegisterModel.bewerber.name}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Telefon" />
+                        </td>
+                        <td>
+                            <p:inputText id="telefon" value="#{RegisterModel.bewerber.telefon}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Straße" />
+                        </td>
+                        <td>
+                            <p:inputText id="straße" value="#{RegisterModel.bewerber.straße}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Ort" />
+                        </td>
+                        <td>
+                            <p:inputText id="ort" value="#{RegisterModel.bewerber.ort}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="PLZ" />
+                        </td>
+                        <td>
+                            <p:inputText id="plz" value="#{RegisterModel.bewerber.plz}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Passwort" />
+                        </td>
+                        <td>
+                            <p:inputText id="password" value="#{RegisterModel.bewerber.login.password}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton style="margin-top: 25px;" value="Register" action="#{RegisterModel.registerBewerber()}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:link value="Schon registriert? login" outcome="/Benutzer/Bewerber/Login-Bewerber"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </h:form>
     </h:body>
 </html>

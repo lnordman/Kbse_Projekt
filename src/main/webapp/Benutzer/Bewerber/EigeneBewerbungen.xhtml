@@ -46,15 +46,11 @@ and open the template in the editor.
                 <p:column headerText="Status">
                     <p:outputLabel value="#{Bewerbung.status}" />
                 </p:column>
-                <p:column headerText="Bearbeiten">
-                    <p:link outcome="Bewerbung" value="bearbeiten" />
-                </p:column>
-
             </p:dataTable>
-        </h:form>
-        
-        <h:form>
-            <h:commandButton id="bck" value="Zurück" action="AlleStellen" />
+             <div style="margin-top: 25px;">
+            <p:commandButton id="bck" value="Zurück" action="Bewerber-Profil" />
+            <p:commandButton style="float: right" value="bearbeiten" action="Bewerbung" />
+            </div>
         </h:form>
     </h:body>
 </html>

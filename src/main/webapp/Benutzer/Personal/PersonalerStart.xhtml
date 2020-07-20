@@ -27,7 +27,7 @@ and open the template in the editor.
                         <td>
                             <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="PersonalerStart" style=" height: 45px; left: 10px; top: 25px;" />  
                         </td>
-                        <td style="width: 80%">
+                        <td style="width: 100%; text-align: center">
                             <h3>Wilkommen <h:outputLabel value="#{personalModel.personaler.vorname} #{personalModel.personaler.name}" /> </h3>
                         </td>
                         <td>
@@ -43,13 +43,11 @@ and open the template in the editor.
 
         <h2 style="text-align: center; margin-top: 25px;"> Was möchten Sie tun?</h2>
 
-       <h:outputLabel style="border: 5px; border-style: dotted; border-color: black" value="#{personalModel.personaler.login.email}" />
-        <h:outputLabel style="border: 5px; border-style: dotted; border-color: black" value="#{personalModel.personaler.id}" />
-
         <h:form>
             <div style="text-align: center; margin-top: 100px;">
-                <p:commandButton id="bwbng" value="Bewerbungen bearbeiten" action="PersonalerAlle" />
-                <p:commandButton value="Neue Stelle anlegen" action="PersonalerNeueStelle"/>
+                <p:commandButton style="margin-right: 25px;" id="bwbng" value="Bewerbungen bearbeiten" action="PersonalerAlle" />
+                <p:commandButton style="margin-right: 25px;" value="Neue Stelle anlegen" action="PersonalerNeueStelle"/>
+                <p:commandButton value="Stelle löschen" />
             </div>                   
         </h:form>  
     </h:body>

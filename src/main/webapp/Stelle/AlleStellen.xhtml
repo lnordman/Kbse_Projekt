@@ -19,7 +19,7 @@ and open the template in the editor.
     <h:body>
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
             <h:form>
-                <h3>Wilkommen</h3>
+                <h3>Wilkommen oder bessere Überschrift?</h3>
             </h:form>
         </header>
         <h:form>        
@@ -37,7 +37,7 @@ and open the template in the editor.
                     <p:outputLabel value="#{Stelle.datum.date}.#{Stelle.datum.month+1}.#{Stelle.datum.year+1900}" />  <!-- Stelle.datum.date + Stelle.datum.month -->
                 </p:column>
             </p:dataTable>
-            <p:commandButton action="/Benutzer/Bewerber/Login-Bewerber" value="zum Login" />
+            <p:commandButton style="margin-top: 25px" action="/Benutzer/Bewerber/Login-Bewerber" value="zum Login" />
         </h:form>
     </h:body>
 </html>

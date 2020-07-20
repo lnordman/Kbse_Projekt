@@ -9,21 +9,42 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Login</title>
+        <title>Login Bewerber</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        
         <h:form>
-            <p:outputLabel value="Email" />
-            <p:inputText id="email" value="#{LoginModel.login.email}" />
-            <p:outputLabel value="Passwort" />
-            <p:inputText id="password" value="#{LoginModel.login.password}" />
-
-            <p:commandButton value="Login" update="" action="#{LoginModel.loginBewerber()}"/>
-            
-            <p:link value="Register" outcome="/Benutzer/Bewerber/Bewerber-Register"/>
-            
+            <div style="margin-top: 50px;">
+                <table style="margin: auto">
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Email" />
+                        </td>
+                        <td>
+                            <p:inputText id="email" value="#{LoginModel.login.email}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Passwort" />
+                        </td>
+                        <td>
+                            <p:inputText id="password" value="#{LoginModel.login.password}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton style="margin-top: 25px;" value="Login" action="#{LoginModel.loginBewerber()}"/>
+                        </td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>
+                            <p:link value="Register" outcome="/Benutzer/Bewerber/Bewerber-Register"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </h:form>
     </h:body>
 </html>
