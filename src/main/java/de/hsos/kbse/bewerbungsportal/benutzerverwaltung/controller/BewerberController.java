@@ -44,4 +44,8 @@ public class BewerberController {
         return this.bewRepo.getEigeneBewerbungen(id);
     }
     
+    public boolean bereitsBeworben(long bewerber_id, long stelle_id){
+        return this.bewRepo.bereitsBeworben(bewerber_id, stelle_id);
+    }
+    
 }

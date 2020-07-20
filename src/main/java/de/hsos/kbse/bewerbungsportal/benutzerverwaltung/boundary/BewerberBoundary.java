@@ -60,7 +60,7 @@ public class BewerberBoundary implements Serializable{
         
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         eigeneBewerbungen = bewerberController.getEigeneBewerbungen(bewerber.getId());
-        System.out.println("Bewerber: " + this.bewerber.toString());
+        System.out.println("Bewerber: " + this.bewerber.getName());
     }
     
     public void init2() {
@@ -102,6 +102,23 @@ public class BewerberBoundary implements Serializable{
         bewerbungController.neueBewerbung(bewerbung);
         return "/Benutzer/Bewerber/AlleStellen";
     }
+    
+    public String checkBereitsBeworben(){
+        boolean bereitsBeworben;
+        System.out.println("CheckBreitsBeworben"+this.gewaehlteStelle.getId()+ "+ " + this.bewerber.getId() );
+        
+        bereitsBeworben = this.bewerberController.bereitsBeworben(this.bewerber.getId(), this.gewaehlteStelle.getId());
+             System.out.println("CheckBreitsBeworben PRUEFER: " + bereitsBeworben );
+        if(bereitsBeworben == true){
+             System.out.println("CheckBreitsBeworben IS NULL");
+            return "AlleStellen";
+        }
+        else{
+             System.out.println("CheckBreitsBeworben NOT NULL");
+            return "Bewerbung";
+        }
+    }
+    
     
     public Bewerber getBewerber() {
         return bewerber;

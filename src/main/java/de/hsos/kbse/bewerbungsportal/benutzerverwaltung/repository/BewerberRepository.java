@@ -67,5 +67,18 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
             return null;
         }
     }
+    public boolean bereitsBeworben(long bewerber_id, long stelle_id){
+        try {
+            TypedQuery<Bewerbung> query = this.em.createQuery("select bew from Bewerbung bew where bew.bewerber.id = :b_id and bew.stelle.id = :s_id", Bewerbung.class);
+            query.setParameter("b_id", bewerber_id);
+            query.setParameter("s_id",stelle_id);
+            if(query.getSingleResult() != null){
+                return true;
+            }
+            else return false;
+        } catch (NoResultException | NonUniqueResultException e) {
+            return false;
+        }
+    }
     
 }

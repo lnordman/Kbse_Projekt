@@ -52,11 +52,8 @@ and open the template in the editor.
                 <p:column headerText="Beginn">
                     <p:outputLabel value="#{Stelle.datum.date}.#{Stelle.datum.month+1}.#{Stelle.datum.year+1900}" />  <!-- Stelle.datum.date + Stelle.datum.month -->
                 </p:column>
-                <p:column headerText="">
-                    <!--<p:commandButton action="#{bewerberModel.setSessionStelle()}" value="bewerben" /> -->
-                    <p:link outcome="Bewerbung" value="bewerben" />
-                </p:column>
             </p:dataTable>
+            <p:commandButton value="bewerben" action="#{bewerberModel.checkBereitsBeworben()}" />
         </h:form>
     </h:body>
 </html>
