@@ -42,4 +42,12 @@ public class StellenRepository extends AbstractRepository<Stelle> {
         query.setParameter("id",personaler_id);
         return query.getResultList();
     }
+    
+    public List<Stelle> getAlleStellen(){
+        System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository.getAlleStellen()");
+        
+        TypedQuery<Stelle> query;
+        query = this.em.createQuery("select p from Stelle p", Stelle.class);
+        return query.getResultList();
+    }
 }

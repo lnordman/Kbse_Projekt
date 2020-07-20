@@ -13,6 +13,7 @@ import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.entity.service.SessionService;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,6 +34,7 @@ public class StellenBoundary implements Serializable {
 
     private Stelle stelle = new Stelle();
     private Personal aktivesPersonal = new Personal();
+    private List<Stelle> alleStellen;
 
     public void init() {
 
@@ -41,6 +43,10 @@ public class StellenBoundary implements Serializable {
         System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.boundary.StellenBoundary.init()");
         System.out.println("Personaler: " + this.aktivesPersonal.toString());
         System.out.println("Personaler: " + this.aktivesPersonal.getId());
+    }
+    
+    public void init2(){
+        this.alleStellen = this.stellenController.getAlleStellen();
     }
 
     public StellenController getStellenController() {
@@ -66,6 +72,16 @@ public class StellenBoundary implements Serializable {
     public void setStelle(Stelle stelle) {
         this.stelle = stelle;
     }
+
+    public List<Stelle> getAlleStellen() {
+        return alleStellen;
+    }
+
+    public void setAlleStellen(List<Stelle> alleStellen) {
+        this.alleStellen = alleStellen;
+    }
+    
+    
 
     public String createStelleWithPersonaler() {
 

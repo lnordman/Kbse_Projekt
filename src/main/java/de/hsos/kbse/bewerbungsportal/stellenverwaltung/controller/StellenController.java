@@ -28,9 +28,11 @@ public class StellenController {
     }
 
     public List<Stelle> getStelleFromPersonal(Long personal_id) {
-
         return this.stellenRepo.getStelleByPersonal(personal_id);
-
+    }
+    
+    public List<Stelle> getAlleStellen(){
+        return this.stellenRepo.getAlleStellen();
     }
 
 }
