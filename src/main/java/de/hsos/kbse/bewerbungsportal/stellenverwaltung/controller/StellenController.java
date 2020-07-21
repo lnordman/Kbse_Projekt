@@ -34,5 +34,9 @@ public class StellenController {
     public List<Stelle> getAlleStellen(){
         return this.stellenRepo.getAlleStellen();
     }
+    
+    public void deleteStelle(long id){
+        this.stellenRepo.deleteStelle(id);
+    }
 
 }

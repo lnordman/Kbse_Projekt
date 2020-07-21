@@ -65,10 +65,12 @@ public class LoginBoundary implements Serializable {
             SessionService.getSession().setAttribute("bewerber", bewerber);
             try {
                 context.getExternalContext().redirect("/Bewerbungsportal/Benutzer/Bewerber/AlleStellen.xhtml"); 
+                context.addMessage(null, new FacesMessage("Successful", "Test"));
             } catch (IOException e) {
             }
         }
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Login fehlgeschlagen!", "Bitte überprüfe Benutzernamen und Passwort."));
+        context.addMessage(null, new FacesMessage("Login fehlgeschlagen!", "Bitte überprüfe Benutzernamen und Passwort."));
+        
     }
 
     /**

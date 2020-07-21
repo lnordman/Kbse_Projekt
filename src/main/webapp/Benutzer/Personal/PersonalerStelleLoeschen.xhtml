@@ -10,24 +10,21 @@ and open the template in the editor.
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Personaler Start</title>
+        <title>Alle Bewerbungen</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
         <f:metadata>
             <f:event type="preRenderView" listener="#{personalModel.init()}" />
         </f:metadata>
-
-        <!-- TODO Banner einfügen, wenn abgenommen  -->
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
-           <h:form>
+            <h:form>
                 <table style="width: 100%">
                     <tr>
                         <td>
                             <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="PersonalerStart" style=" height: 45px; left: 10px; top: 25px;" />  
                         </td>
-                        <td style="width: 80%; text-align: center">
+                        <td style="width: 80%">
                             <h3>Wilkommen <h:outputLabel value="#{personalModel.personaler.vorname} #{personalModel.personaler.name}" /> </h3>
                         </td>
                         <td>
@@ -40,15 +37,27 @@ and open the template in the editor.
                 </table>
             </h:form>
         </header>
-
-        <h2 style="text-align: center; margin-top: 25px; width: 93%"> Was möchten Sie tun?</h2>
-
         <h:form>
-            <div style="text-align: center; margin-top: 100px;">
-                <p:commandButton style="margin-right: 25px;" id="bwbng" value="Bewerbungen bearbeiten" action="PersonalerAlle" />
-                <p:commandButton style="margin-right: 25px;" value="Neue Stelle anlegen" action="PersonalerNeueStelle"/>
-                <p:commandButton value="Stelle löschen" action="PersonalerStelleLoeschen" />
-            </div>                   
-        </h:form>  
+            <p:dataTable var="Stelle" selectionMode="single" rowKey="#{Stelle.id}" selection="#{personalModel.loeschendeStelle}" value="#{personalModel.stellenOfPersonaler}">
+               <!-- <p:ajax event="rowSelect" listener="#{personalModel.setSessionBewerbung()}"/> -->
+                <p:column headerText="Stelle">
+                    <p:outputLabel value="#{Stelle.bezeichnung}" />  
+                </p:column>
+                <p:column headerText="Beschreibung">
+                    <p:outputLabel value="#{Stelle.beschreibung}" />
+                </p:column>
+                <p:column headerText="Ort">
+                    <p:outputLabel value="#{Stelle.ort}" />
+                </p:column>
+                <p:column headerText="erstellt am">
+                    <p:outputLabel value="#{Stelle.datum}" />  
+                </p:column>
+                <p:column headerText="erstellt von">
+                    <p:outputLabel value="#{Stelle.personal.name}" />
+                </p:column>
+            </p:dataTable>
+            <p:commandButton value="löschen" action="#{personalModel.deleteStelle()}" />
+            <p:commandButton id="bck" value="Zurück" action="PersonalerStart" />
+        </h:form>
     </h:body>
 </html>

@@ -33,7 +33,7 @@ public class PersonalBoundary implements Serializable {
 
     @Inject
     private StellenController stellenController;
-    
+
     @Inject
     private BewerbungsController bewerbungController;
 
@@ -43,6 +43,7 @@ public class PersonalBoundary implements Serializable {
     private List<Bewerbung> bewerbungenOfPersonaler;
 
     private Bewerbung bearbeitendeBewerbung;
+    private Stelle loeschendeStelle;
     private String status;
 
     @PostConstruct
@@ -50,6 +51,7 @@ public class PersonalBoundary implements Serializable {
         personaler = new Personal();
         bearbeitendeBewerbung = new Bewerbung();
         bewerbungenOfPersonaler = new ArrayList<>();
+        loeschendeStelle = new Stelle();
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init()");
         this.personaler = SessionService.getPersonaler();
 
@@ -57,7 +59,7 @@ public class PersonalBoundary implements Serializable {
             System.out.println("Personaler ist gesetezt!");
             System.out.println("Personaler_ID: " + this.personaler.getId());
             //Holen der Stellen die der Personaler erstellt hat
-            //this.stellenOfPersonaler = stellenController.getStelleFromPersonal(this.personaler.getId());
+            this.stellenOfPersonaler = stellenController.getAlleStellen();
             bewerbungenOfPersonaler = persoController.getAlleBewerbungenByPersonal(this.personaler.getId());
             //Holen der Bewerbungen die der Personaler verwaltet
             //this.bewerbungOfPersonaler = bewerbungsController.getBewerbungFromPersonal(this.personal.getId());
@@ -82,21 +84,28 @@ public class PersonalBoundary implements Serializable {
         SessionService.getSession().setAttribute("bewerbung", bewerbung);
         return "PersonalerEine";
     }
+    
 
-    public void updateStatus(){
+    public void updateStatus() {
         Bewerbung bew = SessionService.getBearbeitendeBewerbung();
         bew.setStatus(status);
-        System.out.print("Update Bewerbung durch Personaler Session schreiben"+bew.toString());
+        System.out.print("Update Bewerbung durch Personaler Session schreiben" + bew.toString());
         SessionService.getSession().setAttribute("bewerbung", bew);
     }
-    
-    public String updateBewerbung(){
+
+    public String updateBewerbung() {
         Bewerbung bew = SessionService.getBearbeitendeBewerbung();
-        System.out.print("Update Bewerbung durch Personaler in DB schreiben"+bew.toString());
+        System.out.print("Update Bewerbung durch Personaler in DB schreiben" + bew.toString());
         bewerbungController.updateBewerbung(bew);
-        return"PersonalerStart";
+        return "PersonalerStart";
     }
-    
+
+    public String deleteStelle() {
+        System.out.print("Delete Stelle durch Personaler");
+        stellenController.deleteStelle(this.loeschendeStelle.getId());
+        return "PersonalerStart";
+    }
+
     public PersonalController getPersoController() {
         return persoController;
     }
@@ -151,6 +160,14 @@ public class PersonalBoundary implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Stelle getLoeschendeStelle() {
+        return loeschendeStelle;
+    }
+
+    public void setLoeschendeStelle(Stelle loeschendeStelle) {
+        this.loeschendeStelle = loeschendeStelle;
     }
 
     

@@ -7,6 +7,7 @@ package de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository;
 
 import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
+import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.List;
 import javax.enterprise.context.Dependent;
@@ -49,5 +50,21 @@ public class StellenRepository extends AbstractRepository<Stelle> {
         TypedQuery<Stelle> query;
         query = this.em.createQuery("select p from Stelle p", Stelle.class);
         return query.getResultList();
+    }
+    
+    public void deleteStelle(long id){
+        System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository.deleteStelle()");
+        
+        TypedQuery<Bewerbung> query2;
+        query2 = this.em.createQuery("delete from Bewerbung p where p.stelle.id= :id", Bewerbung.class);
+        query2.setParameter("id",id);
+        query2.executeUpdate();
+        System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository.deleteStelle()");
+        
+        TypedQuery<Stelle> query;
+        query = this.em.createQuery("delete from Stelle p where p.id= :id", Stelle.class);
+        query.setParameter("id",id);
+        query.executeUpdate();
+          
     }
 }
