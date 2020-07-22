@@ -37,13 +37,24 @@ public class Stelle extends AbstractEntity {
     @Valid
     String bezeichnung;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
-    Date datum;
-
     @Column(name = "beschreibung", length = 5000)
     @NotNull
     @Valid
     String beschreibung;
+
+    //Anforderung
+    @Column(name = "anforderung", length = 300)
+    @NotNull
+    @Valid
+    String anforderung;
+    
+    @Column(name = "erstellungsdatum")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date datum;
+    
+    @Column(name = "startdatum")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    Date startdatum;
 
     @Column(name = "ort", length = 5000)
     @NotNull
@@ -126,5 +137,4 @@ public class Stelle extends AbstractEntity {
         this.bewerbungen = bewerbungen;
     }
 
-    
 }

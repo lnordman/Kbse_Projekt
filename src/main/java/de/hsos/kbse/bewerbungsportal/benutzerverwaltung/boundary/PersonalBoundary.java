@@ -12,13 +12,20 @@ import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.entity.service.SessionService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -46,6 +53,9 @@ public class PersonalBoundary implements Serializable {
     private Stelle loeschendeStelle;
     private String status;
 
+    private File donwloadFile;
+    private FileInputStream inStream;
+
     @PostConstruct
     public void init() {
         personaler = new Personal();
@@ -68,7 +78,7 @@ public class PersonalBoundary implements Serializable {
         // stellenOfPersonaler = new ArrayList(persoController.getBewerbungenOfPersonaler(personaler));
     }
 
-    public void init2() {
+    public void init2() throws FileNotFoundException {
         personaler = new Personal();
         bearbeitendeBewerbung = new Bewerbung();
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init2()");
@@ -76,15 +86,40 @@ public class PersonalBoundary implements Serializable {
         this.bearbeitendeBewerbung = SessionService.getBearbeitendeBewerbung();
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init2() PERSONALER" + personaler.getName());
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init2() BEWERBUNG" + bearbeitendeBewerbung.getStelle().getBezeichnung());
+
+        /*        
+        System.out.println("Dokumenten Pfad: "+bearbeitendeBewerbung.getUnterlagen_pfad()+"\n");
+        
+        donwloadFile = new File(bearbeitendeBewerbung.getUnterlagen_pfad());
+        inStream = new FileInputStream(donwloadFile);*/
+ /*        donwloadfile = DefaultStreamedContent.builder()
+        .name("bewerbung-" + bearbeitendeBewerbung.getBewerber().getName())
+        .contentType("application/pdf")
+        .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("F:\\Philipp\\Documents\\GitHub\\Kbse_Projekt\\src\\main\\webapp\\uploads\\1\\Bewerbung_Hagemeier_dataport_komp-5020034858924108868.pdf"))
+        .build();*/
     }
 
     public String setSessionBewerbung() {
         Bewerbung bewerbung = this.bearbeitendeBewerbung;
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.setSessionBewerbung() BEWERBUNG" + bearbeitendeBewerbung.getStelle().getBezeichnung());
         SessionService.getSession().setAttribute("bewerbung", bewerbung);
+
         return "PersonalerEine";
     }
-    
+
+    public void showPDF() throws IOException {
+
+        
+        //Ist tatsächlich voll hässlich aber funktioniert :D
+        
+        bearbeitendeBewerbung = new Bewerbung();
+        this.bearbeitendeBewerbung = SessionService.getBearbeitendeBewerbung();
+        FacesContext context = FacesContext.getCurrentInstance();
+        //Hier Download der PDF oder eine weiterleitung zu der PDF
+        context.getExternalContext().redirect("/Kbse_Projekt/uploads/" + this.bearbeitendeBewerbung.getBewerber().getId().toString() + "/" + this.bearbeitendeBewerbung.getUnterlagen_pfad());
+
+        //return "uploads/"+bearbeitendeBewerbung.getBewerber().getId().toString()+"/Bewerbung_Hagemeier_dataport_komp-5020034858924108868.pdf";
+    }
 
     public void updateStatus() {
         Bewerbung bew = SessionService.getBearbeitendeBewerbung();
@@ -170,5 +205,20 @@ public class PersonalBoundary implements Serializable {
         this.loeschendeStelle = loeschendeStelle;
     }
 
-    
+    public FileInputStream getInStream() {
+        return inStream;
+    }
+
+    public void setInStream(FileInputStream inStream) {
+        this.inStream = inStream;
+    }
+
+    public File getDonwloadFile() {
+        return donwloadFile;
+    }
+
+    public void setDonwloadFile(File donwloadFile) {
+        this.donwloadFile = donwloadFile;
+    }
+
 }

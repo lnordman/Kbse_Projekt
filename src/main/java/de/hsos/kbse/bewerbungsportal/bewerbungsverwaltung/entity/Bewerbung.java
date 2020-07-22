@@ -41,6 +41,12 @@ public class Bewerbung extends AbstractEntity {
     @Valid
     String status;
 
+    @Column(name = "anlagen_pfad")
+    String unterlagen_pfad;
+
+    @Column(name = "portait_pfad")
+    String portait_pfad;
+
     //______________Personal__________________
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_id")
@@ -62,8 +68,6 @@ public class Bewerbung extends AbstractEntity {
     @JsonIgnore
     private Bewerber bewerber;
 
-    
-    
     public Bewerbung() {
     }
 

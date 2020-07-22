@@ -43,7 +43,7 @@ and open the template in the editor.
             #{bewerberModel.gewaehlteStelle.beschreibung}    
         </div>
         
-        <h:form>
+        <h:form enctype="multipart/form-data">
             <div style="margin: 40px;">
                 <table>
                     <tr>
@@ -51,36 +51,12 @@ and open the template in the editor.
                             Lebenslauf: <!-- MERKE: Value=Abspeichern; Label=Beschriftung -->
                         </td>
                         <td>
-                            <p:fileUpload value="Hochladen" mode="simple" label="Hochladen" skinSimple="true"  />
+                            <p:fileUpload value="#{bewerberModel.dokumente}" mode="simple" label="Hochladen" skinSimple="true"  />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Bewerbungsschreiben: <!-- MERKE: Value=Abspeichern; Label=Beschriftung -->
-                        </td>
-                        <td>
-                            <p:fileUpload value="Hochladen" mode="simple" label="Hochladen" skinSimple="true"  />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Anhang: <!-- MERKE: Value=Abspeichern; Label=Beschriftung -->
-                        </td>
-                        <td>
-                            <p:fileUpload value="Hochladen" mode="simple" label="Hochladen" skinSimple="true"  />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Foto: <!-- MERKE: Value=Abspeichern; Label=Beschriftung -->
-                        </td>
-                        <td>
-                            <p:fileUpload value="Hochladen" mode="simple" label="Hochladen" skinSimple="true"  />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p:commandButton style="margin-top: 25px;" action="#{bewerberModel.neueBewerbung()}" value="Bewerben"/>
+                            <p:commandButton style="margin-top: 25px;" action="#{bewerberModel.neueBewerbung()}" value="Bewerben" ajax="false"/>
                         </td>
                     </tr>
                 </table>

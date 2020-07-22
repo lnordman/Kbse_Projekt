@@ -46,7 +46,7 @@ and open the template in the editor.
             <br/>
 
             <h:commandButton style="margin-top: 50px;" id="back" value="zuruck" action="Login"/>
-            <h:commandButton id="logout" value="Ausloggen" action="Login" />
+            <h:commandButton id="logout" value="Ausloggen" action="#{LoginModel.logout()}" />
 
         </h:form>
     </h:body>

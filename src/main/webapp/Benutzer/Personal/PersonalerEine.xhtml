@@ -43,10 +43,9 @@ and open the template in the editor.
             Stelle: #{personalModel.bearbeitendeBewerbung.stelle.bezeichnung}
         </div>
 
+
+        <p:commandButton value="Show PDF" update="" action="#{personalModel.showPDF()}"/>
         <h:form>
-            Lebenslauf: *PDF anfuegen oder wie?"* <br/>
-            .<br/>
-            .<br/>
             Status:
             <p:selectOneMenu value="#{personalModel.status}"> <!--  TODO: VALUE passend aendern! -->
                 <p:ajax event="itemSelect" listener="#{personalModel.updateStatus()}"/>
