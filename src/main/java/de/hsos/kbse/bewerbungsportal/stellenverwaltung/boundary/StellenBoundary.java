@@ -14,8 +14,8 @@ import de.hsos.kbse.entity.service.SessionService;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,7 +24,7 @@ import javax.inject.Named;
  * @author PMark
  */
 @Named(value = "stellenModel")
-@ApplicationScoped //WARUUUUM?!
+@ApplicationScoped
 public class StellenBoundary implements Serializable {
 
     @Inject
@@ -37,6 +37,7 @@ public class StellenBoundary implements Serializable {
     private Personal aktivesPersonal;
     private List<Stelle> alleStellen;
 
+    @PostConstruct
     public void init() {
         stelle = new Stelle();
         aktivesPersonal = new Personal();
@@ -45,8 +46,8 @@ public class StellenBoundary implements Serializable {
         System.out.println("Personaler: " + this.aktivesPersonal.toString());
         System.out.println("Personaler: " + this.aktivesPersonal.getId());
     }
-    
-    public void init2(){
+
+    public void init2() {
         stelle = new Stelle();
         aktivesPersonal = new Personal();
         this.alleStellen = this.stellenController.getAlleStellen();
@@ -83,21 +84,24 @@ public class StellenBoundary implements Serializable {
     public void setAlleStellen(List<Stelle> alleStellen) {
         this.alleStellen = alleStellen;
     }
-    
-    
 
     public String createStelleWithPersonaler() {
-
-        stelle.setDatum(new Date());
 
         System.out.println("Aktiver Personaler_ID: " + this.aktivesPersonal.getId());
 
         stelle.setPersonal(this.aktivesPersonal);
+        stelle.setDatum(new Date());
+
+        System.out.println("1. Stelle_ID: " + stelle.getId());
+        
         stellenController.createStelle(stelle);
+
+        System.out.println("2. Stelle_ID: " + stelle.getId());
 
         System.out.println(stelle.toString());
         System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.boundary.StellenBoundary.createStelleWithPersonaler()");
         System.out.println(this.stelle.toString());
+
         stelle = new Stelle();
         return "PersonalerStart";
     }

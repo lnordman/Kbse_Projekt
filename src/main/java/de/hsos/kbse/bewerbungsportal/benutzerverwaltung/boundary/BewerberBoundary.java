@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -105,7 +104,7 @@ public class BewerberBoundary implements Serializable {
         this.bewerber = SessionService.getBewerber();   //TODO warum hier nochmal holen?! benutzen wir doch auch so; sonst aber NULLPointer
         this.gewaehlteStelle = SessionService.getGewaehlteStelle();
 
-        String unterlagenPfad = "";
+        String bewerbungsUnterlagen = "";
 
         //AddFile funktioniert nur wenn der p:commandButton ajax="false" enthält, crazy Shit!
         if (dokumente != null) {
@@ -120,24 +119,24 @@ public class BewerberBoundary implements Serializable {
                 if (bewerberDir.mkdir()) {
                     System.out.println("Verzeichnis für Bewerber " + this.bewerber.getName() + "erstellt!");
 
-                    unterlagenPfad = unterlagenSichern(filename, extension, this.bewerber);
+                    bewerbungsUnterlagen = unterlagenSichern(filename, extension, this.bewerber);
 
                 }
             } else { //Pflege die neue Bewerbugn in den Pfad des Bewerber falls eine andere Stelle
                 System.out.println("Verzeichnis exisitiert für Bewerber" + this.bewerber.getId().toString());
                 System.out.println("Datei wird im Verzeichnis gespeichert");
 
-                unterlagenPfad = unterlagenSichern(filename, extension, this.bewerber);
+                bewerbungsUnterlagen = unterlagenSichern(filename, extension, this.bewerber);
             }
 
-            bewerbung.setUnterlagen_pfad(filename+"."+extension);
+            bewerbung.setUnterlagen_pfad(bewerbungsUnterlagen);
             bewerbung.setZeitstempel(new Date());
 
             bewerbung.setBewerber(this.bewerber);
             bewerbung.setStelle(this.gewaehlteStelle);
             //TODO Habe den Personaler eingetragen, der die Stelle erstellt hat. Gibts was besseres?
             bewerbung.setPersonal(this.gewaehlteStelle.getPersonal());
-            System.out.println("\n\nNeue Bewerbung in DB schreiben" + bewerbung.toString()+"\n\n");
+            System.out.println("\n\nNeue Bewerbung in DB schreiben" + bewerbung.toString() + "\n\n");
             System.out.println("Neue Bewerbung in DB schreiben BEWERBER" + this.bewerber.toString() + "+ " + this.bewerber.getVorname() + "+ " + this.bewerber.getName());
             System.out.println("Neue Bewerbung in DB schreiben STELLE" + this.gewaehlteStelle.toString() + "+ " + this.gewaehlteStelle.getBezeichnung());
             System.out.println("Neue Bewerbung in DB schreiben PERSONALER" + this.gewaehlteStelle.getPersonal().toString() + "+ " + this.gewaehlteStelle.getPersonal().getName());
@@ -159,7 +158,7 @@ public class BewerberBoundary implements Serializable {
         try (InputStream input = dokumente.getInputStream()) {
             Files.copy(input, targetfile, StandardCopyOption.REPLACE_EXISTING);
             System.out.println("Uploaded File succesfilly saved in " + targetfile);
-            return targetfile.toString();
+            return targetfile.getFileName().toString();
         }
     }
 

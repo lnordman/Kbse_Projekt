@@ -5,7 +5,6 @@
  */
 package de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller;
 
-import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.repository.StellenRepository;
 import java.util.List;
@@ -23,6 +22,8 @@ public class StellenController {
     private StellenRepository stellenRepo;
 
     public void createStelle(Stelle stelle) {
+        System.out.println("\nStelle: "+stelle+"\n\n");
+        
         System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController.createStelle()");
         this.stellenRepo.create(stelle);
     }

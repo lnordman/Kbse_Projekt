@@ -43,18 +43,18 @@ public class Stelle extends AbstractEntity {
     String beschreibung;
 
     //Anforderung
-    @Column(name = "anforderung", length = 300)
+    /*    @Column(name = "anforderung", length = 300)
     @NotNull
     @Valid
-    String anforderung;
+    String anforderung;*/
     
     @Column(name = "erstellungsdatum")
     @Temporal(javax.persistence.TemporalType.DATE)
     Date datum;
     
-    @Column(name = "startdatum")
+    /*    @Column(name = "startdatum")
     @Temporal(javax.persistence.TemporalType.DATE)
-    Date startdatum;
+    Date startdatum;*/
 
     @Column(name = "ort", length = 5000)
     @NotNull

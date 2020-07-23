@@ -32,8 +32,6 @@ import lombok.ToString;
 @Table(name = "bewerbung")
 public class Bewerbung extends AbstractEntity {
 
-//    @Column(name = "zeitstempel")
-//    @Valid
     @Temporal(javax.persistence.TemporalType.DATE)
     Date zeitstempel;
 
@@ -54,14 +52,14 @@ public class Bewerbung extends AbstractEntity {
     @JsonIgnore
     private Personal personal;
 
-//        _____________Stelle__________________ 
+    //_____________Stelle__________________ 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stelle_id")
 //    @JsonBackReference
     @JsonIgnore
     private Stelle stelle;
 
-//    ______________Bewerber__________________
+    //______________Bewerber__________________
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bewerber_id")
 //    @JsonBackReference

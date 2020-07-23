@@ -109,16 +109,12 @@ public class PersonalBoundary implements Serializable {
 
     public void showPDF() throws IOException {
 
-        
-        //Ist tatsächlich voll hässlich aber funktioniert :D
-        
         bearbeitendeBewerbung = new Bewerbung();
         this.bearbeitendeBewerbung = SessionService.getBearbeitendeBewerbung();
         FacesContext context = FacesContext.getCurrentInstance();
         //Hier Download der PDF oder eine weiterleitung zu der PDF
-        context.getExternalContext().redirect("/Kbse_Projekt/uploads/" + this.bearbeitendeBewerbung.getBewerber().getId().toString() + "/" + this.bearbeitendeBewerbung.getUnterlagen_pfad());
+        context.getExternalContext().redirect("/Kbse_Projekt/uploads/" + this.bearbeitendeBewerbung.getBewerber().getId().toString() + "/" + bearbeitendeBewerbung.getUnterlagen_pfad());
 
-        //return "uploads/"+bearbeitendeBewerbung.getBewerber().getId().toString()+"/Bewerbung_Hagemeier_dataport_komp-5020034858924108868.pdf";
     }
 
     public void updateStatus() {

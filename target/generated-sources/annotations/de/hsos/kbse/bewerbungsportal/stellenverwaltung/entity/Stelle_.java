@@ -9,15 +9,13 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-07-22T14:48:25")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-07-23T12:04:08")
 @StaticMetamodel(Stelle.class)
 public class Stelle_ extends AbstractEntity_ {
 
     public static volatile SingularAttribute<Stelle, Date> datum;
     public static volatile SingularAttribute<Stelle, String> ort;
-    public static volatile SingularAttribute<Stelle, Date> startdatum;
     public static volatile SingularAttribute<Stelle, String> bezeichnung;
-    public static volatile SingularAttribute<Stelle, String> anforderung;
     public static volatile ListAttribute<Stelle, Bewerbung> bewerbungen;
     public static volatile SingularAttribute<Stelle, Personal> personal;
     public static volatile SingularAttribute<Stelle, String> beschreibung;
