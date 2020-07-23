@@ -38,6 +38,9 @@ and open the template in the editor.
             </h:form>
         </header>
         <h:form>
+            <p:messages id="growl" showDetail="true" closable="true"  severity="info,warn,error">
+                <p:autoUpdate/>
+            </p:messages> 
             <p:dataTable var="Stelle" selectionMode="single" rowKey="#{Stelle.id}" selection="#{bewerberModel.gewaehlteStelle}" value="#{bewerberModel.alleStellen}">
                 <p:ajax event="rowSelect" listener="#{bewerberModel.setSessionStelle()}"/>
                 <p:column headerText="Stellenname">
@@ -53,7 +56,7 @@ and open the template in the editor.
                     <p:outputLabel value="#{Stelle.datum.date}.#{Stelle.datum.month+1}.#{Stelle.datum.year+1900}" />  <!-- Stelle.datum.date + Stelle.datum.month -->
                 </p:column>
             </p:dataTable>
-            <p:commandButton style="margin-top: 25px; float: right" value="bewerben" action="#{bewerberModel.checkBereitsBeworben()}" />
+            <p:commandButton style="margin-top: 25px; float: right" update="growl" value="bewerben" action="#{bewerberModel.checkBereitsBeworben()}" />
         </h:form>
     </h:body>
 </html>

@@ -18,6 +18,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,14 +29,14 @@ import javax.inject.Named;
  */
 @Named(value = "bewerberModel")
 @RequestScoped
-public class BewerberBoundary implements Serializable{
+public class BewerberBoundary implements Serializable {
 
     @Inject
     private BewerberController bewerberController;
 
     @Inject
     private StellenController stellenController;
-    
+
     @Inject
     private BewerbungsController bewerbungController;
 
@@ -43,50 +45,50 @@ public class BewerberBoundary implements Serializable{
     private Bewerbung bewerbung;
     private List<Stelle> alleStellen;
     private List<Bewerbung> eigeneBewerbungen;
-    
-    
+
     @PostConstruct
     public void init() {
         bewerber = new Bewerber();
-        gewaehlteStelle= new Stelle();
-        bewerbung= new Bewerbung();
+        gewaehlteStelle = new Stelle();
+        bewerbung = new Bewerbung();
         eigeneBewerbungen = new ArrayList<>();
-        
+
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         this.bewerber = SessionService.getBewerber();
         System.out.println("Bewerber: " + bewerber.getName());
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         alleStellen = bewerberController.getAlleStellen();
-        
+
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init()");
         eigeneBewerbungen = bewerberController.getEigeneBewerbungen(bewerber.getId());
         System.out.println("Bewerber: " + this.bewerber.getName());
     }
-    
+
     public void init2() {
         bewerber = new Bewerber();
-        gewaehlteStelle= new Stelle();
-        bewerbung= new Bewerbung();
+        gewaehlteStelle = new Stelle();
+        bewerbung = new Bewerbung();
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.init2()");
         this.bewerber = SessionService.getBewerber();
         this.gewaehlteStelle = SessionService.getGewaehlteStelle();
         System.out.println("Bewerber: " + this.bewerber.toString() + this.bewerber.getName());
         System.out.println("Stelle: " + this.gewaehlteStelle.toString() + this.gewaehlteStelle.getBezeichnung());
-        
+
     }
 
-    public String setSessionStelle(){
+    public String setSessionStelle() {
         Stelle s = this.gewaehlteStelle;
         SessionService.getSession().setAttribute("stelle", s);
         return "Bewerbung";
     }
+
     public String setSessionBewerbung() {
         Bewerbung bewerb = this.bewerbung;
         System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.BewerberBoundary.setSessionBewerbung() BEWERBUNG" + bewerbung.getStelle().getBezeichnung());
         SessionService.getSession().setAttribute("bewerbung", bewerb);
         return "EigeneBewerbungen";
     }
-    
+
     public String neueBewerbung() {
         this.bewerber = SessionService.getBewerber();   //TODO warum hier nochmal holen?! benutzen wir doch auch so; sonst aber NULLPointer
         this.gewaehlteStelle = SessionService.getGewaehlteStelle();
@@ -94,53 +96,55 @@ public class BewerberBoundary implements Serializable{
         bewerbung.setStelle(this.gewaehlteStelle);
         //TODO Habe den Personaler eingetragen, der die Stelle erstellt hat. Gibts was besseres?
         bewerbung.setPersonal(this.gewaehlteStelle.getPersonal());
-        System.out.println("Neue Bewerbung in DB schreiben"+bewerbung.toString());
-        System.out.println("Neue Bewerbung in DB schreiben BEWERBER"+this.bewerber.toString()+ "+ " + this.bewerber.getVorname() + "+ " + this.bewerber.getName());
-        System.out.println("Neue Bewerbung in DB schreiben STELLE"+this.gewaehlteStelle.toString() + "+ " + this.gewaehlteStelle.getBezeichnung() );
-        System.out.println("Neue Bewerbung in DB schreiben PERSONALER"+this.gewaehlteStelle.getPersonal().toString() + "+ " + this.gewaehlteStelle.getPersonal().getName() );
-        
+        System.out.println("Neue Bewerbung in DB schreiben" + bewerbung.toString());
+        System.out.println("Neue Bewerbung in DB schreiben BEWERBER" + this.bewerber.toString() + "+ " + this.bewerber.getVorname() + "+ " + this.bewerber.getName());
+        System.out.println("Neue Bewerbung in DB schreiben STELLE" + this.gewaehlteStelle.toString() + "+ " + this.gewaehlteStelle.getBezeichnung());
+        System.out.println("Neue Bewerbung in DB schreiben PERSONALER" + this.gewaehlteStelle.getPersonal().toString() + "+ " + this.gewaehlteStelle.getPersonal().getName());
+
         bewerbungController.neueBewerbung(bewerbung);
         return "/Benutzer/Bewerber/AlleStellen";
     }
-    
-    public String checkBereitsBeworben(){
+
+    public String checkBereitsBeworben() {
         boolean bereitsBeworben;
-        System.out.println("CheckBreitsBeworben"+this.gewaehlteStelle.getId()+ "+ " + this.bewerber.getId() );
-        
+        FacesContext context = FacesContext.getCurrentInstance();
+        System.out.println("CheckBreitsBeworben" + this.gewaehlteStelle.getId() + "+ " + this.bewerber.getId());
+
         bereitsBeworben = this.bewerberController.bereitsBeworben(this.bewerber.getId(), this.gewaehlteStelle.getId());
-             System.out.println("CheckBreitsBeworben PRUEFER: " + bereitsBeworben );
-        if(bereitsBeworben == true){
-             System.out.println("CheckBreitsBeworben IS NULL");
+        System.out.println("CheckBreitsBeworben PRUEFER: " + bereitsBeworben);
+        if (bereitsBeworben == true) {
+            System.out.println("CheckBreitsBeworben IS NULL");
+
+            context.addMessage(null, new FacesMessage("Bereits auf diese Stelle beworben!", "Zum anschauen im Profil unter 'Eigene Bewerbungen' schauen."));
             return "AlleStellen";
-        }
-        else{
-             System.out.println("CheckBreitsBeworben NOT NULL");
+        } else {
+            System.out.println("CheckBreitsBeworben NOT NULL");
             return "Bewerbung";
         }
     }
-    
-    public String checkBewerbungKomplett(){
+
+    public String checkBewerbungKomplett() {
         // überprüft, ob die eingegangene Bewerbung komplett ist.
         // Falls JA, dann gilt sie als "gesendet" und kann nicht mehr verändert werden -> leerer String zurückgeben, damit nirgendwohin weitergeleitet wird
         // Falls NEIN, dann darf sie noch bearbeitet werden. -> "Bewerbung" zurückgeben, damit weitergeleitet wird
-        
+
         String returner = "";
-        
+
         /*
+        TODO alle Werte der Bewerbung auf NULL bzw NotNull prüfen:
+        Message sollte so passen
+        
         if( alle komponenten von Bewerbung prüfen, ob vorhanden ) {
-            
+            context.addMessage(null, new FacesMessage("Bewerbung bereits vollständig!", "Eine Vollständige Bewerbung können Sie nicht mehr ändern"));
         }
         else {
             returner = "Bewerbung";
         }
         
-        */
-        
-        
+         */
         return returner;
     }
-    
-    
+
     public Bewerber getBewerber() {
         return bewerber;
     }
@@ -180,16 +184,5 @@ public class BewerberBoundary implements Serializable{
     public void setBewerbung(Bewerbung bewerbung) {
         this.bewerbung = bewerbung;
     }
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
 
 }

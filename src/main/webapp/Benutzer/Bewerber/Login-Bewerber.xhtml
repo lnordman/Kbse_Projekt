@@ -31,7 +31,9 @@ and open the template in the editor.
             </h:form>
         </header>
         <h:form>
-            <p:growl id="growl" showDetail="true" sticky="true" severity="info,warn,error"/> 
+            <p:messages id="growl" showDetail="true" closable="true"  severity="info,warn,error">
+                <p:autoUpdate/>
+            </p:messages> 
             <div style="margin-top: 50px;">
                 <table style="margin: auto">
                     <tr>

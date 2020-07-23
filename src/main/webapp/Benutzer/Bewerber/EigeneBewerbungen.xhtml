@@ -35,6 +35,9 @@ and open the template in the editor.
             </h:form>
         </header>
         <h:form>
+            <p:messages id="growl" showDetail="true" closable="true"  severity="info,warn,error">
+                <p:autoUpdate/>
+            </p:messages> 
             <p:dataTable var="Bewerbung" selectionMode="single" rowKey="#{Bewerbung.id}" selection="#{bewerberModel.bewerbung}" value="#{bewerberModel.eigeneBewerbungen}">
                 <p:ajax event="rowSelect" listener="#{bewerberModel.setSessionBewerbung()}"/>
                 <p:column headerText="Beworbene Stelle">
@@ -49,7 +52,7 @@ and open the template in the editor.
             </p:dataTable>
             <div style="margin-top: 25px;">
                 <p:commandButton id="bck" value="Zurück" action="Bewerber-Profil" />
-                <p:commandButton style="float: right" value="bearbeiten" action="#{bewerberModel.checkBewerbungKomplett()}" />
+                <p:commandButton style="float: right" update="growl" value="bearbeiten" action="#{bewerberModel.checkBewerbungKomplett()}" />
             </div>
         </h:form>
     </h:body>

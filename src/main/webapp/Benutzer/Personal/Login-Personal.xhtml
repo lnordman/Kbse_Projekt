@@ -15,7 +15,9 @@ and open the template in the editor.
     <h:body>
 
         <h:form>
-            <p:growl id="growl" showDetail="true" sticky="true" severity="info,warn,error"/> 
+            <p:messages id="growl" showDetail="true" closable="true"  severity="info,warn,error">
+                <p:autoUpdate/>
+            </p:messages> 
             <div style="margin-top: 50px;">
                 <table style="margin: auto">
                     <tr>
@@ -36,7 +38,7 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <td>
-                            <p:commandButton style="margin-top: 25px;" value="Login" action="#{LoginModel.loginPersonaler()}"/>
+                            <p:commandButton style="margin-top: 25px;" value="Login" update="growl" action="#{LoginModel.loginPersonaler()}"/>
                         </td>
                     </tr>
                     <tr>

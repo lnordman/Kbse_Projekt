@@ -34,20 +34,14 @@ and open the template in the editor.
                 </table>
             </h:form>
         </header>
-        <h:form style=" margin: auto" >
-            <h:commandButton  value="Gesendete Bewerbungen ansehen" action="EigeneBewerbungen"/>
-            <br/><br/>
-            <h:commandButton value="Personalien aendern" action="Bewerber-ProfilUpdate"/>
-            <br/><br/>
-            <h:commandButton id="btn" value="Login" action="Login" />
-            <!-- !!!!!! TODO action=Funktion() Funktion() hat Rückgabewert String und gibt den passdenen Seitennamen zurück -->
-            <br/>
-
-            <br/>
-
-            <h:commandButton style="margin-top: 50px;" id="back" value="zuruck" action="Login"/>
-            <h:commandButton id="logout" value="Ausloggen" action="Login" />
-
+        
+        <h2 style="text-align: center; margin-top: 25px; width: 93%"> Was möchten Sie tun?</h2>
+        
+        <h:form style="text-align: center; margin-top: 100px;">
+            <div>
+                <p:commandButton style="margin-right: 25px;" value="Eigene Bewerbungen ansehen" action="EigeneBewerbungen" />
+                <p:commandButton style="" value="Profildaten ändern" action="Bewerber-ProfilUpdate" />
+            </div>
         </h:form>
     </h:body>
 </html>
