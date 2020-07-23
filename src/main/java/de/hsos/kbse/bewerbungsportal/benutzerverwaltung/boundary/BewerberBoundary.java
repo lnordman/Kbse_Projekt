@@ -119,6 +119,27 @@ public class BewerberBoundary implements Serializable{
         }
     }
     
+    public String checkBewerbungKomplett(){
+        // überprüft, ob die eingegangene Bewerbung komplett ist.
+        // Falls JA, dann gilt sie als "gesendet" und kann nicht mehr verändert werden -> leerer String zurückgeben, damit nirgendwohin weitergeleitet wird
+        // Falls NEIN, dann darf sie noch bearbeitet werden. -> "Bewerbung" zurückgeben, damit weitergeleitet wird
+        
+        String returner = "";
+        
+        /*
+        if( alle komponenten von Bewerbung prüfen, ob vorhanden ) {
+            
+        }
+        else {
+            returner = "Bewerbung";
+        }
+        
+        */
+        
+        
+        return returner;
+    }
+    
     
     public Bewerber getBewerber() {
         return bewerber;

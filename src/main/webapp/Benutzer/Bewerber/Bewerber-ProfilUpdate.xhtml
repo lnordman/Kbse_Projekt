@@ -6,84 +6,105 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
-        <h:form style="margin-left: 20px">
-            <table>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Email" />
-                    </td>
-                    <td>
-                        <p:inputText id="mail" value="#{RegisterModel.bewerber.login.email}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Vorname" />
-                    </td>
-                    <td>
-                        <p:inputText id="vname" value="#{RegisterModel.bewerber.vorname}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Nachname" />
-                    </td>
-                    <td>
-                        <p:inputText id="nname" value="#{RegisterModel.bewerber.name}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Telefon" />
-                    </td>
-                    <td>
-                        <p:inputText id="telefon" value="#{RegisterModel.bewerber.telefon}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Straße" />
-                    </td>
-                    <td>
-                        <p:inputText id="straße" value="#{RegisterModel.bewerber.straße}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Ort" />
-                    </td>
-                    <td>
-                        <p:inputText id="ort" value="#{RegisterModel.bewerber.ort}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="PLZ" />
-                    </td>
-                    <td>
-                        <p:inputText id="plz" value="#{RegisterModel.bewerber.plz}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Passwort" />
-                    </td>
-                    <td>
-                        <p:inputText id="password" value="#{RegisterModel.bewerber.login.password}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:commandButton style="margin-top: 25px;" value="Update" action="#{RegisterModel.updateBewerber()}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:link value="zurück" outcome="/Benutzer/Bewerber/Bewerber-Profil"/>
-                    </td>
-                </tr>
-            </table>
+        <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
+            <h:form>
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="AlleStellen" style=" height: 45px; left: 10px; top: 25px;" />  
+                        </td>
+                        <td style="width: 80%">
+                            <h3>Wilkommen <h:outputLabel value="#{bewerberModel.bewerber.vorname} #{bewerberModel.bewerber.name}" /> </h3>
+                        </td>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Bewerber-Profil" style=" height: 45px; right: 70px; top: 25px;" />  
+                        </td>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/483/483343.svg" action="#{LoginModel.logout()}" style=" height: 45px; right: 10px; top: 25px;" />   
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </header>
+        <h:form>
+            <div style="margin-top: 50px;">
+                <table style="margin: auto">
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Email" />
+                        </td>
+                        <td>
+                            <p:inputText id="mail" value="#{RegisterModel.bewerber.login.email}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Vorname" />
+                        </td>
+                        <td>
+                            <p:inputText id="vname" value="#{RegisterModel.bewerber.vorname}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Nachname" />
+                        </td>
+                        <td>
+                            <p:inputText id="nname" value="#{RegisterModel.bewerber.name}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Telefon" />
+                        </td>
+                        <td>
+                            <p:inputText id="telefon" value="#{RegisterModel.bewerber.telefon}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Straße" />
+                        </td>
+                        <td>
+                            <p:inputText id="straße" value="#{RegisterModel.bewerber.straße}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Ort" />
+                        </td>
+                        <td>
+                            <p:inputText id="ort" value="#{RegisterModel.bewerber.ort}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="PLZ" />
+                        </td>
+                        <td>
+                            <p:inputText id="plz" value="#{RegisterModel.bewerber.plz}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Passwort" />
+                        </td>
+                        <td>
+                            <p:inputText id="password" value="#{RegisterModel.bewerber.login.password}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton style="margin-top: 25px;" value="Update" action="#{RegisterModel.updateBewerber()}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:link value="zurück" outcome="/Benutzer/Bewerber/Bewerber-Profil"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </h:form>
     </h:body>
 </html>

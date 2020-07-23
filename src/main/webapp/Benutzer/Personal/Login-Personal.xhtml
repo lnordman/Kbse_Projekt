@@ -13,36 +13,39 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        
+
         <h:form>
-           <table>
-                <tr>
-                    <td>
-                        <p:outputLabel for="email" value="Email" />
-                    </td>
-                    <td>
-                        <p:inputText id="email" value="#{LoginModel.login.email}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel for="password" value="Passwort" />
-                    </td>
-                    <td>
-                        <p:inputText id="password" value="#{LoginModel.login.password}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:commandButton value="Login" update="" action="#{LoginModel.loginPersonaler()}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:link value="Register" outcome="/Benutzer/Register"/>
-                    </td>
-                </tr>
-            </table>
+            <p:growl id="growl" showDetail="true" sticky="true" severity="info,warn,error"/> 
+            <div style="margin-top: 50px;">
+                <table style="margin: auto">
+                    <tr>
+                        <td>
+                            <p:outputLabel for="email" value="Email" />
+                        </td>
+                        <td>
+                            <p:inputText id="email" value="#{LoginModel.login.email}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel for="password" value="Passwort" />
+                        </td>
+                        <td>
+                            <p:inputText id="password" value="#{LoginModel.login.password}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton style="margin-top: 25px;" value="Login" action="#{LoginModel.loginPersonaler()}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:link value="Register" outcome="/Benutzer/Register"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </h:form>
     </h:body>
 </html>

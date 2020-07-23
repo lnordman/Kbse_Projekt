@@ -13,6 +13,23 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
+        <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
+           <h:form>
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/20/20176.svg" action="/Stelle/AlleStellen" style=" height: 45px; left: 10px; top: 25px;" />  
+                        </td>
+                        <td style="width: 80%">
+                            <h3>Wilkommen <h:outputLabel/> </h3>
+                        </td>
+                        <td>
+                            <h:commandButton image="https://image.flaticon.com/icons/svg/1077/1077114.svg" action="Login-Bewerber" style=" height: 45px; right: 70px; top: 25px;" />  
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
+        </header>
         <h:form>
             <p:growl id="growl" showDetail="true" sticky="true" severity="info,warn,error"/> 
             <div style="margin-top: 50px;">
@@ -38,7 +55,6 @@ and open the template in the editor.
                             <p:commandButton style="margin-top: 25px;" value="Login" actionListener="#{LoginModel.loginBewerber()}" update="growl"/>
                         </td>
                     </tr>
-                    <tr></tr>
                     <tr>
                         <td>
                             <p:link value="Register" outcome="/Benutzer/Bewerber/Bewerber-Register"/>

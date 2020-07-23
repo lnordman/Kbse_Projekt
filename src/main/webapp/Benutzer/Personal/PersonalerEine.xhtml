@@ -50,6 +50,7 @@ and open the template in the editor.
             Status:
             <p:selectOneMenu value="#{personalModel.status}"> <!--  TODO: VALUE passend aendern! -->
                 <p:ajax event="itemSelect" listener="#{personalModel.updateStatus()}"/>
+                <f:selectItem itemValue=" " itemLabel=" " />
                 <f:selectItem itemValue="eingegangen" itemLabel="eingeganen" />
                 <f:selectItem itemValue="in Bearbeitung" itemLabel="in Bearbeitung" />
                 <f:selectItem itemValue="angenommen" itemLabel="angenommen" />

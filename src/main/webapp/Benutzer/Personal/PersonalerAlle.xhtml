@@ -52,14 +52,12 @@ and open the template in the editor.
                 <p:column headerText="Status">
                     <p:outputLabel value="#{Bewerbung.status}" />
                 </p:column>
-                <p:column headerText="Bearbeiten">
-                    <p:link outcome="PersonalerEine" value="bearbeiten" />
-                </p:column>
 
             </p:dataTable>
-        </h:form>
-        <h:form>
-            <h:commandButton id="bck" value="Zurück" action="PersonalerStart" />
+            <div style="margin-top: 25px;">
+                <p:commandButton style="float: right" value="bearbeiten" action="PersonalerEine"/>
+                <p:commandButton id="bck" value="Zurück" action="PersonalerStart" />
+            </div>
         </h:form>
     </h:body>
 </html>
