@@ -53,7 +53,7 @@ and open the template in the editor.
                     <p:outputLabel value="#{Stelle.datum.date}.#{Stelle.datum.month+1}.#{Stelle.datum.year+1900}" />  <!-- Stelle.datum.date + Stelle.datum.month -->
                 </p:column>
             </p:dataTable>
-            <p:commandButton style="margin-top: 25px;" value="bewerben" action="#{bewerberModel.checkBereitsBeworben()}" />
+            <p:commandButton style="margin-top: 25px; float: right" value="bewerben" action="#{bewerberModel.checkBereitsBeworben()}" />
         </h:form>
     </h:body>
 </html>

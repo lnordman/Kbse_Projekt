@@ -6,20 +6,20 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:h="http://xmlns.jcp.org/jsf/html"
-     xmlns:p="http://primefaces.org/ui"
-     xmlns:f="http://xmlns.jcp.org/jsf/core">
- <h:head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
         <title>Profil</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-         
+
     </h:head>
-    <h:body style="background-color: #ffffff;">
+    <h:body>
         <f:metadata>
             <f:event type="preRenderView" listener="#{personalModel.init()}" />
         </f:metadata>
         <header style="text-align: center; padding: 10px; border-bottom: black; border-bottom-style: solid; border-bottom-width: thin; height: 60px ">
-           <h:form>
+            <h:form>
                 <table style="width: 100%">
                     <tr>
                         <td>
@@ -38,100 +38,102 @@ and open the template in the editor.
                 </table>
             </h:form>
         </header>
-        <h3>Bitte neue Personaldaten eingeben:</h3>
-         <h:form style="margin-left: 20px">
-            <table>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Email" />
-                    </td>
-                    <td>
-                        <p:inputText id="mail" value="#{RegisterModel.personal.login.email}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Vorname" />
-                    </td>
-                    <td>
-                        <p:inputText id="vname" value="#{RegisterModel.personal.vorname}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Nachname" />
-                    </td>
-                    <td>
-                        <p:inputText id="nname" value="#{RegisterModel.personal.name}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Telefon" />
-                    </td>
-                    <td>
-                        <p:inputText id="telefon" value="#{RegisterModel.personal.telefon}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Straße" />
-                    </td>
-                    <td>
-                        <p:inputText id="straße" value="#{RegisterModel.personal.straße}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Ort" />
-                    </td>
-                    <td>
-                        <p:inputText id="ort" value="#{RegisterModel.personal.ort}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="PLZ" />
-                    </td>
-                    <td>
-                        <p:inputText id="plz" value="#{RegisterModel.personal.plz}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Durchwahl" />
-                    </td>
-                    <td>
-                        <p:inputText id="durchwahl" value="#{RegisterModel.personal.durchwahl}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="BüroNr" />
-                    </td>
-                    <td>
-                        <p:inputText id="bueronr" value="#{RegisterModel.personal.bueroNr}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Passwort" />
-                    </td>
-                    <td>
-                        <p:inputText id="password" value="#{RegisterModel.personal.login.password}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:commandButton value="Update" update="" action="#{RegisterModel.updatePersonal()}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:link value="zurück" outcome="/Benutzer/Personal/PersonalerStart"/>
-                    </td>
-                </tr>
-            </table>
-         </h:form>
+        <h3 style="text-align: center; margin-top: 50px;">Bitte neue Personaldaten eingeben:</h3>
+        <h:form>
+            <div>
+                <table style="margin: auto">
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Email" />
+                        </td>
+                        <td>
+                            <p:inputText id="mail" value="#{RegisterModel.personal.login.email}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Vorname" />
+                        </td>
+                        <td>
+                            <p:inputText id="vname" value="#{RegisterModel.personal.vorname}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Nachname" />
+                        </td>
+                        <td>
+                            <p:inputText id="nname" value="#{RegisterModel.personal.name}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Telefon" />
+                        </td>
+                        <td>
+                            <p:inputText id="telefon" value="#{RegisterModel.personal.telefon}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Straße" />
+                        </td>
+                        <td>
+                            <p:inputText id="straße" value="#{RegisterModel.personal.straße}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Ort" />
+                        </td>
+                        <td>
+                            <p:inputText id="ort" value="#{RegisterModel.personal.ort}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="PLZ" />
+                        </td>
+                        <td>
+                            <p:inputText id="plz" value="#{RegisterModel.personal.plz}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Durchwahl" />
+                        </td>
+                        <td>
+                            <p:inputText id="durchwahl" value="#{RegisterModel.personal.durchwahl}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="BüroNr" />
+                        </td>
+                        <td>
+                            <p:inputText id="bueronr" value="#{RegisterModel.personal.bueroNr}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Passwort" />
+                        </td>
+                        <td>
+                            <p:inputText id="password" value="#{RegisterModel.personal.login.password}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton style="margin-top: 25px;" value="Update" action="#{RegisterModel.updatePersonal()}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:link value="zurück" outcome="/Benutzer/Personal/PersonalerStart"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </h:form>
     </h:body>
 </html>

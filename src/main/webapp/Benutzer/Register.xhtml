@@ -14,99 +14,101 @@ and open the template in the editor.
     </h:head>
     <h:body>
 
-        <h:form style="margin-left: 20px">
-            <table>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Email" />
-                    </td>
-                    <td>
-                        <p:inputText id="mail" value="#{RegisterModel.personal.login.email}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Vorname" />
-                    </td>
-                    <td>
-                        <p:inputText id="vname" value="#{RegisterModel.personal.vorname}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Nachname" />
-                    </td>
-                    <td>
-                        <p:inputText id="nname" value="#{RegisterModel.personal.name}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Telefon" />
-                    </td>
-                    <td>
-                        <p:inputText id="telefon" value="#{RegisterModel.personal.telefon}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Straße" />
-                    </td>
-                    <td>
-                        <p:inputText id="straße" value="#{RegisterModel.personal.straße}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Ort" />
-                    </td>
-                    <td>
-                        <p:inputText id="ort" value="#{RegisterModel.personal.ort}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="PLZ" />
-                    </td>
-                    <td>
-                        <p:inputText id="plz" value="#{RegisterModel.personal.plz}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Durchwahl" />
-                    </td>
-                    <td>
-                        <p:inputText id="durchwahl" value="#{RegisterModel.personal.durchwahl}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="BüroNr" />
-                    </td>
-                    <td>
-                        <p:inputText id="bueronr" value="#{RegisterModel.personal.bueroNr}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:outputLabel value="Passwort" />
-                    </td>
-                    <td>
-                        <p:inputText id="password" value="#{RegisterModel.personal.login.password}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:commandButton value="Register" update="" action="#{RegisterModel.registerPersonal()}" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p:link value="Schon registriert? login" outcome="/Benutzer/Personal/Login-Personal"/>
-                    </td>
-                </tr>
-            </table>
+        <h:form>
+            <div style="margin-top: 50px;">
+                <table style="margin: auto;">
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Email" />
+                        </td>
+                        <td>
+                            <p:inputText id="mail" value="#{RegisterModel.personal.login.email}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Vorname" />
+                        </td>
+                        <td>
+                            <p:inputText id="vname" value="#{RegisterModel.personal.vorname}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Nachname" />
+                        </td>
+                        <td>
+                            <p:inputText id="nname" value="#{RegisterModel.personal.name}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Telefon" />
+                        </td>
+                        <td>
+                            <p:inputText id="telefon" value="#{RegisterModel.personal.telefon}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Straße" />
+                        </td>
+                        <td>
+                            <p:inputText id="straße" value="#{RegisterModel.personal.straße}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Ort" />
+                        </td>
+                        <td>
+                            <p:inputText id="ort" value="#{RegisterModel.personal.ort}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="PLZ" />
+                        </td>
+                        <td>
+                            <p:inputText id="plz" value="#{RegisterModel.personal.plz}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Durchwahl" />
+                        </td>
+                        <td>
+                            <p:inputText id="durchwahl" value="#{RegisterModel.personal.durchwahl}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="BüroNr" />
+                        </td>
+                        <td>
+                            <p:inputText id="bueronr" value="#{RegisterModel.personal.bueroNr}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:outputLabel value="Passwort" />
+                        </td>
+                        <td>
+                            <p:inputText id="password" value="#{RegisterModel.personal.login.password}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:commandButton style="margin-top: 25px;" value="Register" action="#{RegisterModel.registerPersonal()}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p:link value="Schon registriert? login" outcome="/Benutzer/Personal/Login-Personal"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </h:form>
     </h:body>
 </html>
