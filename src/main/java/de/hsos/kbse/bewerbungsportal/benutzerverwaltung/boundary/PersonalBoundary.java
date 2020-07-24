@@ -24,8 +24,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -134,6 +132,7 @@ public class PersonalBoundary implements Serializable {
     public String deleteStelle() {
         System.out.print("Delete Stelle durch Personaler");
         stellenController.deleteStelle(this.loeschendeStelle.getId());
+        
         return "PersonalerStart";
     }
 

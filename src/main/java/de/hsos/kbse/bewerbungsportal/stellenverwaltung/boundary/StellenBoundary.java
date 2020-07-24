@@ -37,7 +37,6 @@ public class StellenBoundary implements Serializable {
     private Personal aktivesPersonal;
     private List<Stelle> alleStellen;
 
-    @PostConstruct
     public void init() {
         stelle = new Stelle();
         aktivesPersonal = new Personal();
