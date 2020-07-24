@@ -166,24 +166,6 @@ public class BewerberBoundary implements Serializable {
 
     public String checkBereitsBeworben() {
         boolean bereitsBeworben;
-    public String neueBewerbung() {
-        this.bewerber = SessionService.getBewerber();   //TODO warum hier nochmal holen?! benutzen wir doch auch so; sonst aber NULLPointer
-        this.gewaehlteStelle = SessionService.getGewaehlteStelle();
-        bewerbung.setBewerber(this.bewerber);
-        bewerbung.setStelle(this.gewaehlteStelle);
-        //TODO Habe den Personaler eingetragen, der die Stelle erstellt hat. Gibts was besseres?
-        bewerbung.setPersonal(this.gewaehlteStelle.getPersonal());
-        System.out.println("Neue Bewerbung in DB schreiben" + bewerbung.toString());
-        System.out.println("Neue Bewerbung in DB schreiben BEWERBER" + this.bewerber.toString() + "+ " + this.bewerber.getVorname() + "+ " + this.bewerber.getName());
-        System.out.println("Neue Bewerbung in DB schreiben STELLE" + this.gewaehlteStelle.toString() + "+ " + this.gewaehlteStelle.getBezeichnung());
-        System.out.println("Neue Bewerbung in DB schreiben PERSONALER" + this.gewaehlteStelle.getPersonal().toString() + "+ " + this.gewaehlteStelle.getPersonal().getName());
-
-        bewerbungController.neueBewerbung(bewerbung);
-        return "/Benutzer/Bewerber/AlleStellen";
-    }
-
-    public String checkBereitsBeworben() {
-        boolean bereitsBeworben;
         FacesContext context = FacesContext.getCurrentInstance();
         System.out.println("CheckBreitsBeworben" + this.gewaehlteStelle.getId() + "+ " + this.bewerber.getId());
 

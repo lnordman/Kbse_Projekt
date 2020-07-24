@@ -39,7 +39,7 @@ public class Bewerbung extends AbstractEntity {
     @Valid
     String status;
 
-    @Column(name = "anlagen_pfad")
+    @Column(name = "unterlagen_pfad")
     String unterlagen_pfad;
 
     //______________Personal__________________
