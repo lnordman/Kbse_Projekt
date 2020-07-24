@@ -5,7 +5,7 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
 
-import Testpackage.AbstractRepository;
+import de.hsos.kbse.interfaces.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
@@ -19,7 +19,8 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author nordm
+ * @author Philipp Markmann
+ * @author Leander Nordmann
  */
 @Named
 public class BewerberRepository extends AbstractRepository<Bewerber> {
@@ -36,6 +37,13 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
         return em;
     }
 
+    /**
+     * Sucht den Bewerber in der DB mit den angebenen Parametern
+     *
+     * @param email
+     * @param password
+     * @return Bewerber
+     */
     public Bewerber findByLogin(String email, String password) {
         try {
             TypedQuery<Bewerber> query = this.em.createQuery("select b from Bewerber b where b.login.email = :email and b.login.password = :password", Bewerber.class);
@@ -46,20 +54,30 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
             return null;
         }
     }
-    
-    public List<Stelle> getAlleStellen(){
-         try {
+
+    /**
+     * Liefert die Liste mit allen Stellen zurück
+     *
+     * @return List mit Stellen
+     */
+    public List<Stelle> getAlleStellen() {
+        try {
             TypedQuery<Stelle> query = this.em.createQuery("select s from Stelle s", Stelle.class);
             return query.getResultList();
         } catch (NoResultException | NonUniqueResultException e) {
             return null;
         }
     }
-    
-    public List<Bewerbung> getEigeneBewerbungen(long id){
-        
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.BewerberRepository.getAlleBewerbungen()");
-         try {
+
+    /**
+     * Liefer eine Liste mit allen Bewerbungen des jeweiligen Bewerber zurück
+     *
+     * @param id
+     * @return List mit Stellen
+     */
+    public List<Bewerbung> getEigeneBewerbungen(long id) {
+
+        try {
             TypedQuery<Bewerbung> query = this.em.createQuery("select bew from Bewerbung bew where bew.bewerber.id = :id", Bewerbung.class);
             query.setParameter("id", id);
             return query.getResultList();
@@ -67,15 +85,22 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
             return null;
         }
     }
-    public boolean bereitsBeworben(long bewerber_id, long stelle_id){
-        
-        System.out.println("Bewerber_ID: "+bewerber_id+"\nStellen_ID: "+stelle_id+"\n");
-        
+
+    /**
+     * Liefer eine Boolean zurück mit true / false falls sich auf die übergebene
+     * Stelle bereits beworben wurde
+     *
+     * @param bewerber_id
+     * @param stelle_id
+     * @return
+     */
+    public boolean bereitsBeworben(long bewerber_id, long stelle_id) {
+
         try {
             TypedQuery<Bewerbung> query = this.em.createQuery("select bew from Bewerbung bew where bew.bewerber.id = :b_id and bew.stelle.id = :s_id", Bewerbung.class);
             query.setParameter("b_id", bewerber_id);
-            query.setParameter("s_id",stelle_id);
-            if(query.getSingleResult() != null){
+            query.setParameter("s_id", stelle_id);
+            if (query.getSingleResult() != null) {
                 return true;
             }
             return false;
@@ -83,5 +108,5 @@ public class BewerberRepository extends AbstractRepository<Bewerber> {
             return false;
         }
     }
-    
+
 }

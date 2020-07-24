@@ -25,14 +25,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- *
- * @author pmarkman, lnordman
+ * @author Philipp Markmann
+ * @author Leander Nordmann
  */
 @Entity
 @Table(name = "stelle")
 public class Stelle extends AbstractEntity {
 
-    @Column(name = "bezeichnung", length = 5000)//Default ist 255 zu klein -> Truncation-Fehler 
+    @Column(name = "bezeichnung", length = 5000)
     @NotNull
     @Valid
     String bezeichnung;
@@ -66,6 +66,13 @@ public class Stelle extends AbstractEntity {
     public Stelle() {
     }
 
+    /**
+     *
+     * @param bezeichnung
+     * @param datum
+     * @param beschreibung
+     * @param ort
+     */
     public Stelle(String bezeichnung, Date datum, String beschreibung, String ort) {
         this.bezeichnung = bezeichnung;
         this.datum = datum;
@@ -73,56 +80,110 @@ public class Stelle extends AbstractEntity {
         this.ort = ort;
     }
 
+    /**
+     *
+     * @param bezeichnung
+     * @param beschreibung
+     * @param ort
+     */
     public Stelle(String bezeichnung, String beschreibung, String ort) {
         this.bezeichnung = bezeichnung;
         this.beschreibung = beschreibung;
         this.ort = ort;
     }
 
+    /**
+     *
+     * @return bezeichnugn der Stelle
+     */
     public String getBezeichnung() {
         return bezeichnung;
     }
 
+    /**
+     *
+     * @param bezeichnung
+     */
     public void setBezeichnung(String bezeichnung) {
         this.bezeichnung = bezeichnung;
     }
 
+    /**
+     *
+     * @return erstellungsdatum
+     */
     public Date getDatum() {
         return datum;
     }
 
+    /**
+     *
+     * @param datum
+     */
     public void setDatum(Date datum) {
         this.datum = datum;
     }
 
+    /**
+     *
+     * @return stellen beschreibung
+     */
     public String getBeschreibung() {
         return beschreibung;
     }
 
+    /**
+     *
+     * @param beschreibung
+     */
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
     }
 
+    /**
+     *
+     * @return ort
+     */
     public String getOrt() {
         return ort;
     }
 
+    /**
+     *
+     * @param ort
+     */
     public void setOrt(String ort) {
         this.ort = ort;
     }
 
+    /**
+     *
+     * @return Personaler der die Stelle erstellt hat
+     */
     public Personal getPersonal() {
         return personal;
     }
 
+    /**
+     *
+     * @param personal
+     */
     public void setPersonal(Personal personal) {
         this.personal = personal;
     }
 
+    /**
+     *
+     * @return Liste aller Bewerbungen für die jeweilige Stelle
+     */
     public List<Bewerbung> getBewerbungen() {
         return bewerbungen;
     }
 
+    /**
+     *
+     * @param bewerbungen
+     */
     public void setBewerbungen(List<Bewerbung> bewerbungen) {
         this.bewerbungen = bewerbungen;
     }

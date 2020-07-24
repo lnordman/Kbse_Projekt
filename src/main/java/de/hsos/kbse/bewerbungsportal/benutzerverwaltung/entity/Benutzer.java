@@ -4,7 +4,6 @@ import de.hsos.kbse.interfaces.AbstractEntity;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.MappedSuperclass;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,8 +25,6 @@ import lombok.ToString;
 public class Benutzer extends AbstractEntity {
 
     @NotNull
-    @Valid // Gute Erklärung nötig
-//    @JsonbProperty("person-name")
     @Size(min = 2, max = 30)
     @Column(name = "name")
     private String name;
@@ -61,11 +58,26 @@ public class Benutzer extends AbstractEntity {
     public Benutzer() {
     }
 
+    /**
+     *
+     * @param name
+     * @param vorname
+     */
     public Benutzer(String name, String vorname) {
         this.name = name;
         this.vorname = vorname;
     }
 
+    /**
+     *
+     * @param name
+     * @param vorname
+     * @param telefon
+     * @param straße
+     * @param ort
+     * @param plz
+     * @param login
+     */
     public Benutzer(String name, String vorname, String telefon, String straße, String ort, Integer plz, Login login) {
         this.name = name;
         this.vorname = vorname;

@@ -37,7 +37,17 @@ public class Bewerber extends Benutzer {
     public Bewerber() {
     }
 
-    public Bewerber(String name, String vorname, String telefon, String straße, String ort, Integer plz, String unterlagen_pfad, String portait_pfad, Login login) {
+    /**
+     *
+     * @param name
+     * @param vorname
+     * @param telefon
+     * @param straße
+     * @param ort
+     * @param plz
+     * @param login
+     */
+    public Bewerber(String name, String vorname, String telefon, String straße, String ort, Integer plz, Login login) {
         super(name, vorname, telefon, straße, ort, plz, login);
     }
 

@@ -38,6 +38,11 @@ public class LoginBoundary implements Serializable {
 
     private Login login = new Login();
 
+    /**
+     * Login Funktion für den Personaler Sie leitet den Personaler unter Eingabe
+     * der richtigen Parameter auf sein Übersichtsprofil weiter. Andernfalls
+     * wird eine Fehlermeldung ausgegeben
+     */
     public void loginPersonaler() {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -54,6 +59,11 @@ public class LoginBoundary implements Serializable {
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login fehlgeschlagen!", "Bitte überprüfe Benutzernamen und Passwort."));
     }
 
+    /**
+     * Login Funktion für den Bewerber
+     * Sie leitet den Bewerber unter Eingabe der richtigen Parameter auf sein 
+     * Übersichtsprofil weiter. Andernfalls wird eine Fehlermeldung ausgegeben.
+     */
     public void loginBewerber() {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -62,7 +72,7 @@ public class LoginBoundary implements Serializable {
         if (bewerber != null) {
             SessionService.getSession().setAttribute("bewerber", bewerber);
             try {
-                context.getExternalContext().redirect("/Kbse_Projekt/Benutzer/Bewerber/AlleStellen.xhtml"); 
+                context.getExternalContext().redirect("/Kbse_Projekt/Benutzer/Bewerber/AlleStellen.xhtml");
                 context.addMessage(null, new FacesMessage("Successful", "Test"));
             } catch (IOException e) {
             }
@@ -72,7 +82,7 @@ public class LoginBoundary implements Serializable {
     }
 
     /**
-     *
+     * Logout für Bewerber & Personaler
      */
     public void logout() {
         FacesContext context = FacesContext.getCurrentInstance();

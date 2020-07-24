@@ -13,16 +13,24 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
-    
+
 //    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     *
+     * @return id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
@@ -47,11 +55,6 @@ public abstract class AbstractEntity implements Serializable {
         }
         final AbstractEntity other = (AbstractEntity) obj;
         return Objects.equals(this.id, other.id);
-    }
-
-    @Override
-    public String toString() {
-        return "AbstractEntity{" + "id=" + id + '}';
     }
 
 }

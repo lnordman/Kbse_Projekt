@@ -14,8 +14,9 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
- * @author PMark
+ * @author Philipp Markmann
+ * @author Robin Schmidt
+ * @version 3
  */
 @Stateless
 public class BewerberController {
@@ -23,29 +24,60 @@ public class BewerberController {
     @Inject
     private BewerberRepository bewRepo;
 
+    /**
+     *
+     * @param email
+     * @param password
+     * @return
+     */
     public Bewerber login(String email, String password) {
         return this.bewRepo.findByLogin(email, password);
     }
-    
+
+    /**
+     *
+     * @param bewerber
+     */
     public void register(Bewerber bewerber) {
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.BewerberController.register()" + bewerber.toString());
         this.bewRepo.create(bewerber);
     }
-    
+
+    /**
+     *
+     * @param bewerber
+     * @return
+     */
     public Bewerber updateBewerber(Bewerber bewerber) {
         return this.bewRepo.edit(bewerber);
     }
-    
-    public List<Stelle> getAlleStellen(){
-       return bewRepo.getAlleStellen();
+
+    /**
+     *
+     * @return
+     */
+    public List<Stelle> getAlleStellen() {
+        return bewRepo.getAlleStellen();
     }
-    
-    public List<Bewerbung> getEigeneBewerbungen(long id){
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public List<Bewerbung> getEigeneBewerbungen(long id) {
         return this.bewRepo.getEigeneBewerbungen(id);
     }
-    
-    public boolean bereitsBeworben(long bewerber_id, long stelle_id){
+
+    /**
+     * Liefer true / false auf die Bedingung zurück, ob sich bereit schon auf
+     * diese Stelle beworben wurde
+     *
+     * @param bewerber_id
+     * @param stelle_id
+     * @return boolean
+     */
+    public boolean bereitsBeworben(long bewerber_id, long stelle_id) {
         return this.bewRepo.bereitsBeworben(bewerber_id, stelle_id);
     }
-    
+
 }

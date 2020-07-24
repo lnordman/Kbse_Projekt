@@ -5,42 +5,70 @@
  */
 package de.hsos.kbse.interfaces;
 
-import java.io.Serializable;
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 /**
  *
+ * @author Leander Nordmann
  * @author Philipp Markmann
  * @param <T>
  */
-@Transactional(Transactional.TxType.REQUIRES_NEW)
-public abstract class AbstractRepository<T extends AbstractEntity> implements Serializable {
+public abstract class AbstractRepository<T> {
 
-    @PersistenceContext(unitName = "my_persistence_unit")
-    protected EntityManager em;
+    private Class<T> entityClass;
 
-    protected Class<T> entityClass;
-
-    public T add(T entity) {
-        System.out.print("SQL: persist " + entityClass.getName());
-        em.persist(entity);
-        return entity;
+    public AbstractRepository(Class<T> entityClass) {
+        this.entityClass = entityClass;
     }
 
-    public T findById(long id) {
-        System.out.print("SQL: get " + entityClass.getName() + " " + id);
-        return (T) em.find(this.entityClass, id);
+    /**
+     *
+     * @return
+     */
+    protected abstract EntityManager getEntityManager();
+
+    public void create(T entity) {
+        getEntityManager().persist(entity);
+    }
+
+    public T edit(T entity) {
+        return getEntityManager().merge(entity);
     }
 
     public void remove(T entity) {
-        System.out.print("SQL: remove " + entityClass.getName() + " " + entity.getId());
-        em.remove(entity);
+        getEntityManager().remove(getEntityManager().merge(entity));
     }
 
-    public T update(T entity) {
-        System.out.print("SQL: update " + entityClass.getName() + " " + entity.getId());
-        return em.merge(entity);
+    public T find(Object id) {
+        return getEntityManager().find(entityClass, id);
     }
+
+    public T findById(long id) {
+        return getEntityManager().find(entityClass, id);
+    }
+
+    public List<T> findAll() {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+
+    public List<T> findRange(int[] range) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        q.setMaxResults(range[1] - range[0] + 1);
+        q.setFirstResult(range[0]);
+        return q.getResultList();
+    }
+
+    public int count() {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        javax.persistence.criteria.Root<T> rt = cq.from(entityClass);
+        cq.select(getEntityManager().getCriteriaBuilder().count(rt));
+        javax.persistence.Query q = getEntityManager().createQuery(cq);
+        return ((Long) q.getSingleResult()).intValue();
+    }
+
 }

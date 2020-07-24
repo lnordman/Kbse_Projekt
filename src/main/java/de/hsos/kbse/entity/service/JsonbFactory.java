@@ -10,17 +10,15 @@ import javax.inject.Named;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
-
 /**
  *
- * @author nordm
+ * @author Leander Nordmann
  */
-@Named  
+@Named
 public class JsonbFactory {
 
-    
     @Produces
-    public Jsonb createJsonb(){
-        return JsonbBuilder.create();   
+    public Jsonb createJsonb() {
+        return JsonbBuilder.create();
     }
 }

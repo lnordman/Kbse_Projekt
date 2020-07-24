@@ -52,8 +52,6 @@ public class BewerberFacadeREST {
      * @param ort
      * @param straße
      * @param plz
-     * @param unterlagen_pfad
-     * @param portait_pfad
      * @return
      */
     @POST
@@ -67,12 +65,10 @@ public class BewerberFacadeREST {
             @QueryParam("telefon") String telefon,
             @QueryParam("ort") String ort,
             @QueryParam("straße") String straße,
-            @QueryParam("plz") Integer plz,
-            @QueryParam("unterlagen_pfad") String unterlagen_pfad,
-            @QueryParam("portait_pfad") String portait_pfad) {
+            @QueryParam("plz") Integer plz) {
         try {
             Login login = new Login(email, password);
-            Bewerber bewerber = new Bewerber(name, vorname, telefon, straße, ort, plz, unterlagen_pfad, portait_pfad, login);
+            Bewerber bewerber = new Bewerber(name, vorname, telefon, straße, ort, plz, login);
             bewerberRepo.create(bewerber);
             return Response.ok(jsonb.toJson(bewerber)).build();
         } catch (NullPointerException | IllegalArgumentException | JsonbException ex) {

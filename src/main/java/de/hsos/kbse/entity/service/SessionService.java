@@ -14,30 +14,51 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author PMark
+ * @author Philipp Markmann
+ * @author Robin Schmidt
  */
 public class SessionService {
 
+    /**
+     *
+     * @return HttpSession
+     */
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     }
 
+    /**
+     *
+     * @return Personaler
+     */
     public static Personal getPersonaler() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return (Personal) session.getAttribute("personaler");
     }
 
+    /**
+     *
+     * @return Bewerber
+     */
     public static Bewerber getBewerber() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return (Bewerber) session.getAttribute("bewerber");
     }
-    
-    public static Stelle getGewaehlteStelle(){
+
+    /**
+     *
+     * @return Stelle
+     */
+    public static Stelle getGewaehlteStelle() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return (Stelle) session.getAttribute("stelle");
     }
-    
-    public static Bewerbung getBearbeitendeBewerbung(){
+
+    /**
+     *
+     * @return Bewerbung
+     */
+    public static Bewerbung getBearbeitendeBewerbung() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         return (Bewerbung) session.getAttribute("bewerbung");
     }

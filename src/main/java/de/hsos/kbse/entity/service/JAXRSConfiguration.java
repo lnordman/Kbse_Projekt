@@ -12,32 +12,17 @@ import javax.ws.rs.core.Application;
 
 /**
  *
- * @author nordm
+ * @author Leander Nordmann
  */
 @ApplicationPath("webresources")
 public class JAXRSConfiguration extends Application {
 
     private Set<Class<?>> classes = new HashSet<>();
 
-    /**
-     *
-     * @return
-     */
     @Override
     public Set<Class<?>> getClasses() {
         return classes;
     }
 
-//    /**
-//     * Do not modify addRestResourceClasses() method. It is automatically
-//     * populated with all resources defined in the project. If required, comment
-//     * out calling this method in getClasses().
-//     */
-//    private void addRestResourceClasses(Set<Class<?>> resources) {
-//        resources.add(de.hsos.kbse.entity.service.BenutzerFacadeREST.class);
-//        resources.add(de.hsos.kbse.entity.service.BewerberFacadeREST.class);
-//        resources.add(de.hsos.kbse.entity.service.BewerbungFacadeREST.class);
-//        resources.add(de.hsos.kbse.entity.service.PersonalFacadeREST.class);
-//        resources.add(de.hsos.kbse.entity.service.StelleFacadeREST.class);
-//    }
+
 }

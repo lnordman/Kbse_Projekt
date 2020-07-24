@@ -66,12 +66,26 @@ public class Bewerbung extends AbstractEntity {
     public Bewerbung() {
     }
 
+    /**
+     *
+     * @param personal
+     * @param stelle
+     * @param bewerber
+     */
     public Bewerbung(Personal personal, Stelle stelle, Bewerber bewerber) {
         this.personal = personal;
         this.stelle = stelle;
         this.bewerber = bewerber;
     }
 
+    /**
+     *
+     * @param zeitstempel
+     * @param status
+     * @param personal
+     * @param stelle
+     * @param bewerber
+     */
     public Bewerbung(Date zeitstempel, String status, Personal personal, Stelle stelle, Bewerber bewerber) {
         this.zeitstempel = zeitstempel;
         this.status = status;

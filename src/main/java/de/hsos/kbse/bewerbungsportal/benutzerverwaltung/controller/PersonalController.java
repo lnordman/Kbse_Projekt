@@ -25,7 +25,7 @@ public class PersonalController {
     //Inject-Punkt
     @Inject
     private PersonalRepository persoRepo;
-    
+
     @Inject
     private StellenRepository stellenRepo;
 
@@ -34,7 +34,6 @@ public class PersonalController {
     }
 
     public void register(Personal personal) {
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.controller.PersonalController.register()" + personal.toString());
         this.persoRepo.create(personal);
     }
 
@@ -43,9 +42,10 @@ public class PersonalController {
         return this.persoRepo.edit(personal);
     }
 
-    public List<Bewerbung> getAlleBewerbungenByPersonal(long id){
+    public List<Bewerbung> getAlleBewerbungenByPersonal(long id) {
         return this.persoRepo.getAlleBewerbungenByPersonal(id);
     }
+
     /**
      * Liefert die Stelle mit der ausgewählten ID zurück
      *
@@ -55,6 +55,5 @@ public class PersonalController {
     public Stelle getStelle(String id) {
         return this.stellenRepo.find(id);
     }
-
 
 }

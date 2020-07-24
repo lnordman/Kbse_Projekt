@@ -5,15 +5,15 @@
  */
 package de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.repository;
 
-import Testpackage.AbstractRepository;
+import de.hsos.kbse.interfaces.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author nordm
+ * @author Philipp Markmann
+ * @author Leander Nordmann
  */
 @Named
 public class BewerbungRepository extends AbstractRepository<Bewerbung> {

@@ -5,10 +5,9 @@
  */
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository;
 
-import Testpackage.AbstractRepository;
+import de.hsos.kbse.interfaces.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
-import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -18,8 +17,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
+ * @author Philipp Markmann
+ * @author Leander Nordmann
  *
- * @author nordm
  */
 @Named
 public class PersonalRepository extends AbstractRepository<Personal> {
@@ -36,18 +36,14 @@ public class PersonalRepository extends AbstractRepository<Personal> {
         return em;
     }
 
-    public List<Bewerbung> findeAlleBewerbungen() {
-        //
-        return null;
-    }
-
-    public List<Stelle> findeAlleStellen() {
-        return null;
-    }
-
+    /**
+     * Sucht den Personaler in der DB mit den angebenen Parametern
+     *
+     * @param email
+     * @param password
+     * @return Personaler
+     */
     public Personal findByLogin(String email, String password) {
-
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository.findByLogin()}\n EMAIL:" + email + "\n PWD:" + password);
 
         try {
             TypedQuery<Personal> query = this.em.createQuery("select p from Personal p where p.login.email = :email and p.login.password = :password", Personal.class);
@@ -58,10 +54,14 @@ public class PersonalRepository extends AbstractRepository<Personal> {
             return null;
         }
     }
-    
-    public List<Bewerbung> getAlleBewerbungenByPersonal(long id){
-        
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.repository.PersonalRepository.getAlleBewerbungen()");
+
+    /**
+     * Liefert alle Bewerbungen des übergebenen Personaler zurück
+     *
+     * @param id
+     * @return List mit Bewerbungen 
+     */
+    public List<Bewerbung> getAlleBewerbungenByPersonal(long id) {
 
         try {
             TypedQuery<Bewerbung> query = this.em.createQuery("select b from Bewerbung b where b.personal.id = :id", Bewerbung.class);
@@ -71,5 +71,4 @@ public class PersonalRepository extends AbstractRepository<Personal> {
             return null;
         }
     }
-
 }

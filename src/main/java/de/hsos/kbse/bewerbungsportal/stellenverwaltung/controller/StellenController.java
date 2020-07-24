@@ -12,8 +12,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
- * @author PMark
+ * @author Philipp Markmann
+ * @author Leander Nordmann
  */
 @Stateless
 public class StellenController {
@@ -21,22 +21,36 @@ public class StellenController {
     @Inject
     private StellenRepository stellenRepo;
 
+    /**
+     *
+     * @param stelle
+     */
     public void createStelle(Stelle stelle) {
-        System.out.println("\nStelle: "+stelle+"\n\n");
-        
-        System.out.println("de.hsos.kbse.bewerbungsportal.stellenverwaltung.controller.StellenController.createStelle()");
         this.stellenRepo.create(stelle);
     }
 
+    /**
+     *
+     * @param personal_id
+     * @return
+     */
     public List<Stelle> getStelleFromPersonal(Long personal_id) {
         return this.stellenRepo.getStelleByPersonal(personal_id);
     }
-    
-    public List<Stelle> getAlleStellen(){
+
+    /**
+     *
+     * @return
+     */
+    public List<Stelle> getAlleStellen() {
         return this.stellenRepo.getAlleStellen();
     }
-    
-    public void deleteStelle(long id){
+
+    /**
+     *
+     * @param id
+     */
+    public void deleteStelle(long id) {
         this.stellenRepo.deleteStelle(id);
     }
 

@@ -14,7 +14,6 @@ import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.entity.service.SessionService;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,8 +25,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
- * @author PMark
+ * @author Philipp Markmann
+ * @author Robin Schmidt
+ * @version 3
  */
 @Named(value = "personalModel")
 @RequestScoped
@@ -54,164 +54,252 @@ public class PersonalBoundary implements Serializable {
     private File donwloadFile;
     private FileInputStream inStream;
 
+    /**
+     * Nachdem ein Objekt erzeugt wurde und alle Injektionen durchgeführt
+     * wurden, werden die Variablen (s.o.) Initalisierungen
+     */
     @PostConstruct
     public void init() {
+
         personaler = new Personal();
         bearbeitendeBewerbung = new Bewerbung();
         bewerbungenOfPersonaler = new ArrayList<>();
         loeschendeStelle = new Stelle();
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init()");
+
         this.personaler = SessionService.getPersonaler();
 
         if (this.personaler != null) {
-            System.out.println("Personaler ist gesetezt!");
-            System.out.println("Personaler_ID: " + this.personaler.getId());
+
             //Holen der Stellen die der Personaler erstellt hat
             this.stellenOfPersonaler = stellenController.getAlleStellen();
-            bewerbungenOfPersonaler = persoController.getAlleBewerbungenByPersonal(this.personaler.getId());
             //Holen der Bewerbungen die der Personaler verwaltet
-            //this.bewerbungOfPersonaler = bewerbungsController.getBewerbungFromPersonal(this.personal.getId());
-        }
+            bewerbungenOfPersonaler = persoController.getAlleBewerbungenByPersonal(this.personaler.getId());
 
-        // stellenOfPersonaler = new ArrayList(persoController.getBewerbungenOfPersonaler(personaler));
+        }
     }
 
-    public void init2() throws FileNotFoundException {
+    /**
+     * Zustäzliche Init Funktion mit für eine andere WebPage
+     */
+    public void init2() {
         personaler = new Personal();
         bearbeitendeBewerbung = new Bewerbung();
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init2()");
         this.personaler = SessionService.getPersonaler();
         this.bearbeitendeBewerbung = SessionService.getBearbeitendeBewerbung();
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init2() PERSONALER" + personaler.getName());
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.init2() BEWERBUNG" + bearbeitendeBewerbung.getStelle().getBezeichnung());
-
-        /*        
-        System.out.println("Dokumenten Pfad: "+bearbeitendeBewerbung.getUnterlagen_pfad()+"\n");
-        
-        donwloadFile = new File(bearbeitendeBewerbung.getUnterlagen_pfad());
-        inStream = new FileInputStream(donwloadFile);*/
- /*        donwloadfile = DefaultStreamedContent.builder()
-        .name("bewerbung-" + bearbeitendeBewerbung.getBewerber().getName())
-        .contentType("application/pdf")
-        .stream(() -> FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("F:\\Philipp\\Documents\\GitHub\\Kbse_Projekt\\src\\main\\webapp\\uploads\\1\\Bewerbung_Hagemeier_dataport_komp-5020034858924108868.pdf"))
-        .build();*/
     }
 
+    /**
+     * Setzt in der akutellen Session das Attribut Bewerbung
+     *
+     * @return Weiterleitung zu PersonalerEine
+     */
     public String setSessionBewerbung() {
         Bewerbung bewerbung = this.bearbeitendeBewerbung;
-        System.out.println("de.hsos.kbse.bewerbungsportal.benutzerverwaltung.boundary.PersonalBoundary.setSessionBewerbung() BEWERBUNG" + bearbeitendeBewerbung.getStelle().getBezeichnung());
         SessionService.getSession().setAttribute("bewerbung", bewerbung);
 
         return "PersonalerEine";
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     public void showPDF() throws IOException {
 
         bearbeitendeBewerbung = new Bewerbung();
         this.bearbeitendeBewerbung = SessionService.getBearbeitendeBewerbung();
         FacesContext context = FacesContext.getCurrentInstance();
-        //Hier Download der PDF oder eine weiterleitung zu der PDF
         context.getExternalContext().redirect("/Kbse_Projekt/uploads/" + this.bearbeitendeBewerbung.getBewerber().getId().toString() + "/" + bearbeitendeBewerbung.getUnterlagen_pfad());
 
     }
 
+    /**
+     * Update des Status der jeweiligen Bewerbung
+     */
     public void updateStatus() {
         Bewerbung bew = SessionService.getBearbeitendeBewerbung();
         bew.setStatus(status);
-        System.out.print("Update Bewerbung durch Personaler Session schreiben" + bew.toString());
+
         SessionService.getSession().setAttribute("bewerbung", bew);
     }
 
+    /**
+     * Updatefunktion des Personalers für die Bewerbung
+     *
+     * @return Weiterleitung zu PersonalerStart
+     */
     public String updateBewerbung() {
         Bewerbung bew = SessionService.getBearbeitendeBewerbung();
-        System.out.print("Update Bewerbung durch Personaler in DB schreiben" + bew.toString());
         bewerbungController.updateBewerbung(bew);
         return "PersonalerStart";
     }
 
+    /**
+     * Löscht die ausgewählte Stelle
+     *
+     * @return Weiterleitung PersonalerStart
+     */
     public String deleteStelle() {
-        System.out.print("Delete Stelle durch Personaler");
         stellenController.deleteStelle(this.loeschendeStelle.getId());
-        
         return "PersonalerStart";
     }
 
+    /**
+     *
+     * @return
+     */
     public PersonalController getPersoController() {
         return persoController;
     }
 
+    /**
+     *
+     * @param persoController
+     */
     public void setPersoController(PersonalController persoController) {
         this.persoController = persoController;
     }
 
+    /**
+     *
+     * @return
+     */
     public StellenController getStellenController() {
         return stellenController;
     }
 
+    /**
+     *
+     * @param stellenController
+     */
     public void setStellenController(StellenController stellenController) {
         this.stellenController = stellenController;
     }
 
+    /**
+     *
+     * @return
+     */
     public Personal getPersonaler() {
         return personaler;
     }
 
+    /**
+     *
+     * @param personaler
+     */
     public void setPersonaler(Personal personaler) {
         this.personaler = personaler;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Stelle> getStellenOfPersonaler() {
         return stellenOfPersonaler;
     }
 
+    /**
+     *
+     * @param stellenOfPersonaler
+     */
     public void setStellenOfPersonaler(List<Stelle> stellenOfPersonaler) {
         this.stellenOfPersonaler = stellenOfPersonaler;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Bewerbung> getBewerbungenOfPersonaler() {
         return this.bewerbungenOfPersonaler;
     }
 
+    /**
+     *
+     * @param bewerbungenOfPersonaler
+     */
     public void setBewerbungenOfPersonaler(List<Bewerbung> bewerbungenOfPersonaler) {
         this.bewerbungenOfPersonaler = bewerbungenOfPersonaler;
     }
 
+    /**
+     *
+     * @return
+     */
     public Bewerbung getBearbeitendeBewerbung() {
         return bearbeitendeBewerbung;
     }
 
+    /**
+     *
+     * @param bearbeitendeBewerbung
+     */
     public void setBearbeitendeBewerbung(Bewerbung bearbeitendeBewerbung) {
         this.bearbeitendeBewerbung = bearbeitendeBewerbung;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getStatus() {
         return status;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void setStatus(String status) {
         this.status = status;
     }
 
+    /**
+     *
+     * @return
+     */
     public Stelle getLoeschendeStelle() {
         return loeschendeStelle;
     }
 
+    /**
+     *
+     * @param loeschendeStelle
+     */
     public void setLoeschendeStelle(Stelle loeschendeStelle) {
         this.loeschendeStelle = loeschendeStelle;
     }
 
+    /**
+     *
+     * @return
+     */
     public FileInputStream getInStream() {
         return inStream;
     }
 
+    /**
+     *
+     * @param inStream
+     */
     public void setInStream(FileInputStream inStream) {
         this.inStream = inStream;
     }
 
+    /**
+     *
+     * @return
+     */
     public File getDonwloadFile() {
         return donwloadFile;
     }
 
+    /**
+     *
+     * @param donwloadFile
+     */
     public void setDonwloadFile(File donwloadFile) {
         this.donwloadFile = donwloadFile;
     }
