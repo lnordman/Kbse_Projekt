@@ -5,24 +5,26 @@
  */
 package de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.interfaces.AbstractEntity;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 /**
  *
@@ -32,27 +34,33 @@ import javax.persistence.Temporal;
 @Table(name = "stelle")
 public class Stelle extends AbstractEntity {
 
-    @Column(name = "bezeichnung", length = 5000)//Default ist 255 zu klein -> Truncation-Fehler 
-    @NotNull
-    @Valid
+//    @NotNull(message = "Bezeichnung cannot be null")
+//    @Size(min = 2, message = "Bezeichnung must between 2 and 30 characters")
+    @JsonbProperty("Bezeichnung")
+    @Column(name = "bezeichung")
     String bezeichnung;
 
     @Temporal(javax.persistence.TemporalType.DATE)
     Date datum;
 
-    @Column(name = "beschreibung", length = 5000)
-    @NotNull
-    @Valid
+//    @NotNull(message = "Beschreibung cannot be null")
+//    @Size(min = 2, message = "Beschreibung must between 2 and 30 characters")
+    @JsonbProperty("Beschreibung")
+    @Column(name = "beschreibung")
     String beschreibung;
 
-    @Column(name = "ort", length = 5000)
-    @NotNull
-    @Valid
+//    @NotNull(message = "Ort cannot be null")
+//    @Size(min = 2, message = "Ort must between 2 and 30 characters")
+    @JsonbProperty("Ort")
+    @Column(name = "ort")
     String ort;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_id")
     @JsonBackReference
+//    @JsonIgnore
+//    @NotNull(message = "Personal cannot be null")
+    @JsonbProperty("Personal")
     private Personal personal;
 
     @OneToMany(fetch = FetchType.LAZY,
@@ -60,11 +68,17 @@ public class Stelle extends AbstractEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     @JsonManagedReference
-    private List<Bewerbung> bewerbungen;
+//    @JsonIgnore
+    @JsonbProperty("Bewerbung")
+    private List<Bewerbung> bewerbungen = new ArrayList<>();
 
     public Stelle() {
     }
-
+    
+//    public Stelle(Stelle entity) {
+//        this = entity;
+//    }
+    
     public Stelle(String bezeichnung, Date datum, String beschreibung, String ort) {
         this.bezeichnung = bezeichnung;
         this.datum = datum;
@@ -126,5 +140,4 @@ public class Stelle extends AbstractEntity {
         this.bewerbungen = bewerbungen;
     }
 
-    
 }

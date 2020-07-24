@@ -1,22 +1,25 @@
 package de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Personal;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import de.hsos.kbse.interfaces.AbstractEntity;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
-import javax.validation.Valid;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.codehaus.jackson.annotate.JsonBackReference;
 
 /**
  *
@@ -32,38 +35,42 @@ import lombok.ToString;
 @Table(name = "bewerbung")
 public class Bewerbung extends AbstractEntity {
 
-//    @Column(name = "zeitstempel")
-//    @Valid
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+    @JsonbProperty("Zeitstempel")
+    @Column(name = "zeitstempel")
     @Temporal(javax.persistence.TemporalType.DATE)
     Date zeitstempel;
 
+    @NotNull(message = "Status cannot be null")
+    @Size(min = 2, message = "Status must between 2 and 30 characters")
+    @JsonbProperty("Status")
     @Column(name = "status")
-    @Valid
     String status;
 
     //______________Personal__________________
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "personal_id")
-//    @JsonBackReference
-    @JsonIgnore
+    @JsonBackReference
+    @NotNull(message = "Personal cannot be null")
+    @JsonbProperty("Personal")
     private Personal personal;
 
 //        _____________Stelle__________________ 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stelle_id")
-//    @JsonBackReference
-    @JsonIgnore
+    @JsonBackReference
+    @NotNull(message = "Stelle cannot be null")
+    @JsonbProperty("Stelle")
     private Stelle stelle;
 
 //    ______________Bewerber__________________
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bewerber_id")
-//    @JsonBackReference
-    @JsonIgnore
+    @JsonBackReference
+    @NotNull(message = "Bewerber cannot be null")
+    @JsonbProperty("Bewerber")
     private Bewerber bewerber;
 
-    
-    
     public Bewerbung() {
     }
 

@@ -1,20 +1,18 @@
 package de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.hsos.kbse.bewerbungsportal.bewerbungsverwaltung.entity.Bewerbung;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.ArrayList;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 /**
  *
@@ -30,27 +28,25 @@ import lombok.ToString;
 @Table(name = "personal")
 public class Personal extends Benutzer {
 
-    @Column(name = "durchwahl")
+//    @Column(name = "durchwahl")
     String durchwahl;
 
-    @Column(name = "bueronr")
-    @NotNull
+//    @Column(name = "bueronr")
+//    @NotNull
     String bueroNr;
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "personal",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-//    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference
     private List<Stelle> stelle;
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "personal",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-//    @JsonManagedReference
-    @JsonIgnore
+    @JsonManagedReference
     private List<Bewerbung> bewerbungen;
 
     public Personal() {

@@ -11,12 +11,15 @@ import javax.persistence.MappedSuperclass;
  *
  * @author Philipp Markmann
  */
+
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
     
 //    private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @JsonIgnoreProperties
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+//    @JsonbProperty("ID")
     private Long id;
 
     public Long getId() {

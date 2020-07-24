@@ -9,7 +9,6 @@ import Testpackage.AbstractRepository;
 import de.hsos.kbse.bewerbungsportal.benutzerverwaltung.entity.Bewerber;
 import de.hsos.kbse.bewerbungsportal.stellenverwaltung.entity.Stelle;
 import java.util.List;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -20,9 +19,11 @@ import javax.persistence.TypedQuery;
  *
  * @author nordm
  */
-@Named
+//@Named
+
 public class BewerberRepository extends AbstractRepository<Bewerber> {
 
+    
     @PersistenceContext(unitName = "my_persistence_unit")
     private EntityManager em;
 
